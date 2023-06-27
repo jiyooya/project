@@ -20,7 +20,7 @@ public interface MemberService {
 	public MemberDTO memberSelectOne(String memberId) throws Exception;
 	
 	//회원정보탈퇴
-	public void memberWithdrawal(MemberDTO member) throws Exception;
+	public void memberWithdrawals(MemberDTO member) throws Exception;
 	
 	//비밀번호변경
 	public void editPassword(MemberDTO member) throws Exception;

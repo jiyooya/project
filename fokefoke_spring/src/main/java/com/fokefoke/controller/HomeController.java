@@ -24,60 +24,59 @@ import com.fokefoke.service.ProductService;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 
-
 @Controller
 @Data
 @Log4j2
 public class HomeController {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Locale locale, Model model) {
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String index(Locale locale, Model model) {
 
-        log.info("Welcome home! The client locale is {}.", locale);
+		log.info("Welcome home! The client locale is {}.", locale);
 
-        Date date = new Date();
-        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 
-        String formattedDate = dateFormat.format(date);
+		String formattedDate = dateFormat.format(date);
 
-        model.addAttribute("serverTime", formattedDate);
+		model.addAttribute("serverTime", formattedDate);
 
-        return "index";
+		return "index";
 
-    }
-    
- // 약관동의 페이지 이동
-    @GetMapping(value = "/usepolicy")
-    public void usepolicyGET() {
-    }
-    
-    // 약관동의 페이지 이동
-    @GetMapping(value = "/privacy")
-    public void privacyGET() {
-    }
+	}
 
-    @Autowired
-    private ProductService service;
+	// 약관동의 페이지 이동
+	@GetMapping(value = "/usepolicy")
+	public void usepolicyGET() {
+	}
 
-    @GetMapping("/menuList")
-    @ResponseBody
-    public Map<String, Object> menuList() {
-        List<ProductDTO> product = service.getList();
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("product", product);
-        return resultMap;
-    }
-    
-    @Autowired
-    private NoticeService service2;
+	// 약관동의 페이지 이동
+	@GetMapping(value = "/privacy")
+	public void privacyGET() {
+	}
 
-    @GetMapping("/noticeList")
-    @ResponseBody
-    public Map<String, Object> noticeList(Paging page) {
-        List<NoticeDTO> notice = service2.getList(page);
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("notice", notice);
-        return resultMap;
-    }
+	@Autowired
+	private ProductService service;
+
+	@GetMapping("/menuList")
+	@ResponseBody
+	public Map<String, Object> menuList() {
+		List<ProductDTO> product = service.getList();
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("product", product);
+		return resultMap;
+	}
+
+	@Autowired
+	private NoticeService service2;
+
+	@GetMapping("/noticeList")
+	@ResponseBody
+	public Map<String, Object> noticeList(Paging page) {
+		List<NoticeDTO> notice = service2.getList(page);
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("notice", notice);
+		return resultMap;
+	}
 
 }

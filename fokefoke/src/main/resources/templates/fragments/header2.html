@@ -1,0 +1,141 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<!--	 Page Preloder 
+<div id="preloder">
+	<div class="loader"></div>
+</div>-->
+
+<!-- Offcanvas Menu Begin -->
+<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+	<div class="offcanvas__option">
+		<div class="offcanvas__links">
+			<!-- 로그인 하지 않은 상태 -->
+			<th:block th:if="${memberId == null}">
+				<a href="/member/login">로그인</a>
+				<a href="/member/join">회원가입</a>
+			</th:block>
+
+			<!-- 로그인한 상태 -->
+			<th:block th:if="${memberId != null}">
+				<a href="#" class="gnb_logout_button">로그아웃</a>
+				<a href="/member/mypage/info">마이페이지</a>
+				<a href="/cart/${memberId}">장바구니</a>
+				<!-- 관리자 로그인 -->
+				<th:block th:if="${adminCk == 1}">
+					<a href="/admin/main">관리자 페이지</a>
+				</th:block>
+			</th:block>
+		</div>
+	</div>
+	<div id="mobile-menu-wrap"></div>
+	<div class="offcanvas__text">
+		<p>신선함과 건강을 담은 샐러드, FokeFoke mobile</p>
+	</div>
+</div>
+<!-- Offcanvas Menu End -->
+
+
+	<!-- Header Section Begin -->
+<header class="header">
+	<div class="header__top">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-7">
+					<div class="header__top__left">
+						<p>신선함과 건강을 담은 샐러드, FokeFoke</p>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-5">
+					<div class="header__top__right">
+						<div class="header__top__links">
+							<!-- 로그인 하지 않은 상태 -->
+							<th:block th:if="${memberId == null}">
+								<a href="/member/login">로그인</a>
+								<a href="/member/join">회원가입</a>
+							</th:block>
+
+							<!-- 로그인한 상태 -->
+							<th:block th:if="${memberId != null}">
+								<a href="#" class="gnb_logout_button">로그아웃</a>
+								<a href="/member/mypage/info">마이페이지</a>
+								<a href="/cart/${memberId}">장바구니</a>
+
+								<!-- 관리자 로그인 -->
+								<th:block th:if="${adminCk == 1}">
+									<a href="/admin/main">관리자 페이지</a>
+								</th:block>
+							</th:block>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-3">
+				<div class="header__logo">
+					<a href="/"><img
+						src="/img/logo.png"
+						alt="포케포케"></a>
+				</div>
+			</div>
+			<div class="col-lg-9 col-md-6">
+				<nav class="header__menu mobile-menu">
+					<ul>
+						<li class="active"><a href="#">포케포케</a></li>
+						<li><a href="#">새소식</a>
+							<ul class="dropdown">
+								<li><a href="/notice/list">이벤트·프로모션</a></li>
+							</ul></li>
+						<li><a href="#">온라인 주문</a>
+							<ul class="dropdown">
+								<li><a href="/store/list">매장찾기</a></li>
+							</ul></li>
+						<li><a href="#">만든사람</a>
+							<ul class="dropdown">
+								<li><a href="#">박지유</a></li>
+								<li><a href="#">김다정</a></li>
+								<li><a href="#">김진희</a></li>
+								<li><a href="#">최새롬</a></li>
+								<li><a href="#">김도훈</a></li>
+							</ul></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div class="canvas__open">
+			<i class="fa fa-bars"></i>
+		</div>
+	</div>
+</header>
+<!-- Header Section End -->
+
+	<!-- Js Plugins -->
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!--<script th:src="@{/js/jquery.nice-select.min.js}"></script>
+<script th:src="@{/js/jquery.nicescroll.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/jquery.slicknav.js}"></script>
+<script th:src="@{/js/mixitup.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>-->
+
+<script>
+    /* gnb_area 로그아웃 버튼 작동 */
+    $(".gnb_logout_button").click(function(){
+        $.ajax({
+            type:"POST",
+            url:"/member/logout.do",
+            success:function(data){
+                document.location.reload();
+            } 
+        }); // ajax 
+    }); // 버튼 클릭 메서드 끝
+</script>
+
+
+</html>

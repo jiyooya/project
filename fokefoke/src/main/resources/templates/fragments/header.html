@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="headerFragment" class="header navbar-fixed-top">
+	<!-- header 부분 code -->
+
+	<!--	 Page Preloder
+	<div id="preloder">
+		<div class="loader"></div>
+	</div> -->
+
+	<!-- Offcanvas Menu Begin -->
+	<div class="offcanvas-menu-overlay"></div>
+	<div class="offcanvas-menu-wrapper">
+		<div class="offcanvas__option">
+			<div class="offcanvas__links">
+				<!-- 로그인 하지 않은 상태 -->
+				<th:block th:if="${memberId == null}">
+					<a href="/member/login">로그인</a>
+					<a href="/member/join">회원가입</a>
+				</th:block>
+
+				<!-- 로그인한 상태 -->
+				<th:block th:if="${memberId != null}">
+					<a href="#" class="gnb_logout_button">로그아웃</a>
+					<a href="/member/mypage/info">마이페이지</a>
+					<a href="/cart/${memberId}">장바구니</a>
+					<!-- 관리자 로그인 -->
+					<th:block th:if="${adminCk == 1}">
+						<a href="/admin/main">관리자 페이지</a>
+					</th:block>
+				</th:block>
+			</div>
+		</div>
+		<div id="mobile-menu-wrap"></div>
+		<div class="offcanvas__text">
+			<p>신선함과 건강을 담은 샐러드, FokeFoke mobile</p>
+		</div>
+	</div>
+	<!-- Offcanvas Menu End -->
+</div>
+
+</html>

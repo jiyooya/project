@@ -37,24 +37,24 @@ public class MemberDTO {
     
     // 0:여자 1:남자
     @Column
-    private Integer sex;
+    private Integer gender;
     
     
     // 관리자 구분(0:일반사용자, 1:관리자)
     // 근데 쓸지 모르겠음
     @Column(nullable = false)
-    private int adminCk;
+    private Integer adminCk;
     
     
     // 마케팅 동의 여부(0:false, 1:true)
     @Column(nullable = false)
-    private int consentPush;
+    private Integer consentPush;
     
     @Column(nullable = false)
-    private int consentEmail;
+    private Integer consentEmail;
     
     @Column(nullable = false)
-    private int consentSMS;
+    private Integer consentSMS;
     
     
     // 예비 변수

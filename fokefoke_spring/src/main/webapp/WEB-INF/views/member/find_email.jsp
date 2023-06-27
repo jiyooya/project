@@ -28,6 +28,7 @@
 <!-- Favicons -->
 <link href="/resources/img/favicon.png" rel="icon" />
 <link href="/resources/img/favicon.png" rel="apple-touch-icon" />
+
 </head>
 <body class="text-center">
 <jsp:include page="/WEB-INF/views/header.jsp" />

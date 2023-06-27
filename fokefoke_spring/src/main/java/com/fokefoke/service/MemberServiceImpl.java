@@ -38,7 +38,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public void memberWithdrawal(MemberDTO member) throws Exception {
+	public void memberWithdrawals(MemberDTO member) throws Exception {
 		membermapper.memberWithdrawals(member);
 	}
 	

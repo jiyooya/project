@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- layout 관련 namespace 추가 선언 -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="FokeFoke">
+	<meta name="keywords" content="FokeFoke, salad, fresh, fast">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>FokeFoke</title>
+	
+	<!-- config.html -->
+	<th:block th:replace="fragments/config :: configFragment"></th:block>
+	
+	<!-- 공통이 아닌 부분 -->
+	<th:block layout:fragment="head"></th:block>
+</head>
+
+	<!-- header.html -->
+<header th:replace="fragments/header :: headerFragment"></header>
+
+	<!-- 공통적이지 않은 부분이 들어가는 부분-->
+	<body layout:fragment="content"></body>
+
+	<!-- footer.html -->
+	<footer th:replace="fragments/footer::footerFragment"></footer>
+
+</html>

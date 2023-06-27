@@ -370,7 +370,7 @@ public class MemberController {
 	// 회원 탈퇴
 	@PostMapping(value = "mypage/withdrawals")
 	public String withdrawalsMemberPOST(MemberDTO member) throws Exception {
-		memberService.memberWithdrawal(member);
+		memberService.memberWithdrawals(member);
 		
 		return "redirect:/member/logout";
 	}
