@@ -1,1 +1,155 @@
-<h1>카트김</h1>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
+<th:bolck layout:fragment="content">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>ajax-jquery.html</title>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+			integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<script>
+			const getJson = function (type) {
+				const search = $('#search').val();
+				const match = {
+					"size": 10000,
+					"sort": [{
+						"storelat": {
+							"order": "desc"
+						}
+					}],
+					"query": {
+						"query_string": {
+							"fields": ["storename", "storeaddress"],
+							"query": '*' + search + '*'
+						}
+					}
+				}
+
+				
+				console.log(search);
+				const sel = [match];
+				
+				const url = 'http://localhost:9200/store_index/_search'
+				$('#area2').empty();
+				$.ajax({
+					type: 'POST',
+					contentType: "application/json",
+					url: url,
+					dataType: 'json',
+					data: JSON.stringify(sel[type]),
+					success: function (data) {
+						console.log(data);
+						const hits = data["hits"]["hits"];
+						hits.forEach(function (hit, index) {
+							const source = hit["_source"];
+							const storeid = source["storeid"]
+							const storename = source["storename"];
+							const storeaddress = source["storeaddress"];
+							const storetel = source["storetel"]
+							const resultHtml = '<tr>' +
+                '<td scope="row" class="num">' + storeid + '</td>' +
+                '<td>' + storename + '</td>' +
+                '<td class="left">' + storeaddress + '</td>' +
+                '<td>' + storetel + '</td>' +
+                '<td>' +
+                '<form action="/product/list" method="post" name="storeNamemenu">' +
+                '<input type="submit" style="background-color: #469543; color: #fff; border-radius: 30px; padding: 5px 7px; border: none; margin: 0 auto; font-size: 12px;" value="주문">' +
+                '<input type="hidden" name="storeName" value="' + storename + '">' +
+                '<input type="hidden" name="storeId" value="' + storeid + '">' +
+                '<input type="hidden" name="storeAddress" value="' + storeaddress + '">' +
+                '</form>' +
+                '</td>' +
+                '</tr>';
+							$('#area2').append(resultHtml);
+						});
+					},
+					error: function (request, status, error) {
+						console.log(request, status, error);
+					}
+				});
+			}
+
+		</script>
+	</head>
+
+	<body>
+		<!-- 전체매장 -->
+		<section class="shop spad">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="section-title">
+							<h2>전체매장</h2>
+							<br>
+						</div>
+
+
+						<div class="shop__product__option">
+							<div class="row">
+								<!-- 전체매장 카운트 -->
+								<div class="col-lg-8 col-md-12 col-sm-6">
+									<div class="shop__product__option__left">
+										<div class="nowrap">
+											총 <span class="total-count">
+												<a th:text="${paging.totalElements}"></a>
+											</span> 개 매장이 있습니다.
+										</div>
+									</div>
+								</div>
+								<!-- 전체매장 카운트 끝 -->
+								<!-- 전체매장 검색 -->
+								<div class="col-lg-4 col-md-6 col-sm-6">
+									<div class="shop__sidebar__search">
+											<div class="form-group d-flex align-items-center">
+												<input id="search" name="keyword" type="text" placeholder="지역 또는 매장명 입력" value=""
+													class="form-control">
+												<button onclick="getJson(0)" id="match" type="submit" class="btn btn-primary ml-2">
+													<span class="icon_search"></span> 검색
+												</button>
+											</div>
+									</div>
+								</div>
+								<!-- 전체매장 검색 끝 -->
+							</div>
+						</div>
+						<!--전체매장 카운트 끝-->
+
+						<table class="table">
+							<thead>
+								<tr>
+									<th class="green" scope="col">NO</th>
+									<th class="green" scope="col">매장명</th>
+									<th class="green" scope="col">매장주소</th>
+									<th class="green" scope="col">연락처</th>
+									<th></th>
+									<th class="green" scope="col" th:if="${memberId eq 'admin@0'}">수정</th>
+									<th class="green" scope="col" th:if="${memberId eq 'admin@0'}">삭제</th>
+								</tr>
+							</thead>
+							<tbody th:if="${paging.isEmpty()}">
+								<tr>
+									<td colspan="7" align="center">등록된 매장이 없습니다.</td>
+								</tr>
+							</tbody>
+							<tbody id="area2" class="table-group-divider" th:if="${!paging.isEmpty()}">
+							
+							</tbody>
+						</table>
+						<!-- 전체매장 테이블-->
+
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- 전체매장 끝 -->
+
+		
+		<!--	<button id="range" onclick="getJson(1)">range</button>
+	<button id="must" onclick="getJson(2)">must</button>-->
+
+
+	</body>
+</th:bolck>
+
+</html>
