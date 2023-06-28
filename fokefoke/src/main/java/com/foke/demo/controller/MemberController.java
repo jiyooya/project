@@ -1,10 +1,6 @@
 package com.foke.demo.controller;
 
-import java.util.Random;
-
-import javax.mail.internet.MimeMessage;
-
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.foke.demo.dto.MemberDTO;
+import com.foke.demo.service.EmailService;
 import com.foke.demo.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,11 +17,16 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Controller
+@Controller	
 @RequestMapping("/member")
 public class MemberController {
 
-	private final MemberService memberService;
+	@Autowired
+	MemberService memberService;
+
+	// 회원가입 메일 서비스
+	@Autowired
+	EmailService emailService;
 
 	// 로그인 페이지 이동
 	@GetMapping(value = "/login")
@@ -59,7 +61,7 @@ public class MemberController {
 	@PostMapping("/join")
 	public String joinPOST(MemberDTO member) {
 		memberService.memberJoin(member);
-		return "/member/join_success";
+		return "member/join_success";
 	}
 
 	// 아이디 중복 검사
@@ -71,43 +73,14 @@ public class MemberController {
 	}
 
 	// 이메일 인증
-		@GetMapping(value="/mailCheck")
-	    @ResponseBody
-	    public String mailCheckGET(String memberId) throws Exception{
-	        // 인증번호(난수) 생성
-	        Random random = new Random();
-	        int checkNum = random.nextInt(888888) + 111111;
-	        
-	        // 이메일 보내기
-	        String setFrom = "p0kepok3@naver.com";
-	        String toMail = memberId;
-	        String title = "[포케포케] 회원가입 인증코드입니다.";
-	        String content =
-	        		"<a href=" + "\"" + "http://localhost:8080/" + "\"" + ">" +
-	        		"<img src=" + "\"" + "https://i.imgur.com/XMK2u4x.png" + "\"" + ">" +
-	        		"</a>" +
-	                "<br>" + 
-	                "<h3>인증코드를 확인해주세요.</h3>" +
-	                "<h1>" + checkNum + "</h1>" +
-	                "<br>" + 
-	                "해당 인증번호를 인증번호 확인란에 기입해주세요.";
-	        
-	        try {
-	            MimeMessage message = mailSender.createMimeMessage();
-	            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-	            helper.setFrom(setFrom);
-	            helper.setTo(toMail);
-	            helper.setSubject(title);
-	            helper.setText(content,true);
-	            mailSender.send(message);
-	        }catch(Exception e) {
-	            e.printStackTrace();
-	        }
-	        String num = Integer.toString(checkNum);
-	        
-	        return num;
-		}
-	
+	@GetMapping("/mailCheck")
+	@ResponseBody
+	public String mailCheckGET(String memberId) throws Exception {
+		String code = emailService.sendSimpleMessage(memberId);
+		System.out.println("인증코드 : " + code);
+		return code;
+	}
+
 	// 회원가입 성공 페이지 이동
 	@GetMapping(value = "/join/success")
 	public String joinSuccessGET() {

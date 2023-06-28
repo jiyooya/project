@@ -1,4 +1,4 @@
-package com.foke.demo;
+package com.foke.demo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

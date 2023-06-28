@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
 	<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
-	<title>포케포케 : 로그인</title>
+	<title>포케포케 : 회원가입</title>
 
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -52,6 +52,10 @@
 
 	<!-- Checkout Section Begin -->
 	<form id="signupForm" method="post">
+
+		<!-- CSRF 토큰을 포함시키는 부분 -->
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
 		<section class="checkout spad">
 			<div class="container">
 				<div class="checkout__form">
@@ -411,6 +415,9 @@
 					$('#signupForm').attr('action', '/member/join');
 					$('#signupForm').submit();
 				} else {
+					console.log('1' + idCheck + '2' + idDupCheck + '3' + idNumCheck + '4' + pwCheck +
+						'5' + pwFormatCheck + '6' + pwCorCheck + '7' + pwCorFormatCheck +
+						'8' + nameCheck + '9' + birthCheck + '10' + phoneCheck + '11' + agreementCheck);
 					alert('잘못된 입력입니다.');
 				}
 			}); // 버튼 함수 끝
@@ -447,6 +454,7 @@
 			if (idCheck) idDupInputCheck();
 			if (idCheck && idDupCheck) {
 				idNumSend();
+				alert('입력하신 이메일로 인증코드가 전송되었습니다.');
 				return false;
 			}
 			$('#firstEmail').focus();
@@ -506,14 +514,12 @@
 			var memberIdVal = email1Val + '@' + email2Val;
 			var data = {memberId: memberIdVal} // '컨트롤에 넘길 데이터 이름' : '데이터(#email에 입력되는 값)'
 
-			console.log('aaaa');
 			$.ajax({
 				type: 'post',
 				url: '/member/memberIdChk',
 				data: data,
 				beforeSend: addCsrfTokenToAjaxRequest,
 				success: function (result) {
-					console.log(result);
 					if (result != 'fail') { // 사용 가능한 ID (중복 X)
 						$('.email .input').removeClass('text-danger').addClass('text-success');
 						idDupCheck = true;

@@ -43,7 +43,7 @@ public class MemberDTO {
     // 관리자 구분(0:일반사용자, 1:관리자)
     // 근데 쓸지 모르겠음
     @Column(nullable = false)
-    private Integer adminCk;
+    private Integer adminCk = 0;
     
     
     // 마케팅 동의 여부(0:false, 1:true)

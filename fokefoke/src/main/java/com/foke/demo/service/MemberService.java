@@ -34,7 +34,7 @@ public class MemberService {
         }
     }
 	
-	// 회원 추가
+	// 회원 가입
 	public MemberDTO memberJoin(MemberDTO member) {
 		String memberPw = member.getMemberPw();
 		member.setMemberPw(pwEncoder.encode(memberPw));
@@ -44,13 +44,10 @@ public class MemberService {
 	
 	// 회원 아이디 중복 체크
 	public String idCheck(String memberId) {  
-		System.out.println(memberId);
 		int idChk = this.memberRepository.countByMemberId(memberId);
         if (idChk != 0) {
-        	System.out.println("f");
             return "fail";
         } else {
-        	System.out.println("s");
             return "success";
         }
     }
