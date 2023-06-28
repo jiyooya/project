@@ -31,8 +31,38 @@ public class StoreService {
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc("storeId"));
 		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-		Page<StoreDTO> storeList = storeRepository.findByStoreAddressContaining(keyword,pageable);
+		Page<StoreDTO> storeList = storeRepository.findByStoreNameContainingOrStoreAddressContaining(keyword,keyword,pageable);
 		return storeList;
 	}
-	
+	public StoreDTO getStore(int storeId){
+		return this.storeRepository.findByStoreId(storeId);
+	}
+	public void modify(StoreDTO store, String storeName, String storeAddress,String storeTel,String storeOpen,String storeClose
+			, double storeLat, double storeLng) {
+		store.setStoreName(storeName);
+		store.setStoreTel(storeTel);
+		store.setStoreAddress(storeAddress);
+		store.setStoreOpen(storeOpen);
+		store.setStoreClose(storeClose);
+		store.setStoreLat(storeLat);
+		store.setStoreLng(storeLng);
+		this.storeRepository.save(store);
+	}
+	public void register(String storeName, String storeTel, String storeAddress,String StoreOpen, String storeClose,double storeLat, double storeLng) {
+		StoreDTO s = new StoreDTO();
+		s.setStoreName(storeName);
+		s.setStoreAddress(storeAddress);
+		s.setStoreTel(storeTel);
+		s.setStoreOpen(StoreOpen);
+		s.setStoreClose(storeClose);
+		s.setStoreLat(storeLat);
+		s.setStoreLng(storeLng);
+		this.storeRepository.save(s);
+	}
+	public void delete(StoreDTO storeDTO) {
+		this.storeRepository.delete(storeDTO);
+	}
+		 public List<StoreDTO> getStoresByKeyword(String keyword) {
+		        return storeRepository.findByStoreNameContainingOrStoreAddressContaining(keyword, keyword);
+		    }
 }
