@@ -38,4 +38,13 @@ public class HomeController {
         resultMap.put("notice", notice);
         return resultMap;
     }
+	// 약관동의 페이지 이동
+    @GetMapping(value = "/usepolicy")
+    public void usepolicyGET() {
+    }
+    
+    // 약관동의 페이지 이동
+    @GetMapping(value = "/privacy")
+    public void privacyGET() {
+    }
 }
