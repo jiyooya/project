@@ -28,16 +28,6 @@ public class DetailController {
 	private final HttpSession session;
 	private final DetailService detailService;
 	
-//	@PostMapping("/test")
-//	public String searchStore(Model model, @RequestParam Map<String, String> map, 
-//			DetailDTO dto, ProductDTO productDTO, 
-//			@RequestParam(required = false, defaultValue="foke") List<String> toppingchk, 
-//			@RequestParam(required = false, defaultValue="foke") List<String> sourcechk, 
-//			@RequestParam(required = false, defaultValue="foke") List<String> extrachk){
-//		System.out.println("카트 드가쟈");
-//		System.out.println(map+"////"+dto+"******"+toppingchk+"))))");
-//		return "test";
-//	}
 
 	@GetMapping("/view")
 	public String List(Model model, @ModelAttribute ProductDTO productDTO) {
