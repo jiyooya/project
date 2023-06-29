@@ -14,7 +14,7 @@ import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMessage.RecipientType;
 
 @Service
-public class EmailService implements MailServiceInter {
+public class MailService implements MailServiceInter {
 
 	@Autowired
 	JavaMailSender emailsender; // Bean 등록해둔 MailConfig 를 emailsender 라는 이름으로 autowired

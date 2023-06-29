@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.foke.demo.dto.MemberDTO;
-import com.foke.demo.service.EmailService;
+import com.foke.demo.service.MailService;
 import com.foke.demo.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,10 +23,9 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
-
-	// 회원가입 메일 서비스
+	
 	@Autowired
-	EmailService emailService;
+	MailService mailService;
 
 	// 로그인 페이지 이동
 	@GetMapping(value = "/login")
@@ -76,15 +75,9 @@ public class MemberController {
 	@GetMapping("/mailCheck")
 	@ResponseBody
 	public String mailCheckGET(String memberId) throws Exception {
-		String code = emailService.sendSimpleMessage(memberId);
+		String code = mailService.sendSimpleMessage(memberId);
 		System.out.println("인증코드 : " + code);
 		return code;
-	}
-
-	// 회원가입 성공 페이지 이동
-	@GetMapping(value = "/join/success")
-	public String joinSuccessGET() {
-		return "member/join_success";
 	}
 
 	// 아이디 찾기 페이지 이동

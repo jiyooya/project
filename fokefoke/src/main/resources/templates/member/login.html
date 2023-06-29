@@ -3,6 +3,8 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+	<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
 	<title>포케포케 : 로그인</title>
 
 	<!-- jQuery -->
@@ -31,19 +33,29 @@
 <!--<jsp:include page="/WEB-INF/views/header.jsp" />-->
 
 <body>
+
 	<div class="loginbody text-center">
 		<main class="form-signin w-100 m-auto">
 			<form id="login_form" method="post">
+
+				<!-- CSRF 토큰을 포함시키는 부분 -->
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
 				<div class="section-title">
 					<h2>LOGIN</h2>
 					<div class="breadcrumb__links">
 						<p>포케포케 회원으로 로그인하시면 제공하는<br>다양한 서비스를 이용할 수 있습니다.</p>
 					</div>
 				</div>
+				<div th:if="${param.error}">
+					<div class="alert alert-danger">
+						사용자ID 또는 비밀번호를 확인해 주세요.
+					</div>
+				</div>
 				<div class="checkout__input">
-					<input type="text" class="form-control" id="floatingInput" name="memberId" style="color: #000;"
+					<input type="text" class="form-control" id="floatingInput" name="username" style="color: #000;"
 						required placeholder="이메일 입력" th:placeholder="@{이메일 입력}" />
-					<input type="password" class="form-control" id="floatingPassword" name="memberPw"
+					<input type="password" class="form-control" id="floatingPassword" name="password"
 						style="color: #000; margin-top: -15px;" required placeholder="비밀번호 입력"
 						th:placeholder="@{비밀번호 입력}" />
 
@@ -98,7 +110,7 @@
 				}
 
 				// 로그인 메서드 서버 요청
-				$('#login_form').attr('action', '/member/login.do');
+				$('#login_form').attr('action', '/member/login');
 				$('#login_form').find('[type="submit"]').trigger('click');
 			});
 
@@ -164,4 +176,5 @@
 		}
 	</script>
 </body>
+
 </html>
