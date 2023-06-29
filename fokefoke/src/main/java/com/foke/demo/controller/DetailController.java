@@ -29,15 +29,33 @@ public class DetailController {
 	private final DetailService detailService;
 	
 
+	@GetMapping("/view2")
+	public String view2(Model model, ProductDTO productDTO) {
+		List<ProductDTO> sides = this.detailService.getType("사이드");
+		List<ProductDTO> beverages = this.detailService.getType("음료");
+//		ProductDTO product = this.detailService.getProduct(productDTO.getProductName());
+		ProductDTO product = this.detailService.getProduct("콘스프");
+//		NutritionalDTO nutritional = this.detailService.getNutritional(productDTO.getProductName());
+		NutritionalDTO nutritional = this.detailService.getNutritional("콘스프");
+		
+		model.addAttribute("list", detailService.getList());
+		model.addAttribute("salad", detailService.getType("샐러드"));
+		model.addAttribute("beverages", beverages);
+		model.addAttribute("sides", sides);
+		model.addAttribute("product", product);
+		model.addAttribute("nutritional", nutritional);
+		return "details/shop-detailsSide2";
+	}
+	
 	@GetMapping("/view")
 	public String List(Model model, @ModelAttribute ProductDTO productDTO) {
 		List<DetailDTO> detailList = this.detailService.getList();
 		List<ProductDTO> sides = this.detailService.getType("사이드");
 		List<ProductDTO> beverages = this.detailService.getType("음료");
 //		ProductDTO product = this.detailService.getProduct(productDTO.getProductName());
-		ProductDTO product = this.detailService.getProduct("포케 샐러드");
+		ProductDTO product = this.detailService.getProduct("콘스프");
 //		NutritionalDTO nutritional = this.detailService.getNutritional(productDTO.getProductName());
-		NutritionalDTO nutritional = this.detailService.getNutritional("포케 샐러드");
+		NutritionalDTO nutritional = this.detailService.getNutritional("콘스프");
 		String storeId = (String)session.getAttribute("storeId");
 //		DetailDTO auto = detailService.getAuto(productDTO.getProductName());
 		DetailDTO auto = detailService.getAuto("포케 샐러드");
@@ -50,7 +68,11 @@ public class DetailController {
 		model.addAttribute("nutritional", nutritional);
 		model.addAttribute("list", detailService.getList());
 		model.addAttribute("salad", detailService.getType("샐러드"));
-		return "details/shop-details";
+		if(!product.getProductType().equals("샐러드")) {
+			return "details/shop-detailsSide";
+		}else {
+			return "details/shop-details";
+		}
 
 	}
 	
@@ -185,7 +207,7 @@ public class DetailController {
 			currentPrice +=2500;
 			dto.setPrice(currentPrice);
 		}
-		System.out.println("update꺼꺼꺼꺼꺼꺼ㅓㅓㅓㅓ" + dto.getTotal());
+//		System.out.println("update꺼꺼꺼꺼꺼꺼ㅓㅓㅓㅓ" + dto.getTotal());
 		return dto;
 	}
 	
@@ -246,7 +268,7 @@ public class DetailController {
 				currentPrice +=2500;
 				dto.setPrice(currentPrice);
 			}
-			System.out.println("&&&&&&&&&&&" + dto.getPrice());
+//			System.out.println("&&&&&&&&&&&" + dto.getPrice());
 		return dto;
 	}
 }

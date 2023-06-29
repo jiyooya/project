@@ -933,8 +933,8 @@
 </head>
 
 <body th:with="memberId=${session.memberId}">
-	<!--<div th:include="/WEB-INF/views/header :: header"></div>
--->
+	<div th:include="/fragments/header :: header"></div>
+
 	<section class="breadcrumb-option">
 		<div class="container">
 			<div class="row">
@@ -942,9 +942,9 @@
 					<div class="breadcrumb__text">
 						<h4>포케포케 메뉴</h4>
 						<div class="breadcrumb__links">
-							<!--<a th:href="/">Home</a>
-						<a th:href="/store/list">매장찾기</a>
-						<a th:href="/product/reList">메뉴선택</a>-->
+							<a th:href="@{/}">Home</a>
+						<a th:href="@{/store/list}">매장찾기</a>
+						<a th:href="@{/product/reList}">메뉴선택</a>
 							<span>Customizing</span>
 						</div>
 					</div>
@@ -1508,7 +1508,8 @@
 	<script src="/js/mixitup.min.js"></script>
 	<script src="/js/owl.carousel.min.js"></script>
 	<script src="/js/main.js"></script>
-	<!--	<jsp:include page="/WEB-INF/views/footer.jsp" />-->
+	<!--<jsp:include page="/WEB-INF/views/footer.jsp" />-->
+	<div th:include="/fragments/footer :: footer"></div>
 </body>
 
 </html>
