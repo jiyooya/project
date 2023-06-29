@@ -1,5 +1,5 @@
 SELECT * FROM `member`;
-SELECT * FROM `cart`;
+SELECT * FROM `user`;
 SELECT * FROM `product`;
 SELECT * FROM `payment`;
 SELECT * FROM `store`;
@@ -7,6 +7,9 @@ SELECT * FROM `stock`;
 SELECT * FROM `tbl_djt`;
 SELECT COUNT(*) FROM `member`;
 DELETE FROM `tbl_djt`;
+DELETE FROM `member` WHERE memberId = 'do__ri@naver.com';
+
+ALTER TABLE `member` DROP COLUMN sex;
 
 DROP TABLE `tbl_djt`;
 		WHERE memberId = 'test';
