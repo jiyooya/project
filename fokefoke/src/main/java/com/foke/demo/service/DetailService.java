@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.foke.demo.DetailRepository;
 import com.foke.demo.NutritionalRepository;
-import com.foke.demo.ProductRepository;
 import com.foke.demo.dto.DetailDTO;
 import com.foke.demo.dto.NutritionalDTO;
 import com.foke.demo.dto.ProductDTO;
