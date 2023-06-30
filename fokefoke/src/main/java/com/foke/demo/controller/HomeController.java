@@ -28,6 +28,10 @@ public class HomeController {
 	private final ProductService productService;
 	private final NoticeService noticeService;
 	
+	@GetMapping("/")
+	public String index() {
+		return "index";
+	}
 	@GetMapping("/menuList")
     @ResponseBody
     public Map<String, Object> menuList() {

@@ -58,12 +58,14 @@ public class DetailController {
 //		ProductDTO product = this.detailService.getProduct("콘스프");
 		NutritionalDTO nutritional = this.detailService.getNutritional(productDTO.getProductName());
 //		NutritionalDTO nutritional = this.detailService.getNutritional("콘스프");
-		String storeId = (String)session.getAttribute("storeId");
+		Integer storeIdInteger = (Integer)session.getAttribute("storeId");
+		String storeId = String.valueOf(storeIdInteger);
 		DetailDTO auto = detailService.getAuto(productDTO.getProductName());
 //		DetailDTO auto = detailService.getAuto("포케 샐러드");
 //		System.out.println("*******************" + auto.getAtopping());
 		model.addAttribute("detailList", detailList);
 		model.addAttribute("beverages", beverages);
+		model.addAttribute("storeId",storeId);
 		model.addAttribute("sides", sides);
 		model.addAttribute("auto", auto);
 		model.addAttribute("product", product);
