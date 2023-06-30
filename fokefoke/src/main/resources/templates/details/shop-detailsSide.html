@@ -219,7 +219,7 @@
 					</div>
 				</div>
 			</div>
-			<th:block th:if="${not #strings.isEmpty(nutritional.weight)}">
+			<th:block th:if="${nutritional != null and not #strings.isEmpty(nutritional.weight)}">
     <span style="display:inline-block;font-size:20pt;font-weight:550;color:#00000094;margin:0 0 14px 126px;">영양성분표</span>
     <div class="table-responsive">
         <table class="table" style="font-size:15pt;font-weight:bold;text-align:center;width:80%;height:120px;margin:0 0 0 130px;">
@@ -254,7 +254,7 @@
         </table>
     </div>
 </th:block>
-<th:block th:unless="${not #strings.isEmpty(nutritional.weight)}">
+<th:block th:unless="${nutritional != null and not #strings.isEmpty(nutritional.weight)}">
     <br/><br/><br/><br/>
 </th:block>
 
