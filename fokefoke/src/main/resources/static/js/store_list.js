@@ -96,7 +96,7 @@ async function getLocation() {
 		        '           <tr><th style="padding-right: 10px; width: 70px; color: #111">연락처</th><td>' + paging.storeTel + '</td></tr>',
 		        '           <tr><th style="padding-right: 10px; width: 70px; color: #111">영업시간</th><td>' + paging.storeOpen + ' - ' + paging.storeClose + '</td></tr>',
 		        '       </table><hr>',
-		        '       <form method="post" action="/product/list"> <input type="hidden" name="storeName" value="' + paging.storeName + '">',
+		        '       <form method="get" action="/product/list"> <input type="hidden" name="storeName" value="' + paging.storeName + '">',
 		        '       <input type="hidden" name="storeId" value="' + paging.storeId + '"><input type="hidden" name="storeAddress" value="' + paging.storeAddress + '">',
 		        '       <div style="text-align: center;">',
 		        '           <button type="submit" style="background-color: #469543; color: #fff; border-radius: 30px; padding: 10px 20px; border: none; margin: 0 auto;">주문하기</button>',
