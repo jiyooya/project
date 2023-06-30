@@ -2,1089 +2,773 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
-	<head>
-		<script src="https://code.jquery.com/jquery-3.6.4.min.js"
-			integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-		<meta charset="UTF-8">
-		<title>포케포케 : 주문하기</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
-		<!-- Google Font -->
-		<link
-			th:href="@{https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap}"
-			rel="stylesheet">
-
-		<!-- Css Styles -->
-		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
-		<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
-		<link th:href="@{/css/elegant-icons.css}" rel="stylesheet" type="text/css">
-		<link th:href="@{/css/magnific-popup.css}" rel="stylesheet" type="text/css">
-		<link th:href="@{/css/nice-select.css}" rel="stylesheet" type="text/css">
-		<link th:href="@{/css/owl.carousel.min.css}" rel="stylesheet" type="text/css">
-		<link th:href="@{/css/slicknav.min.css}" rel="stylesheet" type="text/css">
-		<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-
-		<!-- Favicons -->
-		<link th:href="@{/img/favicon.png}" rel="icon" />
-		<link th:href="@{/img/favicon.png}" rel="apple-touch-icon" />
-		<style type="text/css">
-			.container2 {
-				display: flex;
-				min-width: 500px;
-			}
-
-			.container2+.container2 {
-				margin-top: 13px;
-			}
-
-			.image {
-				display: flex;
-				align-items: center;
-				flex-basis: 30%;
-				background-color: #008000db;
-				border-radius: 50px 0 0 0;
-				padding: 0 10px;
-			}
-
-			.image img {
-				margin-right: 10px;
-			}
-
-			.box {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				width: 70%;
-				height: 140px;
-				border: 1px solid #00000026;
-				padding: 0 15px;
-				order: 1;
-			}
-
-			.box button {
-				padding: 5px 35px;
-				border: none;
-				margin-right: 11px;
-			}
-
-			.bgLayer {
-				display: none;
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				background: #000;
-				opacity: .5;
-				filter: alpha(opacity=50);
-				z-index: 1;
-			}
-
-			.whole {
-				width: 500px;
-				height: 370px;
-				background: #469543;
-				top: 0;
-				bottom: 10px;
-				margin: auto;
-				left: 0;
-				right: 0;
-				border-radius: 30px;
-				position: fixed;
-			}
-
-			.modal {
-				width: 900px;
-				height: 700px;
-				top: 0;
-				bottom: 10px;
-				left: 0;
-				right: 0;
-				display: none;
-				z-index: 2;
-			}
-
-			.modal_2 {
-				width: 900px;
-				height: 700px;
-				position: fixed;
-				top: 0;
-				bottom: 10px;
-				left: 0;
-				right: 0;
-				display: none;
-				z-index: 2;
-			}
-
-			.whole_2 {
-				background: #469543;
-				top: 0;
-				bottom: 10px;
-				margin: auto;
-				left: 0;
-				right: 0;
-				border-radius: 30px;
-				position: fixed;
-			}
-
-			.modal_3 {
-				position: fixed;
-				background: #469543;
-				position: fixed;
-				top: 0;
-				bottom: 10px;
-				left: 0;
-				right: 0;
-				margin: auto;
-				display: none;
-				border-radius: 30px;
-				z-index: 2;
-			}
-
-			.modal_4 {
-				position: fixed;
-				background: #469543;
-				position: fixed;
-				top: 0;
-				bottom: 10px;
-				left: 0;
-				right: 0;
-				margin: auto;
-				display: none;
-				border-radius: 30px;
-				z-index: 2;
-			}
-
-			.modal_5 {
-				width: 500px;
-				height: 705px;
-				background: #469543;
-				position: fixed;
-				top: 0;
-				bottom: 10px;
-				left: 0;
-				right: 0;
-				margin: auto;
-				display: none;
-				border-radius: 30px;
-				z-index: 2;
-			}
-
-			.modal_6 {
-				width: 500px;
-				height: 672px;
-				background: #469543;
-				position: fixed;
-				top: 0;
-				bottom: 10px;
-				left: 0;
-				right: 0;
-				margin: auto;
-				display: none;
-				border-radius: 30px;
-				z-index: 2;
-			}
-
-			.modal_top {
-				margin-top: 15px;
-				margin-left: 15px;
-				height: 70px;
-				width: 470px;
-				background: #fff;
-				border-radius: 20px 20px 7px 7px;
-			}
-
-			.modal_middle {
-				margin-top: 15px;
-				margin-left: 15px;
-				height: 100px;
-				width: 470px;
-				background: #fff;
-			}
-
-			.modal_content {
-				margin-top: -10px;
-				margin-left: 15px;
-				background: #fff;
-			}
-
-			.modal_select {
-				margin-left: 18px;
-				background: #b7b7b733;
-			}
-
-			.circle {
-				display: inline-block;
-				/* 영역적용가능해짐 */
-				width: 20px;
-				height: 20px;
-				border: 2px solid #b7b7b7;
-				box-sizing: border-box;
-				border-radius: 10px;
-				/* 모서리둥글게 처리 */
-				position: relative;
-				top: 4px;
-				cursor: pointer;
-				/* 마우스 올렸을때 손모양 처리 */
-				background-size: 70%;
-				background-repeat: no-repeat;
-				background-position: center;
-			}
-
-			#chk:checked+.circle {
-				background-color: #f06923;
-				border-color: #f06923;
-				background-image:
-					url(/img/icon/check_white.png);
-			}
-
-			#chk {
-				position: absolute;
-				left: -999em;
-			}
-
-			.circles {
-				display: inline-block;
-				/* 영역적용가능해짐 */
-				width: 20px;
-				height: 20px;
-				border: 2px solid #b7b7b7;
-				box-sizing: border-box;
-				border-radius: 10px;
-				/* 모서리둥글게 처리 */
-				position: relative;
-				top: 4px;
-				cursor: pointer;
-				/* 마우스 올렸을때 손모양 처리 */
-				background-size: 70%;
-				background-repeat: no-repeat;
-				background-position: center;
-			}
-
-			#chks:checked+.circles {
-				background-color: #f06923;
-				border-color: #f06923;
-				background-image:
-					url(/img/icon/check_white.png);
-			}
-
-			#chks {
-				position: absolute;
-				left: -999em;
-			}
-
-			.circleA {
-				display: inline-block;
-				/* 영역적용가능해짐 */
-				width: 20px;
-				height: 20px;
-				border: 2px solid #b7b7b7;
-				box-sizing: border-box;
-				border-radius: 10px;
-				/* 모서리둥글게 처리 */
-				position: relative;
-				top: 4px;
-				cursor: pointer;
-				/* 마우스 올렸을때 손모양 처리 */
-				background-size: 70%;
-				background-repeat: no-repeat;
-				background-position: center;
-			}
-
-			#aab:checked+.circleA {
-				background-color: #f06923;
-				border-color: #f06923;
-				background-image:
-					url(/img/icon/check_white.png);
-			}
-
-			#aab {
-				position: absolute;
-				left: -999em;
-			}
-
-			.circleB {
-				display: inline-block;
-				/* 영역적용가능해짐 */
-				width: 20px;
-				height: 20px;
-				border: 2px solid #b7b7b7;
-				box-sizing: border-box;
-				border-radius: 10px;
-				/* 모서리둥글게 처리 */
-				position: relative;
-				top: 4px;
-				cursor: pointer;
-				/* 마우스 올렸을때 손모양 처리 */
-				background-size: 70%;
-				background-repeat: no-repeat;
-				background-position: center;
-			}
-
-			#abb:checked+.circleB {
-				background-color: #f06923;
-				border-color: #f06923;
-				background-image:
-					url(/img/icon/check_white.png);
-			}
-
-			#abb {
-				position: absolute;
-				left: -999em;
-			}
-
-			.circle1 {
-				display: inline-block;
-				/* 영역적용가능해짐 */
-				width: 20px;
-				height: 20px;
-				border: 2px solid #b7b7b7;
-				box-sizing: border-box;
-				border-radius: 10px;
-				/* 모서리둥글게 처리 */
-				position: relative;
-				top: 4px;
-				cursor: pointer;
-				/* 마우스 올렸을때 손모양 처리 */
-				background-size: 70%;
-				background-repeat: no-repeat;
-				background-position: center;
-			}
-
-			#main1:checked+.circle1 {
-				background-color: #f06923;
-				border-color: #f06923;
-				background-image:
-					url(/img/icon/check_white.png);
-			}
-
-			#main1 {
-				position: absolute;
-				left: -999em;
-			}
-
-			.circle2 {
-				display: inline-block;
-				/* 영역적용가능해짐 */
-				width: 20px;
-				height: 20px;
-				border: 2px solid #b7b7b7;
-				box-sizing: border-box;
-				border-radius: 10px;
-				/* 모서리둥글게 처리 */
-				position: relative;
-				top: 4px;
-				cursor: pointer;
-				/* 마우스 올렸을때 손모양 처리 */
-				background-size: 70%;
-				background-repeat: no-repeat;
-				background-position: center;
-			}
-
-			#main2:checked+.circle2 {
-				background-color: #f06923;
-				border-color: #f06923;
-				background-image:
-					url(/img/icon/check_white.png);
-			}
-
-			#main2 {
-				position: absolute;
-				left: -999em;
-			}
-
-			.circle3 {
-				display: inline-block;
-				/* 영역적용가능해짐 */
-				width: 20px;
-				height: 20px;
-				border: 2px solid #b7b7b7;
-				box-sizing: border-box;
-				border-radius: 10px;
-				/* 모서리둥글게 처리 */
-				position: relative;
-				top: 4px;
-				cursor: pointer;
-				/* 마우스 올렸을때 손모양 처리 */
-				background-size: 70%;
-				background-repeat: no-repeat;
-				background-position: center;
-			}
-
-			#main3:checked+.circle3 {
-				background-color: #f06923;
-				border-color: #f06923;
-				background-image:
-					url(/img/icon/check_white.png);
-			}
-
-			#main3 {
-				position: absolute;
-				left: -999em;
-			}
-
-			.circle4 {
-				display: inline-block;
-				/* 영역적용가능해짐 */
-				width: 20px;
-				height: 20px;
-				border: 2px solid #b7b7b7;
-				box-sizing: border-box;
-				border-radius: 10px;
-				/* 모서리둥글게 처리 */
-				position: relative;
-				top: 4px;
-				cursor: pointer;
-				/* 마우스 올렸을때 손모양 처리 */
-				background-size: 70%;
-				background-repeat: no-repeat;
-				background-position: center;
-			}
-
-			#main4:checked+.circle4 {
-				background-color: #f06923;
-				border-color: #f06923;
-				background-image:
-					url(/img/icon/check_white.png);
-			}
-
-			#main4 {
-				position: absolute;
-				left: -999em;
-			}
-
-			.circleC {
-				display: inline-block;
-				/* 영역적용가능해짐 */
-				width: 20px;
-				height: 20px;
-				border: 2px solid #b7b7b7;
-				box-sizing: border-box;
-				border-radius: 10px;
-				/* 모서리둥글게 처리 */
-				position: relative;
-				top: 4px;
-				cursor: pointer;
-				/* 마우스 올렸을때 손모양 처리 */
-				background-size: 70%;
-				background-repeat: no-repeat;
-				background-position: center;
-			}
-
-			#ccd:checked+.circleC {
-				background-color: #f06923;
-				border-color: #f06923;
-				background-image:
-					url(/img/icon/check_white.png);
-			}
-
-			#ccd {
-				position: absolute;
-				left: -999em;
-			}
-
-			.circleD {
-				display: inline-block;
-				/* 영역적용가능해짐 */
-				width: 20px;
-				height: 20px;
-				border: 2px solid #b7b7b7;
-				box-sizing: border-box;
-				border-radius: 10px;
-				/* 모서리둥글게 처리 */
-				position: relative;
-				top: 4px;
-				cursor: pointer;
-				/* 마우스 올렸을때 손모양 처리 */
-				background-size: 70%;
-				background-repeat: no-repeat;
-				background-position: center;
-			}
-
-			#cdd:checked+.circleD {
-				background-color: #f06923;
-				border-color: #f06923;
-				background-image:
-					url(/img/icon/check_white.png);
-			}
-
-			#cdd {
-				position: absolute;
-				left: -999em;
-			}
-
-			.toppingImg {
-				display: inline-block;
-				/* 영역적용가능해짐 */
-				width: 145px;
-				height: 145px;
-				border: 1px solid #b7b7b7;
-				box-sizing: border-box;
-				position: relative;
-				top: 4px;
-				left: 10px;
-				bottom: 10px;
-				cursor: pointer;
-				/* 마우스 올렸을때 손모양 처리 */
-				background-repeat: no-repeat;
-				background-position: center;
-				border-radius: 3px;
-			}
-
-			.toppingImg:hover {
-				box-shadow: 0 0 9px #f06923;
-				border: 2px solid #f06923;
-				outline: none;
-			}
-
-			.toppingchk:checked+.toppingImg {
-				border: 5px solid #b7b7b7;
-				border-color: #f06923;
-				border-radius: 0 25px 0 0;
-				box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-			}
-
-			.toppingchk {
-				position: absolute;
-				left: -999em;
-			}
-
-			input::-webkit-outer-spin-button,
-			input::-webkit-inner-spin-button {
-				-webkit-appearance: none;
-				margin: 0;
-			}
-
-			.radio1 {
-				position: absolute;
-				left: -999em;
-				/* 기본적으로 라디오 버튼 숨김 */
-			}
-
-			.radio2 {
-				position: absolute;
-				left: -999em;
-				/* 기본적으로 라디오 버튼 숨김 */
-			}
-
-			.label1 {
-				display: inline-block;
-				cursor: pointer;
-				background-color: white;
-				color: black;
-				padding: 10px;
-				transition: background-color 0.6s ease;
-			}
-
-			.label2 {
-				display: inline-block;
-				cursor: pointer;
-				background-color: white;
-				color: black;
-				padding: 10px;
-				transition: background-color 0.6s ease;
-			}
-
-			/* 선택되었을 때 스타일 */
-			.radio1:checked+.label1 {
-				background-color: #f06923;
-				color: white;
-				transition: background-color 0.6s ease;
-			}
-
-			.radio2:checked+.label2 {
-				background-color: #f06923;
-				color: white;
-				transition: background-color 0.6s ease;
-			}
-
-			td {
-				transition: background-color 0.6s ease;
-			}
-
-			.productMenu {
-				display: inline-block;
-				padding-bottom: 12px;
-				margin-right: 55px;
-			}
-
-			.productStyle {
-				font-size: 20px;
-				color: #b7b7b7;
-				font-weight: 700;
-				font-family: 'Noto Sans KR', sans-serif;
-			}
-
-			.productStyle:hover {
-				font-size: 20px;
-				color: #469543;
-				font-weight: 700;
-				font-family: 'Noto Sans KR', sans-serif;
-			}
-		</style>
-		<script th:inline="javascript">
-			/*<![CDATA[*/
-			function update() {
-				var queryString = $("#detailForm").serialize();
-				console.log("&&&&&&&&&&" + queryString);
-				$.ajax({
-					type: 'post',
-					url: '/detail/update',
-					data: queryString,
-					dataType: 'json',
-					success: function (data) {
-						/* Thymeleaf if condition */
-						if (data != null) {
-							var dto = data;
-							var ansss = /*[[${dto.total}]]*/ "";
-							console.log("=============" + ansss);
-						}
-
-						console.log("upd>>>>>>" + data);
-						let text = "";
-						if (data.base != null) {
-							text = data.base;
-							$('#updateBase').html(text);
-						}
-						if (data.atopping != null) {
-							text = ' , ' + data.atopping;
-							if (data.btopping != null) {
-								text += ' , ' + data.btopping;
-								if (data.ctopping != null) {
-									text += ' , ' + data.ctopping;
-									if (data.dtopping != null) {
-										text += ' , ' + data.dtopping;
-									}
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+		integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
+	<title>포케포케 : 주문하기</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+	<!-- Google Font -->
+	<link th:href="@{https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap}"
+		rel="stylesheet">
+
+	<!-- Css Styles -->
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/elegant-icons.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/magnific-popup.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/nice-select.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/owl.carousel.min.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/slicknav.min.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+
+	<!-- Favicons -->
+	<link th:href="@{/img/favicon.png}" rel="icon" />
+	<link th:href="@{/img/favicon.png}" rel="apple-touch-icon" />
+	<style type="text/css">
+		.container2 {
+			display: flex;
+			min-width: 500px;
+		}
+
+		.container2+.container2 {
+			margin-top: 13px;
+		}
+
+		.image {
+			display: flex;
+			align-items: center;
+			flex-basis: 30%;
+			background-color: #008000db;
+			border-radius: 50px 0 0 0;
+			padding: 0 10px;
+		}
+
+		.image img {
+			margin-right: 10px;
+		}
+
+		.box {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			width: 70%;
+			height: 140px;
+			border: 1px solid #00000026;
+			padding: 0 15px;
+			order: 1;
+		}
+
+		.box button {
+			padding: 5px 35px;
+			border: none;
+			margin-right: 11px;
+		}
+
+		.bgLayer {
+			display: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: #000;
+			opacity: .5;
+			filter: alpha(opacity=50);
+			z-index: 1;
+		}
+
+		.whole {
+			width: 500px;
+			height: 370px;
+			background: #469543;
+			top: 0;
+			bottom: 10px;
+			margin: auto;
+			left: 0;
+			right: 0;
+			border-radius: 30px;
+			position: fixed;
+		}
+
+		.modal {
+			width: 900px;
+			height: 700px;
+			top: 0;
+			bottom: 10px;
+			left: 0;
+			right: 0;
+			display: none;
+			z-index: 2;
+		}
+
+		.modal_2 {
+			width: 900px;
+			height: 700px;
+			position: fixed;
+			top: 0;
+			bottom: 10px;
+			left: 0;
+			right: 0;
+			display: none;
+			z-index: 2;
+		}
+
+		.whole_2 {
+			background: #469543;
+			top: 0;
+			bottom: 10px;
+			margin: auto;
+			left: 0;
+			right: 0;
+			border-radius: 30px;
+			position: fixed;
+		}
+
+		.modal_3 {
+			position: fixed;
+			background: #469543;
+			position: fixed;
+			top: 0;
+			bottom: 10px;
+			left: 0;
+			right: 0;
+			margin: auto;
+			display: none;
+			border-radius: 30px;
+			z-index: 2;
+		}
+
+		.modal_4 {
+			position: fixed;
+			background: #469543;
+			position: fixed;
+			top: 0;
+			bottom: 10px;
+			left: 0;
+			right: 0;
+			margin: auto;
+			display: none;
+			border-radius: 30px;
+			z-index: 2;
+		}
+
+		.modal_5 {
+			width: 500px;
+			height: 705px;
+			background: #469543;
+			position: fixed;
+			top: 0;
+			bottom: 10px;
+			left: 0;
+			right: 0;
+			margin: auto;
+			display: none;
+			border-radius: 30px;
+			z-index: 2;
+		}
+
+		.modal_6 {
+			width: 500px;
+			height: 672px;
+			background: #469543;
+			position: fixed;
+			top: 0;
+			bottom: 10px;
+			left: 0;
+			right: 0;
+			margin: auto;
+			display: none;
+			border-radius: 30px;
+			z-index: 2;
+		}
+
+		.modal_top {
+			margin-top: 15px;
+			margin-left: 15px;
+			height: 70px;
+			width: 470px;
+			background: #fff;
+			border-radius: 20px 20px 7px 7px;
+		}
+
+		.modal_middle {
+			margin-top: 15px;
+			margin-left: 15px;
+			height: 100px;
+			width: 470px;
+			background: #fff;
+		}
+
+		.modal_content {
+			margin-top: -10px;
+			margin-left: 15px;
+			background: #fff;
+		}
+
+		.modal_select {
+			margin-left: 18px;
+			background: #b7b7b733;
+		}
+
+		.circle {
+			display: inline-block;
+			/* 영역적용가능해짐 */
+			width: 20px;
+			height: 20px;
+			border: 2px solid #b7b7b7;
+			box-sizing: border-box;
+			border-radius: 10px;
+			/* 모서리둥글게 처리 */
+			position: relative;
+			top: 4px;
+			cursor: pointer;
+			/* 마우스 올렸을때 손모양 처리 */
+			background-size: 70%;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		#chk:checked+.circle {
+			background-color: #f06923;
+			border-color: #f06923;
+			background-image:
+				url(/img/icon/check_white.png);
+		}
+
+		#chk {
+			position: absolute;
+			left: -999em;
+		}
+
+		.circles {
+			display: inline-block;
+			/* 영역적용가능해짐 */
+			width: 20px;
+			height: 20px;
+			border: 2px solid #b7b7b7;
+			box-sizing: border-box;
+			border-radius: 10px;
+			/* 모서리둥글게 처리 */
+			position: relative;
+			top: 4px;
+			cursor: pointer;
+			/* 마우스 올렸을때 손모양 처리 */
+			background-size: 70%;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		#chks:checked+.circles {
+			background-color: #f06923;
+			border-color: #f06923;
+			background-image:
+				url(/img/icon/check_white.png);
+		}
+
+		#chks {
+			position: absolute;
+			left: -999em;
+		}
+
+		.circleA {
+			display: inline-block;
+			/* 영역적용가능해짐 */
+			width: 20px;
+			height: 20px;
+			border: 2px solid #b7b7b7;
+			box-sizing: border-box;
+			border-radius: 10px;
+			/* 모서리둥글게 처리 */
+			position: relative;
+			top: 4px;
+			cursor: pointer;
+			/* 마우스 올렸을때 손모양 처리 */
+			background-size: 70%;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		#aab:checked+.circleA {
+			background-color: #f06923;
+			border-color: #f06923;
+			background-image:
+				url(/img/icon/check_white.png);
+		}
+
+		#aab {
+			position: absolute;
+			left: -999em;
+		}
+
+		.circleB {
+			display: inline-block;
+			/* 영역적용가능해짐 */
+			width: 20px;
+			height: 20px;
+			border: 2px solid #b7b7b7;
+			box-sizing: border-box;
+			border-radius: 10px;
+			/* 모서리둥글게 처리 */
+			position: relative;
+			top: 4px;
+			cursor: pointer;
+			/* 마우스 올렸을때 손모양 처리 */
+			background-size: 70%;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		#abb:checked+.circleB {
+			background-color: #f06923;
+			border-color: #f06923;
+			background-image:
+				url(/img/icon/check_white.png);
+		}
+
+		#abb {
+			position: absolute;
+			left: -999em;
+		}
+
+		.circle1 {
+			display: inline-block;
+			/* 영역적용가능해짐 */
+			width: 20px;
+			height: 20px;
+			border: 2px solid #b7b7b7;
+			box-sizing: border-box;
+			border-radius: 10px;
+			/* 모서리둥글게 처리 */
+			position: relative;
+			top: 4px;
+			cursor: pointer;
+			/* 마우스 올렸을때 손모양 처리 */
+			background-size: 70%;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		#main1:checked+.circle1 {
+			background-color: #f06923;
+			border-color: #f06923;
+			background-image:
+				url(/img/icon/check_white.png);
+		}
+
+		#main1 {
+			position: absolute;
+			left: -999em;
+		}
+
+		.circle2 {
+			display: inline-block;
+			/* 영역적용가능해짐 */
+			width: 20px;
+			height: 20px;
+			border: 2px solid #b7b7b7;
+			box-sizing: border-box;
+			border-radius: 10px;
+			/* 모서리둥글게 처리 */
+			position: relative;
+			top: 4px;
+			cursor: pointer;
+			/* 마우스 올렸을때 손모양 처리 */
+			background-size: 70%;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		#main2:checked+.circle2 {
+			background-color: #f06923;
+			border-color: #f06923;
+			background-image:
+				url(/img/icon/check_white.png);
+		}
+
+		#main2 {
+			position: absolute;
+			left: -999em;
+		}
+
+		.circle3 {
+			display: inline-block;
+			/* 영역적용가능해짐 */
+			width: 20px;
+			height: 20px;
+			border: 2px solid #b7b7b7;
+			box-sizing: border-box;
+			border-radius: 10px;
+			/* 모서리둥글게 처리 */
+			position: relative;
+			top: 4px;
+			cursor: pointer;
+			/* 마우스 올렸을때 손모양 처리 */
+			background-size: 70%;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		#main3:checked+.circle3 {
+			background-color: #f06923;
+			border-color: #f06923;
+			background-image:
+				url(/img/icon/check_white.png);
+		}
+
+		#main3 {
+			position: absolute;
+			left: -999em;
+		}
+
+		.circle4 {
+			display: inline-block;
+			/* 영역적용가능해짐 */
+			width: 20px;
+			height: 20px;
+			border: 2px solid #b7b7b7;
+			box-sizing: border-box;
+			border-radius: 10px;
+			/* 모서리둥글게 처리 */
+			position: relative;
+			top: 4px;
+			cursor: pointer;
+			/* 마우스 올렸을때 손모양 처리 */
+			background-size: 70%;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		#main4:checked+.circle4 {
+			background-color: #f06923;
+			border-color: #f06923;
+			background-image:
+				url(/img/icon/check_white.png);
+		}
+
+		#main4 {
+			position: absolute;
+			left: -999em;
+		}
+
+		.circleC {
+			display: inline-block;
+			/* 영역적용가능해짐 */
+			width: 20px;
+			height: 20px;
+			border: 2px solid #b7b7b7;
+			box-sizing: border-box;
+			border-radius: 10px;
+			/* 모서리둥글게 처리 */
+			position: relative;
+			top: 4px;
+			cursor: pointer;
+			/* 마우스 올렸을때 손모양 처리 */
+			background-size: 70%;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		#ccd:checked+.circleC {
+			background-color: #f06923;
+			border-color: #f06923;
+			background-image:
+				url(/img/icon/check_white.png);
+		}
+
+		#ccd {
+			position: absolute;
+			left: -999em;
+		}
+
+		.circleD {
+			display: inline-block;
+			/* 영역적용가능해짐 */
+			width: 20px;
+			height: 20px;
+			border: 2px solid #b7b7b7;
+			box-sizing: border-box;
+			border-radius: 10px;
+			/* 모서리둥글게 처리 */
+			position: relative;
+			top: 4px;
+			cursor: pointer;
+			/* 마우스 올렸을때 손모양 처리 */
+			background-size: 70%;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		#cdd:checked+.circleD {
+			background-color: #f06923;
+			border-color: #f06923;
+			background-image:
+				url(/img/icon/check_white.png);
+		}
+
+		#cdd {
+			position: absolute;
+			left: -999em;
+		}
+
+		.toppingImg {
+			display: inline-block;
+			/* 영역적용가능해짐 */
+			width: 145px;
+			height: 145px;
+			border: 1px solid #b7b7b7;
+			box-sizing: border-box;
+			position: relative;
+			top: 4px;
+			left: 10px;
+			bottom: 10px;
+			cursor: pointer;
+			/* 마우스 올렸을때 손모양 처리 */
+			background-repeat: no-repeat;
+			background-position: center;
+			border-radius: 3px;
+		}
+
+		.toppingImg:hover {
+			box-shadow: 0 0 9px #f06923;
+			border: 2px solid #f06923;
+			outline: none;
+		}
+
+		.toppingchk:checked+.toppingImg {
+			border: 5px solid #b7b7b7;
+			border-color: #f06923;
+			border-radius: 0 25px 0 0;
+			box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+		}
+
+		.toppingchk {
+			position: absolute;
+			left: -999em;
+		}
+
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		.radio1 {
+			position: absolute;
+			left: -999em;
+			/* 기본적으로 라디오 버튼 숨김 */
+		}
+
+		.radio2 {
+			position: absolute;
+			left: -999em;
+			/* 기본적으로 라디오 버튼 숨김 */
+		}
+
+		.label1 {
+			display: inline-block;
+			cursor: pointer;
+			background-color: white;
+			color: black;
+			padding: 10px;
+			transition: background-color 0.6s ease;
+		}
+
+		.label2 {
+			display: inline-block;
+			cursor: pointer;
+			background-color: white;
+			color: black;
+			padding: 10px;
+			transition: background-color 0.6s ease;
+		}
+
+		/* 선택되었을 때 스타일 */
+		.radio1:checked+.label1 {
+			background-color: #f06923;
+			color: white;
+			transition: background-color 0.6s ease;
+		}
+
+		.radio2:checked+.label2 {
+			background-color: #f06923;
+			color: white;
+			transition: background-color 0.6s ease;
+		}
+
+		td {
+			transition: background-color 0.6s ease;
+		}
+
+		.productMenu {
+			display: inline-block;
+			padding-bottom: 12px;
+			margin-right: 55px;
+		}
+
+		.productStyle {
+			font-size: 20px;
+			color: #b7b7b7;
+			font-weight: 700;
+			font-family: 'Noto Sans KR', sans-serif;
+		}
+
+		.productStyle:hover {
+			font-size: 20px;
+			color: #469543;
+			font-weight: 700;
+			font-family: 'Noto Sans KR', sans-serif;
+		}
+	</style>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		function update() {
+			var queryString = $("#detailForm").serialize();
+			console.log("&&&&&&&&&&" + queryString);
+			$.ajax({
+				type: 'post',
+				url: '/detail/update',
+				data: queryString,
+				dataType: 'json',
+				success: function (data) {
+					/* Thymeleaf if condition */
+					if (data != null) {
+						var dto = data;
+						var ansss = /*[[${dto.total}]]*/ "";
+						console.log("=============" + ansss);
+					}
+
+					console.log("upd>>>>>>" + data);
+					let text = "";
+					if (data.base != null) {
+						text = data.base;
+						$('#updateBase').html(text);
+					}
+					if (data.atopping != null) {
+						text = ' , ' + data.atopping;
+						if (data.btopping != null) {
+							text += ' , ' + data.btopping;
+							if (data.ctopping != null) {
+								text += ' , ' + data.ctopping;
+								if (data.dtopping != null) {
+									text += ' , ' + data.dtopping;
 								}
 							}
-							$('#updateAtopping').html(text);
 						}
-						if (data.asource != null) {
-							text = ' , ' + data.asource;
-							if (data.bsource != null) {
-								text += ' , ' + data.bsource;
-							}
-							$('#updateAsource').html(text);
+						$('#updateAtopping').html(text);
+					}
+					if (data.asource != null) {
+						text = ' , ' + data.asource;
+						if (data.bsource != null) {
+							text += ' , ' + data.bsource;
 						}
-						if (data.aextratopping != null) {
-							text = '[추가 토핑] ' + data.aextratopping + '<br>';
-							if (data.bextratopping != null) {
-								text = '[추가 토핑] ' + data.aextratopping + ' , ' + data.bextratopping + '<br>';
-							}
-							$('#updateAextratopping').html(text);
-						} else {
-							text = "";
-							$('#updateAextratopping').html(text);
+						$('#updateAsource').html(text);
+					}
+					if (data.aextratopping != null) {
+						text = '[추가 토핑] ' + data.aextratopping + '<br>';
+						if (data.bextratopping != null) {
+							text = '[추가 토핑] ' + data.aextratopping + ' , ' + data.bextratopping + '<br>';
 						}
-						if (data.extramain != null) {
-							text = '[추가 메인] ' + data.extramain;
-							$('#updateExtramain').html(text);
-						} else if (data.extramain == null) {
-							text = "";
-							$('#updateExtramain').html(text);
-						}
-						if (data.setbeverage != null) {
-							text = '[세트 + 2,500] ' + data.setside + ' , ' + data.setbeverage;
-							$('#updateSet').html(text);
-						} else {
-							text = "";
-							$('#updateSet').html(text);
-						}
-						text = '<input type="hidden" id="realPrice" value="' + data.price + '">';
-						$('#realreal').html(text);
-						let total = $('#totalSum');
-						total.val(data.price);
-						let count = $('#count');
-						count.val(data.total);
-						into();
-					},
-					error: function (request, status, error) {
-						console.log(request, status, error);
-					}
-				});
-			}
-
-			var preBase = null;
-			<!-- 옵션 선택 변경시  -->
-			function baseChk() {
-				var toppingString = $("#detailForm").serialize();
-				$.ajax({
-					type: 'post',
-					url: '/detail/toppingChk',
-					data: toppingString,
-					dataType: 'json',
-					success: function (data) {
-						console.log("preBase>>>>>>>" + data.base);
-						preBase = null;
-						preBase = data.base;
-						console.log(preBase);
-					},
-					error: function (request, status, error) {
-						console.log(request, status, error)
-					}
-				})
-			}
-			function baseRechk() {
-				console.log("${dto.base}");
-				console.log(preBase);
-				console.log(preBase !== null);
-				if (preBase !== null) {
-					$("input:radio[name='base']:radio[value='" + preBase + "']").prop("checked", true);
-				} else {
-					$("input:radio[name='base']:radio[value='${dto.base}']").prop("checked", true);
-				}
-			}
-
-			var preTopping = [];
-
-			//옵션 선택 변경시
-
-			function toppingChk() {
-				var toppingString = $("#detailForm").serialize();
-				$.ajax({
-					type: 'post',
-					url: '/detail/toppingChk',
-					data: toppingString,
-					dataType: 'json',
-					success: function (data) {
-						console.log(data);
-						preTopping = [];
-						preTopping.push(data.atopping);
-						if (data.btopping != null) preTopping.push(data.btopping);
-						if (data.ctopping != null) preTopping.push(data.ctopping);
-						if (data.dtopping != null) preTopping.push(data.dtopping);
-						console.log(preTopping);
-					},
-					error: function (request, status, error) {
-						console.log(request, status, error)
-					}
-				})
-			}
-			function toppingRechk() {
-				$('input[name="toppingchk"]').each(function () {
-					$(this).prop('checked', false);
-				});
-				if (preTopping.length !== 0) {
-					$("input[name='toppingchk'][value='" + preTopping[0] + "']").prop('checked', true);
-					$("input[name='toppingchk'][value='" + preTopping[1] + "']").prop('checked', true);
-					$("input[name='toppingchk'][value='" + preTopping[2] + "']").prop('checked', true);
-					$("input[name='toppingchk'][value='" + preTopping[3] + "']").prop('checked', true);
-				} else {
-					var atoppingValue = /*[[${dto.atopping}]]*/ '';
-					$("input[name='toppingchk'][value='" + atoppingValue + "']").prop("checked", true);
-
-					var btoppingValue = /*[[${dto.btopping}]]*/ '';
-					$("input[name='toppingchk'][value='" + btoppingValue + "']").prop("checked", true);
-
-					var ctoppingValue = /*[[${dto.ctopping}]]*/ '';
-					$("input[name='toppingchk'][value='" + ctoppingValue + "']").prop("checked", true);
-
-					var dtoppingValue = /*[[${dto.dtopping}]]*/ '';
-					$("input[name='toppingchk'][value='" + dtoppingValue + "']").prop("checked", true);
-				}
-			}
-
-			var preSource = [];
-			function sourceChk() {
-				var sourceString = $("#detailForm").serialize();
-				$.ajax({
-					type: 'post',
-					url: '/detail/toppingChk',
-					data: sourceString,
-					dataType: 'json',
-					success: function (data) {
-						console.log("preSour>>>>>>>>" + data);
-						preSource = [];
-						preSource.push(data.asource);
-						if (data.bsource != null) preSource.push(data.bsource);
-						console.log(preSource);
-					},
-					error: function (request, status, error) {
-						console.log(request, status, error)
-					}
-				})
-			}
-			function sourceRechk() {
-				$('input[name="sourcechk"]').each(function () {
-					$(this).prop('checked', false);
-				});
-				if (preSource.length !== 0) {
-					$("input[name='sourcechk'][value='" + preSource[0] + "']").prop('checked', true);
-					$("input[name='sourcechk'][value='" + preSource[1] + "']").prop('checked', true);
-				} else {
-					var asourceValue = /*[[${dto.asource}]]*/ '';
-					$("input[name='sourcechk'][value='" + asourceValue + "']").prop("checked", true);
-
-					var bsourceValue = /*[[${dto.bsource}]]*/ '';
-					$("input[name='sourcechk'][value='" + bsourceValue + "']").prop("checked", true);
-				}
-
-			}
-			var preExtratopping = [];
-			function extratoppingChk() {
-				var extratoppingString = $("#detailForm").serialize();
-				$.ajax({
-					type: 'post',
-					url: '/detail/toppingChk',
-					data: extratoppingString,
-					dataType: 'json',
-					success: function (data) {
-						console.log("preEx>>>>" + data);
-						preExtratopping = [];
-						preExtratopping.push(data.aextratopping);
-						if (data.bextratopping != null) preExtratopping.push(data.bextratopping);
-						console.log(preExtratopping);
-					},
-					error: function (request, status, error) {
-						console.log(request, status, error)
-					}
-				})
-			}
-			function extratoppingRechk() {
-				$('input[name="extrachk"]').each(function () {
-					$(this).prop('checked', false);
-				});
-				if (preExtratopping.length !== 0) {
-					$("input[name='extrachk'][value='" + preExtratopping[0] + "']").prop('checked', true);
-					$("input[name='extrachk'][value='" + preExtratopping[1] + "']").prop('checked', true);
-				} else {
-					var aextratoppingValue = /*[[${dto.aextratopping}]]*/ '';
-					$("input[name='extrachk'][value='" + aextratoppingValue + "']").prop("checked", true);
-
-					var bextratoppingValue = /*[[${dto.bextratopping}]]*/ '';
-					$("input[name='extrachk'][value='" + bextratoppingValue + "']").prop("checked", true);
-
-				}
-
-			}
-			var preExtramain = null;
-			var preExtramainCheck = null;
-			//<!-- 옵션 선택 변경시  -->
-			function extramainChk() {
-				var toppingString = $("#detailForm").serialize();
-				$.ajax({
-					type: 'post',
-					url: '/detail/toppingChk',
-					data: toppingString,
-					dataType: 'json',
-					success: function (data) {
-						console.log(data.extramain);
-						preExtramain = null;
-						preExtramainCheck = null;
-						preExtramain = data.extramain;
-						if (preExtramain == null) {
-							preExtramainCheck = "메인추가안함";
-							$("input:radio[name='main']:radio[value='" + "메인추가안함" + "']").prop("checked", true);
-							$("input:radio[name='extramain']").prop('checked', false);
-
-						} else {
-							$("input:radio[name='main']:radio[value='" + "메인추가" + "']").prop("checked", true);
-							$("input:radio[name='extramain']:radio[value='" + preExtramain + "']").prop("checked", true);
-
-						}
-						console.log(preExtramain);
-					},
-					error: function (request, status, error) {
-						console.log(request, status, error)
-					}
-				})
-			}
-			function extramainRechk() {
-				var extramainValue = /*[[${dto.extramain}]]*/ '';
-				consol.log("extramain>>>>>>" + extramainValue);
-				if (preExtramain !== null) {
-					$("input:radio[name='extramain']:radio[value='" + preExtramain + "']").prop("checked", true);
-					$("input:radio[name='main']:radio[value='" + "메인추가" + "']").prop("checked", true);
-				} else {
-					if (extramainValue !== "") {
-						$("input:radio[name='main']:radio[value='" + "메인추가" + "']").prop("checked", true);
-
-						$("input:radio[name='extramain'][value='" + extramainValue + "']").prop("checked", true);
+						$('#updateAextratopping').html(text);
 					} else {
-						$("input:radio[name='extramain']").prop('checked', false);
-						$("input:radio[name='main']:radio[value='" + "메인추가안함" + "']").prop("checked", true);
-
+						text = "";
+						$('#updateAextratopping').html(text);
 					}
-				}
-			}
-			var preSetside = null;
-			var preSetbeverage = null;
-			var preSetCheck = null;
-			//<!-- 옵션 선택 변경시  -->
-			function setChk() {
-				var toppingString = $("#detailForm").serialize();
-				$.ajax({
-					type: 'post',
-					url: '/detail/toppingChk',
-					data: toppingString,
-					dataType: 'json',
-					success: function (data) {
-						preSetside = null;
-						preSetbeverage = null;
-						preSetCheck = null;
-						preSetside = data.setside;
-						preSetbeverage = data.setbeverage;
-						if (preSetside == null) {
-							preSetCheck = "단품";
-							$("input:radio[name='choose']:radio[value='" + preSetCheck + "']").prop("checked", true);
-							$("input:radio[name='setside']").prop('checked', false);
-							$("input:radio[name='setbeverage']").prop('checked', false);
-						} else {
-							preSetCheck = "세트";
-							$("input:radio[name='choose']:radio[value='" + preSetCheck + "']").prop("checked", true);
-							$("input:radio[name='setside']:radio[value='" + preSetside + "']").prop("checked", true);
-							$("input:radio[name='setbeverage']:radio[value='" + preSetbeverage + "']").prop("checked", true);
-						}
-						console.log(preSetCheck, '----');
-
-					},
-					error: function (request, status, error) {
-						console.log(request, status, error)
+					if (data.extramain != null) {
+						text = '[추가 메인] ' + data.extramain;
+						$('#updateExtramain').html(text);
+					} else if (data.extramain == null) {
+						text = "";
+						$('#updateExtramain').html(text);
 					}
-				})
-			}
-			function setRechk() {
-				var setsideValue = /*[[${dto.setside}]]*/ '';
-				var setbeverageValue = /*[[${dto.setbeverage}]]*/ '';
-				if (preSetside !== null) {
-					$("input:radio[name='choose']:radio[value='" + preSetCheck + "']").prop("checked", true);
-					$("input:radio[name='setside']:radio[value='" + preSetside + "']").prop("checked", true);
-					$("input:radio[name='setbeverage']:radio[value='" + preSetbeverage + "']").prop("checked", true);
-				} else {
-					if (preSetCheck === "단품") {
-						$("input:radio[name='setside']").prop('checked', false);
-						$("input:radio[name='setbeverage']").prop('checked', false);
-						$("input:radio[name='choose']:radio[value='" + preSetCheck + "']").prop("checked", true);
-					} else if (preSetCheck === "세트") {
-						$("input:radio[name='setbeverage']:radio[value='" + preSetbeverage + "']").prop("checked", true);
-						$("input:radio[name='setside']:radio[value='" + preSetside + "']").prop("checked", true);
-						$("input:radio[name='choose']:radio[value='" + preSetCheck + "']").prop("checked", true);
+					if (data.setbeverage != null) {
+						text = '[세트 + 2,500] ' + data.setside + ' , ' + data.setbeverage;
+						$('#updateSet').html(text);
 					} else {
-
-						if (setsideValue !== "") {
-							$("input:radio[name='setbeverage'][value='" + setbeverageValue + "']").prop("checked", true);
-							$("input:radio[name='setside'][value='" + setsideValue + "']").prop("checked", true);
-							$("input:radio[name='choose']:radio[value='" + "세트" + "']").prop("checked", true);
-						} else {
-							$("input:radio[name='choose']:radio[value='" + "단품" + "']").prop("checked", true);
-							$("input:radio[name='setside']").prop('checked', false);
-							$("input:radio[name='setbeverage']").prop('checked', false);
-						}
+						text = "";
+						$('#updateSet').html(text);
 					}
-				}
-			}
-			//<!--옵션 제약 함수-->
-			function toppingchk_chk() {
-				var checked = $('input[name="toppingchk"]:checked').length > 0;
-				if (!checked) {
-					alert(/*[[${'🌵토핑을 선택해주세요🌵'}]]*/);
-					return false;
-				}
-				return true;
-			}
-
-			function sourcechk_chk() {
-				var checked = $('input[name="sourcechk"]:checked').length > 0;
-				if (!checked) {
-					alert(/*[[${'🧂소스를 선택해주세요🧂'}]]*/);
-					return false;
-				}
-				return true;
-			}
-
-			function setside_chk() {
-				if (
-					$('input:radio[name="choose"]:checked', '#detailForm').val() === "세트" &&
-					!$('input:radio[name="setside"]:checked').val()
-				) {
-					alert(/*[[${'🥣구성품을 선택해주세요🥤'}]]*/);
-					return false;
-				}
-				return true;
-			}
-
-			function setbeverage_chk() {
-				if (
-					$('input:radio[name="setside"]:checked').val() != null &&
-					!$('input:radio[name="setbeverage"]:checked').val()
-				) {
-					alert(/*[[${'🥤음료를 선택해주세요🥤'}]]*/);
-					return false;
-				}
-				return true;
-			}
-
-			function auto_chk() {
-				var auto = /*[[${map.automenu}]]*/ "";
-				console.log(auto.length + "*************");
-				if (auto.length > 0) {
-					$("#basebtn, #toppingbtn, #sourcebtn").click(function () {
-						alert(/*[[${'꿀조합은 필수 선택 변경이 불가합니다.'}]]*/);
-					});
-					$('#basebtn,#toppingbtn,#sourcebtn').attr('disabled', true);
-					return false;
-				}
-			}
-			//<!-- 불투명 배경 생성 함수 -->
-			function bgLayerOpen() {
-				if (!$('.bgLayer').length) {
-					$('<div class="bgLayer"></div>').appendTo($('body'));
-				}
-				var object = $(".bgLayer");
-				var w = $(document).width() + 12;
-				var h = $(document).height();
-
-
-				object.css({'width': w, 'height': h});
-				object.fadeIn(1);   //생성되는 시간 설정
-				$('html').css("overflow", "hidden");
-			}
-			//<!-- 불투명 배경 제거 함수 -->
-			function bgLayerClear() {
-				var object = $('.bgLayer');
-				if (object.length) {
-					object.fadeOut(1, function () {
-						object.remove();
-					});
-				}
-				$('html').css("overflow", "scroll");
-			}
-
-			//<!-- 수량 버튼 함수 -->
-			function incrementNumber() {
-				let input = $('#count');
-				let value = parseInt(input.val());
-				input.val(value + 1);
-				let value1 = parseInt(input.val());
-				let total = $('#totalSum');
-				let realPrice = $('#realPrice');
-				let sum = parseInt(realPrice.val());
-				total.val(value1 * sum);
-				const $input = $('#totalSum');
-				into();
-
-			}
-			function decrementNumber() {
-				let input = $('#count');
-				let value = parseInt(input.val());
-				if (value > 1) {
-					input.val(value - 1);
-					let value1 = parseInt(input.val());
+					text = '<input type="hidden" id="realPrice" value="' + data.price + '">';
+					$('#realreal').html(text);
 					let total = $('#totalSum');
-					let realPrice = $('#realPrice');
-					let sum = parseInt(realPrice.val());
-					total.val(value1 * sum);
-					const $input = $('#totalSum');
+					total.val(data.price);
+					let count = $('#count');
+					count.val(data.total);
+					into();
+				},
+				error: function (request, status, error) {
+					console.log(request, status, error);
 				}
-				into();
-			}
-			//<!-- 옵션 미리 선택 -->
-			function preCheck() {
-				var baseValue = /*[[${dto.base}]]*/ '';
-				$("input:radio[name='base'][value='" + baseValue + "']").prop("checked", true);
+			});
+		}
 
+		var preBase = null;
+		<!-- 옵션 선택 변경시  -->
+		function baseChk() {
+			var toppingString = $("#detailForm").serialize();
+			$.ajax({
+				type: 'post',
+				url: '/detail/toppingChk',
+				data: toppingString,
+				dataType: 'json',
+				success: function (data) {
+					console.log("preBase>>>>>>>" + data.base);
+					preBase = null;
+					preBase = data.base;
+					console.log(preBase);
+				},
+				error: function (request, status, error) {
+					console.log(request, status, error)
+				}
+			})
+		}
+		function baseRechk() {
+			console.log("${dto.base}");
+			console.log(preBase);
+			console.log(preBase !== null);
+			if (preBase !== null) {
+				$("input:radio[name='base']:radio[value='" + preBase + "']").prop("checked", true);
+			} else {
+				$("input:radio[name='base']:radio[value='${dto.base}']").prop("checked", true);
+			}
+		}
+
+		var preTopping = [];
+
+		//옵션 선택 변경시
+
+		function toppingChk() {
+			var toppingString = $("#detailForm").serialize();
+			$.ajax({
+				type: 'post',
+				url: '/detail/toppingChk',
+				data: toppingString,
+				dataType: 'json',
+				success: function (data) {
+					console.log(data);
+					preTopping = [];
+					preTopping.push(data.atopping);
+					if (data.btopping != null) preTopping.push(data.btopping);
+					if (data.ctopping != null) preTopping.push(data.ctopping);
+					if (data.dtopping != null) preTopping.push(data.dtopping);
+					console.log(preTopping);
+				},
+				error: function (request, status, error) {
+					console.log(request, status, error)
+				}
+			})
+		}
+		function toppingRechk() {
+			$('input[name="toppingchk"]').each(function () {
+				$(this).prop('checked', false);
+			});
+			if (preTopping.length !== 0) {
+				$("input[name='toppingchk'][value='" + preTopping[0] + "']").prop('checked', true);
+				$("input[name='toppingchk'][value='" + preTopping[1] + "']").prop('checked', true);
+				$("input[name='toppingchk'][value='" + preTopping[2] + "']").prop('checked', true);
+				$("input[name='toppingchk'][value='" + preTopping[3] + "']").prop('checked', true);
+			} else {
 				var atoppingValue = /*[[${dto.atopping}]]*/ '';
 				$("input[name='toppingchk'][value='" + atoppingValue + "']").prop("checked", true);
 
@@ -1096,382 +780,695 @@
 
 				var dtoppingValue = /*[[${dto.dtopping}]]*/ '';
 				$("input[name='toppingchk'][value='" + dtoppingValue + "']").prop("checked", true);
+			}
+		}
 
+		var preSource = [];
+		function sourceChk() {
+			var sourceString = $("#detailForm").serialize();
+			$.ajax({
+				type: 'post',
+				url: '/detail/toppingChk',
+				data: sourceString,
+				dataType: 'json',
+				success: function (data) {
+					console.log("preSour>>>>>>>>" + data);
+					preSource = [];
+					preSource.push(data.asource);
+					if (data.bsource != null) preSource.push(data.bsource);
+					console.log(preSource);
+				},
+				error: function (request, status, error) {
+					console.log(request, status, error)
+				}
+			})
+		}
+		function sourceRechk() {
+			$('input[name="sourcechk"]').each(function () {
+				$(this).prop('checked', false);
+			});
+			if (preSource.length !== 0) {
+				$("input[name='sourcechk'][value='" + preSource[0] + "']").prop('checked', true);
+				$("input[name='sourcechk'][value='" + preSource[1] + "']").prop('checked', true);
+			} else {
 				var asourceValue = /*[[${dto.asource}]]*/ '';
 				$("input[name='sourcechk'][value='" + asourceValue + "']").prop("checked", true);
 
 				var bsourceValue = /*[[${dto.bsource}]]*/ '';
 				$("input[name='sourcechk'][value='" + bsourceValue + "']").prop("checked", true);
+			}
 
+		}
+		var preExtratopping = [];
+		function extratoppingChk() {
+			var extratoppingString = $("#detailForm").serialize();
+			$.ajax({
+				type: 'post',
+				url: '/detail/toppingChk',
+				data: extratoppingString,
+				dataType: 'json',
+				success: function (data) {
+					console.log("preEx>>>>" + data);
+					preExtratopping = [];
+					preExtratopping.push(data.aextratopping);
+					if (data.bextratopping != null) preExtratopping.push(data.bextratopping);
+					console.log(preExtratopping);
+				},
+				error: function (request, status, error) {
+					console.log(request, status, error)
+				}
+			})
+		}
+		function extratoppingRechk() {
+			$('input[name="extrachk"]').each(function () {
+				$(this).prop('checked', false);
+			});
+			if (preExtratopping.length !== 0) {
+				$("input[name='extrachk'][value='" + preExtratopping[0] + "']").prop('checked', true);
+				$("input[name='extrachk'][value='" + preExtratopping[1] + "']").prop('checked', true);
+			} else {
 				var aextratoppingValue = /*[[${dto.aextratopping}]]*/ '';
 				$("input[name='extrachk'][value='" + aextratoppingValue + "']").prop("checked", true);
 
 				var bextratoppingValue = /*[[${dto.bextratopping}]]*/ '';
 				$("input[name='extrachk'][value='" + bextratoppingValue + "']").prop("checked", true);
 
-				var extramainValue = /*[[${dto.extramain}]]*/ '';
-				$("input:radio[name='extramain'][value='" + extramainValue + "']").prop("checked", true);
-
-				var setsideValue = /*[[${dto.setside}]]*/ '';
-				$("input:radio[name='setside'][value='" + setsideValue + "']").prop("checked", true);
-
-				var setbeverageValue = /*[[${dto.setbeverage}]]*/ '';
-				$("input:radio[name='setbeverage'][value='" + setbeverageValue + "']").prop("checked", true);
-
-				$("input[name='setside']").filter("[value='" + setsideValue + "']").trigger("click");
-				$("input[name='setbeverage']").filter("[value='" + setbeverageValue + "']").trigger("click");
-
-
-			}
-			//<!-- 선택된 버튼 변환 -->
-			var setbeverage = /*[[${dto.setbeverage}]]*/ '';
-			function selectBtn() {
-				var aextratopping = /*[[${dto.aextratopping}]]*/ false;
-				var extramain = /*[[${dto.extramain}]]*/ false;
-				if ($('input[name="extrachk"]:checked').length !== 0 || aextratopping) {
-					$('#extratopping').css({
-						'background-color': '#008000db',
-						'color': 'white',
-						'font-weight': 'bold'
-					});
-				} else {
-					$('#extratopping').css({
-						'background-color': '#b7b7b766',
-						'color': 'black',
-						'font-weight': 'bold'
-					});
-
-				}
-				if ($('input[name="extrachk"]:checked').length !== 0) {
-					$('#extratopping').css({
-						'background-color': '#008000db',
-						'color': 'white',
-						'font-weight': 'bold'
-					});
-				} else if ($('input[name="extrachk"]:checked').length === 0) {
-					$('#extratopping').css({
-						'background-color': '#b7b7b766',
-						'color': 'black',
-						'font-weight': 'bold'
-					});
-				}
-				if ($('input[name="extramain"]:checked').length !== 0 || extramain) {
-					$('#extramain').css({
-						'background-color': '#008000db',
-						'color': 'white',
-						'font-weight': 'bold'
-					});
-				} else {
-					$('#extramain').css({
-						'background-color': '#b7b7b766',
-						'color': 'black',
-						'font-weight': 'bold'
-					});
-				}
-				if ($('input[name="extramain"]:checked').length !== 0) {
-					$('#extramain').css({
-						'background-color': '#008000db',
-						'color': 'white',
-						'font-weight': 'bold'
-					});
-				} else {
-					$('#extramain').css({
-						'background-color': '#b7b7b766',
-						'color': 'black',
-						'font-weight': 'bold'
-					});
-				}
-				if ($('input[name="extramain"]:checked').length !== 0 || extramain) {
-					$("input[name='main'][value='메인추가']").prop("checked", true);
-				} else {
-					$("input[name='main'][value='메인추가안함']").prop("checked", true);
-
-				}
-				if ($('input:radio[name="choose"]:checked').val() == "세트" || setbeverage) {
-					$('#set').css({
-						'background-color': '#008000db',
-						'color': 'white',
-						'font-weight': 'bold'
-					});
-					$('#noSet').css({
-						'background-color': '#b7b7b766',
-						'color': 'black',
-						'font-weight': 'bold'
-					});
-					setbeverage = false;
-				} else if ($('input:radio[name="choose"]:checked').val() == "단품") {
-					$('#set').css({
-						'background-color': '#b7b7b766',
-						'color': 'black',
-						'font-weight': 'bold'
-					});
-					$('#noSet').css({
-						'background-color': '#008000db',
-						'color': 'white',
-						'font-weight': 'bold'
-					});
-				}
-			}
-			function into() {
-				let input = $('#totalSum');
-				let price = input.val();
-				var formatter = new Intl.NumberFormat('ko-KR');
-				var formattedPrice = formatter.format(Number(price));
-				document.getElementById('priceFormatted').innerText = formattedPrice;
-				console.log("sss>>" + input + "??" + price + ">>>" + priceFormatted + "/*/*" + formattedPrice);
-			}
-			let result = 0;
-			function gotocart() {
-				var detailString = $("#detailForm").serialize();
-				$.ajax({
-					type: 'post',
-					url: '/cart/add',
-					data: detailString,
-					dataType: 'json',
-					success: function (data) {
-						result = data;
-					},
-					error: function (request, status, error) {
-						console.log(request, status, error)
-					}
-				})
 			}
 
-			$(function () {
-				//auto_chk();
-				$('#sidePlus').mouseenter(function () {
-					$(this).css({
-						'background-color': '#f06923',
-						'color': '#fff'
-					});
-				}).mouseleave(function () {
-					$(this).css({
-						'background-color': '#fff',
-						'color': '#f06923'
-					});
-				});
-				$('#cartPlus').mouseenter(function () {
-					$(this).css({
-						'background-color': '#f06923',
-						'color': '#fff'
-					});
-				}).mouseleave(function () {
-					$(this).css({
-						'background-color': '#fff',
-						'color': '#f06923'
-					});
-				});
-				into();
-				//<!--set값 미리 체크하기-->
-				preCheck();
-				selectBtn();
-				$("input:radio[name='setside']:checked, input:radio[name='setbeverage']:checked").each(function () {
-					var td = $(this).closest('td');
-					td.css('background-color', '#f06923');
-					prevChecked = this;
-					prevCheckeda = this;
-					$("input:radio[name='choose']:radio[value='세트']").attr("checked", true);
-				});
-				//<!-- 모달창 버튼 -->
-				$("#basebtn").click(function () {
-					let auto = /*[[${map.automenu}]]*/ "";
-					if (auto.length > 0) {
-						alert(/*[[#{'꿀조합은 필수 선택 변경이 불가합니다.'}]]*/);
-						$('#basebtn,#toppingbtn,#sourcebtn').attr('disabled', true);
+		}
+		var preExtramain = null;
+		var preExtramainCheck = null;
+		//<!-- 옵션 선택 변경시  -->
+		function extramainChk() {
+			var toppingString = $("#detailForm").serialize();
+			$.ajax({
+				type: 'post',
+				url: '/detail/toppingChk',
+				data: toppingString,
+				dataType: 'json',
+				success: function (data) {
+					console.log(data.extramain);
+					preExtramain = null;
+					preExtramainCheck = null;
+					preExtramain = data.extramain;
+					if (preExtramain == null) {
+						preExtramainCheck = "메인추가안함";
+						$("input:radio[name='main']:radio[value='" + "메인추가안함" + "']").prop("checked", true);
+						$("input:radio[name='extramain']").prop('checked', false);
+
 					} else {
-						bgLayerOpen();
-						$(".modal").fadeIn(1);
-					}
-					$('#basebtn,#toppingbtn,#sourcebtn').attr('disabled', false);
+						$("input:radio[name='main']:radio[value='" + "메인추가" + "']").prop("checked", true);
+						$("input:radio[name='extramain']:radio[value='" + preExtramain + "']").prop("checked", true);
 
-				});
-				$("#closer").click(function () {
-					baseRechk();
-					$(".modal").fadeOut(1);
-					bgLayerClear();
-				})
-				$("#nextBtn").click(function () {
-					baseChk();
-					update();
-					$(".modal").fadeOut(1);
-					bgLayerClear();
-				});
-				$("#toppingbtn").click(function () {
-					let auto = /*[[${map.automenu}]]*/ "";
-					if (auto.length > 0) {
-						alert(/*[[#{'꿀조합은 필수 선택 변경이 불가합니다.'}]]*/);
-						$('#basebtn,#toppingbtn,#sourcebtn').attr('disabled', true);
-					} else {
-						bgLayerOpen();
-						$(".modal_2").fadeIn(1);
 					}
-					$('#basebtn,#toppingbtn,#sourcebtn').attr('disabled', false);
-				});
-				$("#closer2").click(function () {
-					if (toppingchk_chk()) {
-						toppingRechk();
-						$(".modal_2").fadeOut(1);
-						bgLayerClear();
-					}
-				})
-				$("#nextBtn2").click(function () {
-					if (toppingchk_chk()) {
-						toppingChk();
-						update();
-						$(".modal_2").fadeOut(1);
-						bgLayerClear();
-					}
-				});
-				$("#sourcebtn").click(function () {
-					let auto = /*[[${map.automenu}]]*/ "";
-					if (auto.length > 0) {
-						alert(/*[[#{'꿀조합은 필수 선택 변경이 불가합니다.'}]]*/);
-						$('#basebtn,#toppingbtn,#sourcebtn').attr('disabled', true);
-					} else {
-						bgLayerOpen();
-						$(".modal_3").fadeIn(1);
-					}
-					$('#basebtn,#toppingbtn,#sourcebtn').attr('disabled', false);
+					console.log(preExtramain);
+				},
+				error: function (request, status, error) {
+					console.log(request, status, error)
+				}
+			})
+		}
+		function extramainRechk() {
+			var extramainValue = /*[[${dto.extramain}]]*/ '';
+			consol.log("extramain>>>>>>" + extramainValue);
+			if (preExtramain !== null) {
+				$("input:radio[name='extramain']:radio[value='" + preExtramain + "']").prop("checked", true);
+				$("input:radio[name='main']:radio[value='" + "메인추가" + "']").prop("checked", true);
+			} else {
+				if (extramainValue !== "") {
+					$("input:radio[name='main']:radio[value='" + "메인추가" + "']").prop("checked", true);
 
-				});
-				$("#closer3").click(function () {
-					if (sourcechk_chk()) {
-						sourceRechk();
-						$(".modal_3").fadeOut(1);
-						bgLayerClear();
+					$("input:radio[name='extramain'][value='" + extramainValue + "']").prop("checked", true);
+				} else {
+					$("input:radio[name='extramain']").prop('checked', false);
+					$("input:radio[name='main']:radio[value='" + "메인추가안함" + "']").prop("checked", true);
+
+				}
+			}
+		}
+		var preSetside = null;
+		var preSetbeverage = null;
+		var preSetCheck = null;
+		//<!-- 옵션 선택 변경시  -->
+		function setChk() {
+			var toppingString = $("#detailForm").serialize();
+			$.ajax({
+				type: 'post',
+				url: '/detail/toppingChk',
+				data: toppingString,
+				dataType: 'json',
+				success: function (data) {
+					preSetside = null;
+					preSetbeverage = null;
+					preSetCheck = null;
+					preSetside = data.setside;
+					preSetbeverage = data.setbeverage;
+					if (preSetside == null) {
+						preSetCheck = "단품";
+						$("input:radio[name='choose']:radio[value='" + preSetCheck + "']").prop("checked", true);
+						$("input:radio[name='setside']").prop('checked', false);
+						$("input:radio[name='setbeverage']").prop('checked', false);
+					} else {
+						preSetCheck = "세트";
+						$("input:radio[name='choose']:radio[value='" + preSetCheck + "']").prop("checked", true);
+						$("input:radio[name='setside']:radio[value='" + preSetside + "']").prop("checked", true);
+						$("input:radio[name='setbeverage']:radio[value='" + preSetbeverage + "']").prop("checked", true);
 					}
-				})
-				$("#nextBtn3").click(function () {
-					if (sourcechk_chk()) {
-						sourceChk();
-						update();
-						toppingChk();
-						$(".modal_3").fadeOut(1);
-						bgLayerClear();
+					console.log(preSetCheck, '----');
+
+				},
+				error: function (request, status, error) {
+					console.log(request, status, error)
+				}
+			})
+		}
+		function setRechk() {
+			var setsideValue = /*[[${dto.setside}]]*/ '';
+			var setbeverageValue = /*[[${dto.setbeverage}]]*/ '';
+			if (preSetside !== null) {
+				$("input:radio[name='choose']:radio[value='" + preSetCheck + "']").prop("checked", true);
+				$("input:radio[name='setside']:radio[value='" + preSetside + "']").prop("checked", true);
+				$("input:radio[name='setbeverage']:radio[value='" + preSetbeverage + "']").prop("checked", true);
+			} else {
+				if (preSetCheck === "단품") {
+					$("input:radio[name='setside']").prop('checked', false);
+					$("input:radio[name='setbeverage']").prop('checked', false);
+					$("input:radio[name='choose']:radio[value='" + preSetCheck + "']").prop("checked", true);
+				} else if (preSetCheck === "세트") {
+					$("input:radio[name='setbeverage']:radio[value='" + preSetbeverage + "']").prop("checked", true);
+					$("input:radio[name='setside']:radio[value='" + preSetside + "']").prop("checked", true);
+					$("input:radio[name='choose']:radio[value='" + preSetCheck + "']").prop("checked", true);
+				} else {
+
+					if (setsideValue !== "") {
+						$("input:radio[name='setbeverage'][value='" + setbeverageValue + "']").prop("checked", true);
+						$("input:radio[name='setside'][value='" + setsideValue + "']").prop("checked", true);
+						$("input:radio[name='choose']:radio[value='" + "세트" + "']").prop("checked", true);
+					} else {
+						$("input:radio[name='choose']:radio[value='" + "단품" + "']").prop("checked", true);
+						$("input:radio[name='setside']").prop('checked', false);
+						$("input:radio[name='setbeverage']").prop('checked', false);
 					}
+				}
+			}
+		}
+		//<!--옵션 제약 함수-->
+		function toppingchk_chk() {
+			var checked = $('input[name="toppingchk"]:checked').length > 0;
+			if (!checked) {
+				alert(/*[[${'🌵토핑을 선택해주세요🌵'}]]*/);
+				return false;
+			}
+			return true;
+		}
+
+		function sourcechk_chk() {
+			var checked = $('input[name="sourcechk"]:checked').length > 0;
+			if (!checked) {
+				alert(/*[[${'🧂소스를 선택해주세요🧂'}]]*/);
+				return false;
+			}
+			return true;
+		}
+
+		function setside_chk() {
+			if (
+				$('input:radio[name="choose"]:checked', '#detailForm').val() === "세트" &&
+				!$('input:radio[name="setside"]:checked').val()
+			) {
+				alert(/*[[${'🥣구성품을 선택해주세요🥤'}]]*/);
+				return false;
+			}
+			return true;
+		}
+
+		function setbeverage_chk() {
+			if (
+				$('input:radio[name="setside"]:checked').val() != null &&
+				!$('input:radio[name="setbeverage"]:checked').val()
+			) {
+				alert(/*[[${'🥤음료를 선택해주세요🥤'}]]*/);
+				return false;
+			}
+			return true;
+		}
+
+		function auto_chk() {
+			var auto = /*[[${map.automenu}]]*/ "";
+			console.log(auto.length + "*************");
+			if (auto.length > 0) {
+				$("#basebtn, #toppingbtn, #sourcebtn").click(function () {
+					alert(/*[[${'꿀조합은 필수 선택 변경이 불가합니다.'}]]*/);
 				});
-				$("#extratopping").click(function () {
+				$('#basebtn,#toppingbtn,#sourcebtn').attr('disabled', true);
+				return false;
+			}
+		}
+		//<!-- 불투명 배경 생성 함수 -->
+		function bgLayerOpen() {
+			if (!$('.bgLayer').length) {
+				$('<div class="bgLayer"></div>').appendTo($('body'));
+			}
+			var object = $(".bgLayer");
+			var w = $(document).width() + 12;
+			var h = $(document).height();
+
+
+			object.css({'width': w, 'height': h});
+			object.fadeIn(1);   //생성되는 시간 설정
+			$('html').css("overflow", "hidden");
+		}
+		//<!-- 불투명 배경 제거 함수 -->
+		function bgLayerClear() {
+			var object = $('.bgLayer');
+			if (object.length) {
+				object.fadeOut(1, function () {
+					object.remove();
+				});
+			}
+			$('html').css("overflow", "scroll");
+		}
+
+		//<!-- 수량 버튼 함수 -->
+		function incrementNumber() {
+			let input = $('#count');
+			let value = parseInt(input.val());
+			input.val(value + 1);
+			let value1 = parseInt(input.val());
+			let total = $('#totalSum');
+			let realPrice = $('#realPrice');
+			let sum = parseInt(realPrice.val());
+			total.val(value1 * sum);
+			const $input = $('#totalSum');
+			into();
+
+		}
+		function decrementNumber() {
+			let input = $('#count');
+			let value = parseInt(input.val());
+			if (value > 1) {
+				input.val(value - 1);
+				let value1 = parseInt(input.val());
+				let total = $('#totalSum');
+				let realPrice = $('#realPrice');
+				let sum = parseInt(realPrice.val());
+				total.val(value1 * sum);
+				const $input = $('#totalSum');
+			}
+			into();
+		}
+		//<!-- 옵션 미리 선택 -->
+		function preCheck() {
+			var baseValue = /*[[${dto.base}]]*/ '';
+			$("input:radio[name='base'][value='" + baseValue + "']").prop("checked", true);
+
+			var atoppingValue = /*[[${dto.atopping}]]*/ '';
+			$("input[name='toppingchk'][value='" + atoppingValue + "']").prop("checked", true);
+
+			var btoppingValue = /*[[${dto.btopping}]]*/ '';
+			$("input[name='toppingchk'][value='" + btoppingValue + "']").prop("checked", true);
+
+			var ctoppingValue = /*[[${dto.ctopping}]]*/ '';
+			$("input[name='toppingchk'][value='" + ctoppingValue + "']").prop("checked", true);
+
+			var dtoppingValue = /*[[${dto.dtopping}]]*/ '';
+			$("input[name='toppingchk'][value='" + dtoppingValue + "']").prop("checked", true);
+
+			var asourceValue = /*[[${dto.asource}]]*/ '';
+			$("input[name='sourcechk'][value='" + asourceValue + "']").prop("checked", true);
+
+			var bsourceValue = /*[[${dto.bsource}]]*/ '';
+			$("input[name='sourcechk'][value='" + bsourceValue + "']").prop("checked", true);
+
+			var aextratoppingValue = /*[[${dto.aextratopping}]]*/ '';
+			$("input[name='extrachk'][value='" + aextratoppingValue + "']").prop("checked", true);
+
+			var bextratoppingValue = /*[[${dto.bextratopping}]]*/ '';
+			$("input[name='extrachk'][value='" + bextratoppingValue + "']").prop("checked", true);
+
+			var extramainValue = /*[[${dto.extramain}]]*/ '';
+			$("input:radio[name='extramain'][value='" + extramainValue + "']").prop("checked", true);
+
+			var setsideValue = /*[[${dto.setside}]]*/ '';
+			$("input:radio[name='setside'][value='" + setsideValue + "']").prop("checked", true);
+
+			var setbeverageValue = /*[[${dto.setbeverage}]]*/ '';
+			$("input:radio[name='setbeverage'][value='" + setbeverageValue + "']").prop("checked", true);
+
+			$("input[name='setside']").filter("[value='" + setsideValue + "']").trigger("click");
+			$("input[name='setbeverage']").filter("[value='" + setbeverageValue + "']").trigger("click");
+
+
+		}
+		//<!-- 선택된 버튼 변환 -->
+		var setbeverage = /*[[${dto.setbeverage}]]*/ '';
+		function selectBtn() {
+			var aextratopping = /*[[${dto.aextratopping}]]*/ false;
+			var extramain = /*[[${dto.extramain}]]*/ false;
+			if ($('input[name="extrachk"]:checked').length !== 0 || aextratopping) {
+				$('#extratopping').css({
+					'background-color': '#008000db',
+					'color': 'white',
+					'font-weight': 'bold'
+				});
+			} else {
+				$('#extratopping').css({
+					'background-color': '#b7b7b766',
+					'color': 'black',
+					'font-weight': 'bold'
+				});
+
+			}
+			if ($('input[name="extrachk"]:checked').length !== 0) {
+				$('#extratopping').css({
+					'background-color': '#008000db',
+					'color': 'white',
+					'font-weight': 'bold'
+				});
+			} else if ($('input[name="extrachk"]:checked').length === 0) {
+				$('#extratopping').css({
+					'background-color': '#b7b7b766',
+					'color': 'black',
+					'font-weight': 'bold'
+				});
+			}
+			if ($('input[name="extramain"]:checked').length !== 0 || extramain) {
+				$('#extramain').css({
+					'background-color': '#008000db',
+					'color': 'white',
+					'font-weight': 'bold'
+				});
+			} else {
+				$('#extramain').css({
+					'background-color': '#b7b7b766',
+					'color': 'black',
+					'font-weight': 'bold'
+				});
+			}
+			if ($('input[name="extramain"]:checked').length !== 0) {
+				$('#extramain').css({
+					'background-color': '#008000db',
+					'color': 'white',
+					'font-weight': 'bold'
+				});
+			} else {
+				$('#extramain').css({
+					'background-color': '#b7b7b766',
+					'color': 'black',
+					'font-weight': 'bold'
+				});
+			}
+			if ($('input[name="extramain"]:checked').length !== 0 || extramain) {
+				$("input[name='main'][value='메인추가']").prop("checked", true);
+			} else {
+				$("input[name='main'][value='메인추가안함']").prop("checked", true);
+
+			}
+			if ($('input:radio[name="choose"]:checked').val() == "세트" || setbeverage) {
+				$('#set').css({
+					'background-color': '#008000db',
+					'color': 'white',
+					'font-weight': 'bold'
+				});
+				$('#noSet').css({
+					'background-color': '#b7b7b766',
+					'color': 'black',
+					'font-weight': 'bold'
+				});
+				setbeverage = false;
+			} else if ($('input:radio[name="choose"]:checked').val() == "단품") {
+				$('#set').css({
+					'background-color': '#b7b7b766',
+					'color': 'black',
+					'font-weight': 'bold'
+				});
+				$('#noSet').css({
+					'background-color': '#008000db',
+					'color': 'white',
+					'font-weight': 'bold'
+				});
+			}
+		}
+		function into() {
+			let input = $('#totalSum');
+			let price = input.val();
+			var formatter = new Intl.NumberFormat('ko-KR');
+			var formattedPrice = formatter.format(Number(price));
+			document.getElementById('priceFormatted').innerText = formattedPrice;
+			console.log("sss>>" + input + "??" + price + ">>>" + priceFormatted + "/*/*" + formattedPrice);
+		}
+		let result = 0;
+		function gotocart() {
+			var detailString = $("#detailForm").serialize();
+			$.ajax({
+				type: 'post',
+				url: '/cart/add',
+				data: detailString,
+				dataType: 'json',
+				success: function (data) {
+					result = data;
+				},
+				error: function (request, status, error) {
+					console.log(request, status, error)
+				}
+			})
+		}
+
+		$(function () {
+			//auto_chk();
+			$('#sidePlus').mouseenter(function () {
+				$(this).css({
+					'background-color': '#f06923',
+					'color': '#fff'
+				});
+			}).mouseleave(function () {
+				$(this).css({
+					'background-color': '#fff',
+					'color': '#f06923'
+				});
+			});
+			$('#cartPlus').mouseenter(function () {
+				$(this).css({
+					'background-color': '#f06923',
+					'color': '#fff'
+				});
+			}).mouseleave(function () {
+				$(this).css({
+					'background-color': '#fff',
+					'color': '#f06923'
+				});
+			});
+			into();
+			//<!--set값 미리 체크하기-->
+			preCheck();
+			selectBtn();
+			$("input:radio[name='setside']:checked, input:radio[name='setbeverage']:checked").each(function () {
+				var td = $(this).closest('td');
+				td.css('background-color', '#f06923');
+				prevChecked = this;
+				prevCheckeda = this;
+				$("input:radio[name='choose']:radio[value='세트']").attr("checked", true);
+			});
+			//<!-- 모달창 버튼 -->
+			$("#basebtn").click(function () {
+				let auto = /*[[${map.automenu}]]*/ "";
+				if (auto.length > 0) {
+					alert(/*[[#{'꿀조합은 필수 선택 변경이 불가합니다.'}]]*/);
+					$('#basebtn,#toppingbtn,#sourcebtn').attr('disabled', true);
+				} else {
 					bgLayerOpen();
-					$(".modal_4").fadeIn(1);
-				});
-				$("#closer4").click(function () {
-					extratoppingRechk();
-					$(".modal_4").fadeOut(1);
-					bgLayerClear();
-				})
-				$("#nextBtn4").click(function () {
-					extratoppingChk();
-					update();
-					selectBtn();
-					$(".modal_4").fadeOut(1);
-					bgLayerClear();
-				});
-				$("#extramain").click(function () {
-					bgLayerOpen();
-					$('input[name="extramain"]').on('click', function () {
-						$("input[name='main'][value='메인추가']").prop("checked", true);
-					});
-					$("input:radio[name='main'][value='메인추가안함']").on('click', function () {
-						$("input:radio[name='extramain']").prop("checked", false);
-					});
-					$(".modal_5").fadeIn(1);
-				});
-				$("#closer5").click(function () {
-					extramainRechk();
-					$(".modal_5").fadeOut(1);
-					bgLayerClear();
-				})
-				$("#nextBtn5").click(function () {
-					extramainChk();
-					update();
-					selectBtn();
-					$(".modal_5").fadeOut(1);
-					bgLayerClear();
-				});
-				$("#set").click(function () {
-					bgLayerOpen();
-					$(".modal_6").fadeIn(1);
-					$('input[name="setside"], input[name="setbeverage"]').on('click', function () {
-						$("input[name='choose'][value='세트']").prop("checked", true);
-					});
-					$("input:radio[name='choose'][value='단품']").on('click', function () {
-						$("input:radio[name='setside']").prop("checked", false);
-						$("input:radio[name='setbeverage']").prop("checked", false);
-						$(".sideTd").css('background-color', '');
-						$(".beverageTd").css('background-color', '');
-					});
-
-
-				});
-				$("#closer6").click(function () {
-					setRechk();
-					$(".modal_6").fadeOut(1);
-					bgLayerClear();
-				})
-				$("#nextBtn6").click(function () {
-					if (setside_chk()) {
-						if (setbeverage_chk()) {
-							setChk();
-							update();
-							selectBtn();
-							$(".modal_6").fadeOut(1);
-							bgLayerClear();
-						}
-					}
-				});
-				$("#sidePlus").click(function () {
-					if (confirm("해당 상품은 장바구니로 이동되며, 옵션 변경이 불가합니다. 진행 하시겠습니까?")) {
-						gotocart();
-						$('#detailForm').attr('action', '/detail/view').submit();
-					} else {
-						return false;
-					}
-				});
-				$("#cartPlus").click(function () {
-					//gotocart();
-					if (result == 0) alert("장바구니에 담겼습니다.");
-
-					if (confirm("장바구니를 확인하시겠습니까?")) {
-						$('#detailForm').attr('action', '/detail/test').submit();
-					} else {
-						return false;
-					}
-				});
-				$("#order").click(function () {
-					$('#detailForm').attr('action', '/payment/payment1').submit();
-				});
-				$('input:checkbox[name="toppingchk"]').on("click", function () {
-					let count = $('input:checked[name="toppingchk"]').length;
-					if (count > 4) {
-						$(this).prop("checked", false);
-						alert("최대 4개까지 선택 가능합니다!");
-					}
-				})
-				$('input:checkbox[name="sourcechk"]').on("click", function () {
-					let count = $('input:checked[name="sourcechk"]').length;
-					if (count > 2) {
-						$(this).prop("checked", false);
-						alert("최대 2개까지 선택 가능합니다!");
-					}
-				})
-				$('input:checkbox[name="extrachk"]').on("click", function () {
-					let count = $('input:checked[name="extrachk"]').length;
-					if (count > 2) {
-						$(this).prop("checked", false);
-						alert("최대 2개까지 선택 가능합니다!");
-					}
-
-				})
-				$(window).resize(function () { //화면 크기 변할 시
-					$('.bgLayer').css('width', $(window).width() - 0);
-					$('.bgLayer').css('height', $(window).height() - 0);
-				});
+					$(".modal").fadeIn(1);
+				}
+				$('#basebtn,#toppingbtn,#sourcebtn').attr('disabled', false);
 
 			});
-			  /*]]>*/
-		</script>
+			$("#closer").click(function () {
+				baseRechk();
+				$(".modal").fadeOut(1);
+				bgLayerClear();
+			})
+			$("#nextBtn").click(function () {
+				baseChk();
+				update();
+				$(".modal").fadeOut(1);
+				bgLayerClear();
+			});
+			$("#toppingbtn").click(function () {
+				let auto = /*[[${map.automenu}]]*/ "";
+				if (auto.length > 0) {
+					alert(/*[[#{'꿀조합은 필수 선택 변경이 불가합니다.'}]]*/);
+					$('#basebtn,#toppingbtn,#sourcebtn').attr('disabled', true);
+				} else {
+					bgLayerOpen();
+					$(".modal_2").fadeIn(1);
+				}
+				$('#basebtn,#toppingbtn,#sourcebtn').attr('disabled', false);
+			});
+			$("#closer2").click(function () {
+				//if (toppingchk_chk()) {
+				toppingRechk();
+				$(".modal_2").fadeOut(1);
+				bgLayerClear();
+				//	}
+			})
+			$("#nextBtn2").click(function () {
+				if (toppingchk_chk()) {
+					toppingChk();
+					update();
+					$(".modal_2").fadeOut(1);
+					bgLayerClear();
+				}
+			});
+			$("#sourcebtn").click(function () {
+				let auto = /*[[${map.automenu}]]*/ "";
+				if (auto.length > 0) {
+					alert(/*[[#{'꿀조합은 필수 선택 변경이 불가합니다.'}]]*/);
+					$('#basebtn,#toppingbtn,#sourcebtn').attr('disabled', true);
+				} else {
+					bgLayerOpen();
+					$(".modal_3").fadeIn(1);
+				}
+				$('#basebtn,#toppingbtn,#sourcebtn').attr('disabled', false);
 
-	</head>
+			});
+			$("#closer3").click(function () {
+				//if (sourcechk_chk()) {
+				sourceRechk();
+				$(".modal_3").fadeOut(1);
+				bgLayerClear();
+				//}
+			})
+			$("#nextBtn3").click(function () {
+				if (sourcechk_chk()) {
+					sourceChk();
+					update();
+					toppingChk();
+					$(".modal_3").fadeOut(1);
+					bgLayerClear();
+				}
+			});
+			$("#extratopping").click(function () {
+				bgLayerOpen();
+				$(".modal_4").fadeIn(1);
+			});
+			$("#closer4").click(function () {
+				extratoppingRechk();
+				$(".modal_4").fadeOut(1);
+				bgLayerClear();
+			})
+			$("#nextBtn4").click(function () {
+				extratoppingChk();
+				update();
+				selectBtn();
+				$(".modal_4").fadeOut(1);
+				bgLayerClear();
+			});
+			$("#extramain").click(function () {
+				bgLayerOpen();
+				$('input[name="extramain"]').on('click', function () {
+					$("input[name='main'][value='메인추가']").prop("checked", true);
+				});
+				$("input:radio[name='main'][value='메인추가안함']").on('click', function () {
+					$("input:radio[name='extramain']").prop("checked", false);
+				});
+				$(".modal_5").fadeIn(1);
+			});
+			$("#closer5").click(function () {
+				extramainRechk();
+				$(".modal_5").fadeOut(1);
+				bgLayerClear();
+			})
+			$("#nextBtn5").click(function () {
+				extramainChk();
+				update();
+				selectBtn();
+				$(".modal_5").fadeOut(1);
+				bgLayerClear();
+			});
+			$("#set").click(function () {
+				bgLayerOpen();
+				$(".modal_6").fadeIn(1);
+				$('input[name="setside"], input[name="setbeverage"]').on('click', function () {
+					$("input[name='choose'][value='세트']").prop("checked", true);
+				});
+				$("input:radio[name='choose'][value='단품']").on('click', function () {
+					$("input:radio[name='setside']").prop("checked", false);
+					$("input:radio[name='setbeverage']").prop("checked", false);
+					$(".sideTd").css('background-color', '');
+					$(".beverageTd").css('background-color', '');
+				});
+
+
+			});
+			$("#closer6").click(function () {
+				setRechk();
+				$(".modal_6").fadeOut(1);
+				bgLayerClear();
+			})
+			$("#nextBtn6").click(function () {
+				if (setside_chk()) {
+					if (setbeverage_chk()) {
+						setChk();
+						update();
+						selectBtn();
+						$(".modal_6").fadeOut(1);
+						bgLayerClear();
+					}
+				}
+			});
+			$("#sidePlus").click(function () {
+				if (confirm("해당 상품은 장바구니로 이동되며, 옵션 변경이 불가합니다. 진행 하시겠습니까?")) {
+					gotocart();
+					$('#detailForm').attr('action', '/detail/view').submit();
+				} else {
+					return false;
+				}
+			});
+			$("#cartPlus").click(function () {
+				//gotocart();
+				if (result == 0) alert("장바구니에 담겼습니다.");
+
+				if (confirm("장바구니를 확인하시겠습니까?")) {
+					$('#detailForm').attr('action', '/detail/test').submit();
+				} else {
+					return false;
+				}
+			});
+			$("#order").click(function () {
+				$('#detailForm').attr('action', '/payment/payment1').submit();
+			});
+			$('input:checkbox[name="toppingchk"]').on("click", function () {
+				let count = $('input:checked[name="toppingchk"]').length;
+				if (count > 4) {
+					$(this).prop("checked", false);
+					alert("최대 4개까지 선택 가능합니다!");
+				}
+			})
+			$('input:checkbox[name="sourcechk"]').on("click", function () {
+				let count = $('input:checked[name="sourcechk"]').length;
+				if (count > 2) {
+					$(this).prop("checked", false);
+					alert("최대 2개까지 선택 가능합니다!");
+				}
+			})
+			$('input:checkbox[name="extrachk"]').on("click", function () {
+				let count = $('input:checked[name="extrachk"]').length;
+				if (count > 2) {
+					$(this).prop("checked", false);
+					alert("최대 2개까지 선택 가능합니다!");
+				}
+
+			})
+			$(window).resize(function () { //화면 크기 변할 시
+				$('.bgLayer').css('width', $(window).width() - 0);
+				$('.bgLayer').css('height', $(window).height() - 0);
+			});
+
+		});
+			  /*]]>*/
+	</script>
+
+</head>
 
 <body>
 	<div th:if="${dto != null}">
@@ -1485,8 +1482,8 @@
 					<div class="breadcrumb__text">
 						<h4>포케포케 메뉴</h4>
 						<div class="breadcrumb__links">
-							<!--<a href="/">Home</a><a href="/store/list">매장찾기</a><a
-								href="/product/reList">메뉴선택</a>--><span>Customizing</span>
+							<a th:href="@{/}">Home</a><a th:href="@{/store/list}">매장찾기</a><a
+								th:href="@{/product/reList}">메뉴선택</a><span>Customizing</span>
 						</div>
 					</div>
 				</div>
@@ -1502,13 +1499,14 @@
 				<div class="col-lg-12">
 					<div class="product__details__tab">
 						<ul class="nav nav-tabs" role="tablist">
-							<!--<a href="/product/reList" class="productStyle"><span class="productMenu"> 전체메뉴</span></a>
-							<a href="/product/reList?num=1" class="productStyle"><span
+							<a th:href="@{/product/reList}" class="productStyle"><span
+									class="productMenu">전체메뉴</span></a>
+							<a th:href="@{|/product/reList?num=1|}" class="productStyle"><span
 									class="productMenu">샐러드</span></a>
-							<a href="/product/reList?num=2" class="productStyle"><span
+							<a th:href="@{|/product/reList?num=2|}" class="productStyle"><span
 									class="productMenu">사이드</span></a>
-							<a href="/product/reList?num=3" class="productStyle"><span
-									class="productMenu">음료수</span></a>-->
+							<a th:href="@{|/product/reList?num=3|}" class="productStyle"><span
+									class="productMenu">음료수</span></a>
 						</ul>
 					</div>
 				</div>
