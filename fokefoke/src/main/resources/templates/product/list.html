@@ -118,7 +118,7 @@
 											style="cursor: pointer;">
 											<div class="product__item__pic set-bg"
 												th:style="'background-image: url(' + @{${salad.productImage}} + ');'">
-												<span th:if="${salad.productLabel eq 'new'}" tclass="new">New</span>
+												<span th:if="${salad.productLabel eq 'new'}" class="new">New</span>
 												<span th:if="${salad.productLabel eq 'sale'}" class="sale">Sale</span>
 												<div th:if="${stockList.productDTO.productId == salad.productId and stockList.quantity == 0}"
 													th:each="stockList : ${stock}" class="product__item__pic disabled"
