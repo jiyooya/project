@@ -2,6 +2,7 @@ package com.foke.demo.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.foke.demo.DetailRepository;
@@ -17,7 +18,10 @@ import lombok.RequiredArgsConstructor;
 public class DetailService {
 
 	private final DetailRepository detailRepository;
-	private final ProductRepository productRepository;
+	
+	@Autowired
+	ProductRepository productRepository;
+	
 	private final NutritionalRepository nutritionalRepository;
 	
 	
@@ -26,11 +30,11 @@ public class DetailService {
 	}
 	
 	public List<ProductDTO> getType(String productType){
-		return this.productRepository.findByProductType(productType);
+		return productRepository.findByProductType(productType);
 	}
 	
 	public ProductDTO getProduct(String productName){
-		return this.productRepository.findByProductName(productName);
+		return productRepository.findByProductName(productName);
 	}
 	
 	public NutritionalDTO getNutritional(String productName){
@@ -42,7 +46,7 @@ public class DetailService {
 	}
 	
 	public List<ProductDTO> getList(String productName){
-		return this.productRepository.findAllByOrderByProductIdDesc();
+		return productRepository.findAllByOrderByProductIdDesc();
 	}
 	
 	

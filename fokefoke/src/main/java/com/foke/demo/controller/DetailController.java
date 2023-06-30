@@ -3,6 +3,7 @@ package com.foke.demo.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,10 +34,10 @@ public class DetailController {
 	public String view2(Model model, ProductDTO productDTO) {
 		List<ProductDTO> sides = this.detailService.getType("사이드");
 		List<ProductDTO> beverages = this.detailService.getType("음료");
-//		ProductDTO product = this.detailService.getProduct(productDTO.getProductName());
-		ProductDTO product = this.detailService.getProduct("콘스프");
-//		NutritionalDTO nutritional = this.detailService.getNutritional(productDTO.getProductName());
-		NutritionalDTO nutritional = this.detailService.getNutritional("콘스프");
+		ProductDTO product = this.detailService.getProduct(productDTO.getProductName());
+//		ProductDTO product = this.detailService.getProduct("콘스프");
+		NutritionalDTO nutritional = this.detailService.getNutritional(productDTO.getProductName());
+//		NutritionalDTO nutritional = this.detailService.getNutritional("콘스프");
 		
 		model.addAttribute("list", detailService.getList());
 		model.addAttribute("salad", detailService.getType("샐러드"));
@@ -48,17 +49,18 @@ public class DetailController {
 	}
 	
 	@GetMapping("/view")
-	public String List(Model model, @ModelAttribute ProductDTO productDTO) {
+	public String List(Model model, @ModelAttribute ProductDTO productDTO, @Param("productName")String productName) {
+		System.out.println(">>>>>>>>>>>>" + productDTO);
 		List<DetailDTO> detailList = this.detailService.getList();
 		List<ProductDTO> sides = this.detailService.getType("사이드");
 		List<ProductDTO> beverages = this.detailService.getType("음료");
-//		ProductDTO product = this.detailService.getProduct(productDTO.getProductName());
-		ProductDTO product = this.detailService.getProduct("콘스프");
-//		NutritionalDTO nutritional = this.detailService.getNutritional(productDTO.getProductName());
-		NutritionalDTO nutritional = this.detailService.getNutritional("콘스프");
+		ProductDTO product = this.detailService.getProduct(productDTO.getProductName());
+//		ProductDTO product = this.detailService.getProduct("콘스프");
+		NutritionalDTO nutritional = this.detailService.getNutritional(productDTO.getProductName());
+//		NutritionalDTO nutritional = this.detailService.getNutritional("콘스프");
 		String storeId = (String)session.getAttribute("storeId");
-//		DetailDTO auto = detailService.getAuto(productDTO.getProductName());
-		DetailDTO auto = detailService.getAuto("포케 샐러드");
+		DetailDTO auto = detailService.getAuto(productDTO.getProductName());
+//		DetailDTO auto = detailService.getAuto("포케 샐러드");
 //		System.out.println("*******************" + auto.getAtopping());
 		model.addAttribute("detailList", detailList);
 		model.addAttribute("beverages", beverages);
@@ -153,8 +155,8 @@ public class DetailController {
 	public DetailDTO update(DetailDTO dto, ProductDTO productDTO, @RequestParam List<String> toppingchk, 
 			@RequestParam List<String> sourcechk, @RequestParam(required = false, defaultValue="foke") List<String> extrachk) {
 		ProductDTO product = this.detailService.getProduct(productDTO.getProductName());
-		System.out.println(dto + "!!!!!!!!!!!!!!" + productDTO);
-		System.out.println(toppingchk + "================" + sourcechk + "$$$$$$$$$$$$$$$$" + extrachk);
+//		System.out.println(dto + "!!!!!!!!!!!!!!" + productDTO);
+//		System.out.println(toppingchk + "================" + sourcechk + "$$$$$$$$$$$$$$$$" + extrachk);
 		int currentPrice = Integer.parseInt(product.getProductPrice());
 		dto.setTotal(1);
 		dto.setPrice(currentPrice);

@@ -1,6 +1,7 @@
 package com.foke.demo.dto;
-
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,11 +21,13 @@ public class StockDTO {
 	private int quantityId;
 	
 	@Column
-	private int storeId;
-	
-	@Column
-	private int productId;
-	
-	@Column
 	private int quantity;
+	
+	@ManyToOne
+	@JoinColumn(name = "productId")
+	private ProductDTO productDTO;
+	
+	@ManyToOne
+	@JoinColumn(name = "storeId")
+	private StoreDTO storeDTO;
 }

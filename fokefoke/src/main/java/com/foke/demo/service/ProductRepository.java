@@ -13,6 +13,7 @@ public interface ProductRepository extends JpaRepository<ProductDTO, Integer>{
 	List<ProductDTO> findByProductType(String productType);
 	ProductDTO findByProductName(String productName);
 	List<ProductDTO> findAllByOrderByProductIdDesc();
+	
 	List<ProductDTO> findAll();
 	@Query(value = "Select p from ProductDTO p where p.productType='샐러드' ORDER BY p.productId DESC")
 	List<ProductDTO> typeSalad();
