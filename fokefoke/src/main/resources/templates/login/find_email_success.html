@@ -3,6 +3,8 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+	<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
 	<title>포케포케 : 로그인</title>
 
 	<!-- jQuery -->
@@ -24,8 +26,8 @@
 	<link rel="stylesheet" th:href="@{/css/join.css}" type="text/css">
 
 	<!-- Favicons -->
-	<link href="/img/favicon.png" rel="icon" />
-	<link href="/img/favicon.png" rel="apple-touch-icon" />
+	<link th:href="@{/img/favicon.png}" rel="icon" />
+	<link th:href="@{/img/favicon.png}" rel="apple-touch-icon" />
 </head>
 
 <body>
@@ -42,7 +44,7 @@
 							<div class="blog__details__btns__item"
 								style="padding: 25px 50px 30px; font-size: 15px; border: 1px solid #469543;">
 								<div class="centerplz">
-									${memberId}
+									<span th:text="${memberId}"></span>
 								</div>
 							</div>
 							<div class="row d-flex justify-content-center">
@@ -59,26 +61,21 @@
 			</div>
 		</section>
 	</div>
-	<form id="go">
-		<input type="hidden">
-	</form>
-	
-<!-- 페이지에서 작동되는 함수들 -->
-<script>
-/* 로그인 버튼 클릭 시 */
-$('#login').click(function(){
-	$('#go').attr('action', '/member/login');
-	$('#go').submit();
-}); // 로그인 버튼 끝
 
-/* 로그인 버튼 클릭 시 */
-$('#find_password').click(function(){
-	$('#go').attr('action', '/member/find_password');
-	$('#go').submit();
-}); // 로그인 버튼 끝
+	<!-- 페이지에서 작동되는 함수들 -->
+	<script>
+		$(document).ready(function () {
+			/* 로그인 버튼 클릭 시 */
+			$('#login').click(function () {
+				window.location.href = '/login/loginform';
+			}); // 로그인 버튼 끝
 
-</script>
-
+			/* 로그인 버튼 클릭 시 */
+			$('#find_password').click(function () {
+				window.location.href = '/login/find_password';
+			}); // 로그인 버튼 끝
+		});
+	</script>
 </body>
 
 </html>

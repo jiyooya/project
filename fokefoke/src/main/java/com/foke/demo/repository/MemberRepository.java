@@ -10,6 +10,6 @@ import com.foke.demo.dto.MemberDTO;
 public interface MemberRepository extends JpaRepository<MemberDTO, String> {
 	int countByMemberId(String memberId);
 	Optional<MemberDTO> findBymemberId(String memberId);
-	MemberDTO findByMemberIdAndMemberPw(String memberId, String MemberPw);
+	Optional<MemberDTO> findByMemberNameAndPhone(String memberName, String phone);
 	List<MemberDTO> findByMemberIdLike(String memberId);
 }

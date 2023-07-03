@@ -26,8 +26,8 @@
 	<link rel="stylesheet" th:href="@{/css/join.css}" type="text/css">
 
 	<!-- Favicons -->
-	<link href="/img/favicon.png" rel="icon" />
-	<link href="/img/favicon.png" rel="apple-touch-icon" />
+	<link th:href="@{/img/favicon.png}" rel="icon" />
+	<link th:href="@{/img/favicon.png}" rel="apple-touch-icon" />
 </head>
 
 <!--<jsp:include page="/WEB-INF/views/header.jsp" />-->
@@ -47,18 +47,19 @@
 						<p>포케포케 회원으로 로그인하시면 제공하는<br>다양한 서비스를 이용할 수 있습니다.</p>
 					</div>
 				</div>
+
 				<div th:if="${param.error}">
 					<div class="alert alert-danger">
-						사용자ID 또는 비밀번호를 확인해 주세요.
+						아이디 또는 비밀번호를 확인해 주세요.
 					</div>
 				</div>
+
 				<div class="checkout__input">
 					<input type="text" class="form-control" id="floatingInput" name="username" style="color: #000;"
 						required placeholder="이메일 입력" th:placeholder="@{이메일 입력}" />
 					<input type="password" class="form-control" id="floatingPassword" name="password"
 						style="color: #000; margin-top: -15px;" required placeholder="비밀번호 입력"
 						th:placeholder="@{비밀번호 입력}" />
-
 				</div>
 				<div class="checkbox mb-3">
 					<label for="checkId" style="font-size: 14px;">
@@ -70,11 +71,11 @@
 				<div class="centerplz" style="margin-top: 30px;">
 					<div class="product__details__btns__option">
 						<ul class="nav nav-tabs">
-							<li class="nav-item"><a class="nav-link" th:href="@{/member/find_email}" id="findIdBtn">아이디
+							<li class="nav-item"><a class="nav-link" th:href="@{/login/find_email}" id="findIdBtn">아이디
 									찾기</a></li>
-							<li class="nav-item"><a class="nav-link" th:href="@{/member/find_password}"
+							<li class="nav-item"><a class="nav-link" th:href="@{/login/find_password}"
 									id="findPwBtn">비밀번호 찾기</a></li>
-							<li class="nav-item"><a class="nav-link" th:href="@{/member/join}">회원가입</a></li>
+							<li class="nav-item"><a class="nav-link" th:href="@{/login/join}">회원가입</a></li>
 						</ul>
 						<p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
 					</div>
@@ -89,7 +90,6 @@
 
 	<script>
 		$(document).ready(function () {
-			var result = parseInt("${result}");
 			// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
 			var key = getCookie("key");
 			$("#floatingInput").val(key);
@@ -110,14 +110,9 @@
 				}
 
 				// 로그인 메서드 서버 요청
-				$('#login_form').attr('action', '/member/login');
+				$('#login_form').attr('action', '/login/loginform');
 				$('#login_form').find('[type="submit"]').trigger('click');
 			});
-
-			// result 변수의 값을 확인하여 경고창 출력
-			if (result === 0) { // 아이디 또는 비밀번호가 잘못된 경우
-				alert("아이디 혹은 비밀번호가 잘못되었습니다.");
-			}
 
 			// 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
 			if ($("#floatingInput").val() != "") {

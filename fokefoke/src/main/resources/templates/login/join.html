@@ -412,7 +412,7 @@
 					var memberIdVal = email1Val + '@' + email2Val;
 
 					$('form').append('<input type="hidden" name="memberId" value="' + memberIdVal + '">');
-					$('#signupForm').attr('action', '/member/join');
+					$('#signupForm').attr('action', '/login/join');
 					$('#signupForm').submit();
 				} else {
 					console.log('1' + idCheck + '2' + idDupCheck + '3' + idNumCheck + '4' + pwCheck +
@@ -516,7 +516,7 @@
 
 			$.ajax({
 				type: 'post',
-				url: '/member/memberIdChk',
+				url: '/login/memberIdChk',
 				data: data,
 				beforeSend: addCsrfTokenToAjaxRequest,
 				success: function (result) {

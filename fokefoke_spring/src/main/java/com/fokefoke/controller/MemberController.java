@@ -213,7 +213,7 @@ public class MemberController {
         int result = 0; // 성공 여부
         String newPw = ""; // 임시 비번
         String encodeNewPw = ""; // 암호화된 임시비번
-        String possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~`{}[]:;<>?,./|";
+        String possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~`{}[]:;<>?,./";
         StringBuilder text = new StringBuilder();
         Random random = new Random();
         
