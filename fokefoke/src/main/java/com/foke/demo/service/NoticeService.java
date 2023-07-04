@@ -67,31 +67,4 @@ public class NoticeService {
     public void delete(Integer id) {
         NoticeRepository.deleteById(id);
     }
-  
-    //이미지 업로드
-    /*MultipartFile file 추가*//*예외처리*/
-//    public void imageupload(NoticeDTO notice , MultipartFile file) throws Exception{
-//        /*우리의 프로젝트경로를 담아주게 된다 - 저장할 경로를 지정*/
-//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\blog";
-//
-//        /*식별자 . 랜덤으로 이름 만들어줌*/
-//        UUID uuid = UUID.randomUUID();
-//
-//        /*랜덤식별자_원래파일이름 = 저장될 파일이름 지정*/
-//        String fileName = uuid + "_" + file.getOriginalFilename();
-//
-//        /*빈 껍데기 생성*/
-//        /*File을 생성할건데, 이름은 "name" 으로할거고, projectPath 라는 경로에 담긴다는 뜻*/
-//        File saveFile = new File(projectPath, fileName);
-//
-//        file.transferTo(saveFile);
-//
-//        /*디비에 파일 넣기*/
-//        notice.setNoticeImage(fileName);
-//        /*저장되는 경로*/
-//        notice.setNoticeImagefile("/image/blog/" + fileName); /*저장된파일의이름,저장된파일의경로*/
-//        
-//        /*파일 저장*/
-//        NoticeRepository.save(notice);
-//    }
 }

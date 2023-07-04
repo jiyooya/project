@@ -63,7 +63,7 @@ public class NoticeController {
 	    }
 
 	    // 이미지 파일 저장
-	    String uploadDirectory = "D://kdigital//sbws//fokefoke6-30//src//main//resources//static//img//blog//";
+	    String uploadDirectory = "D://kdigital//sbws//fokefoke//src//main//resources//static//img//blog//";
 	    if (imageFile != null && !imageFile.isEmpty()) {
 	        File uploadDir = new File(uploadDirectory);
 	        if (!uploadDir.exists()) uploadDir.mkdirs();
@@ -90,7 +90,7 @@ public class NoticeController {
 	public ResponseEntity<byte[]> getFile(@PathVariable("noticeImage") String fileName) { // 특정 파일의 이름을 받아서 이미지 데이터를 전송하는 코드
 	    System.out.println("fileName : " + fileName); // fileName은 파일의 경로
 
-	    File file = new File("D://kdigital//sbws//fokefoke6-30//src//main//resources//static//img//blog//" + fileName);
+	    File file = new File("D://kdigital//sbws//fokefoke//src//main//resources//static//img//blog//" + fileName);
 
 	    System.out.println("file : " + file);
 
