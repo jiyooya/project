@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.foke.demo.dto.MemberDTO;
+import com.foke.demo.service.FindPwMailService;
 import com.foke.demo.service.MailService;
 import com.foke.demo.service.MemberService;
 
@@ -24,6 +25,9 @@ public class LoginController {
 
 	@Autowired
 	MailService mailService;
+	
+	@Autowired
+	FindPwMailService pwMailService;
 
 	// 로그인 페이지 이동
 	@GetMapping(value = "/loginform")
@@ -67,7 +71,7 @@ public class LoginController {
 		return "login/find_email";
 	}
 
-	// 아이디 찾기
+	// 아이디 찾기 서비스 실행
 	@PostMapping(value = "/findId")
 	@ResponseBody
 	public String findIdPOST(MemberDTO member) {
@@ -90,11 +94,14 @@ public class LoginController {
 		return "login/find_password";
 	}
 
-	// 비밀번호 찾기
+	// 비밀번호 찾기 서비스 실행
 	@PostMapping(value = "/findPw")
-	public String findPwPOST(MemberDTO member) throws Exception {
-		memberService.setPw(member);
-		return "login/login";
+	public String findPwPOST(String memberId) throws Exception {
+		String nPw = ""; // 임시 비번
+		nPw = pwMailService.sendSimpleMessage(memberId);
+		memberService.setPw(nPw, memberId);
+		
+		return "redirect:/login/loginform";
 	}
 
 }
