@@ -1473,7 +1473,7 @@
 	<div th:if="${dto != null}">
 		<th:block th:with="dto=${dto}"></th:block>
 	</div>
-	<!--<jsp:include page="/WEB-INF/views/header.jsp" />-->
+	<div th:include="/fragments/header :: header"></div>
 	<section class="breadcrumb-option">
 		<div class="container container2">
 			<div class="row">

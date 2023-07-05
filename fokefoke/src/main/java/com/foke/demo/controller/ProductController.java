@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.foke.demo.dto.ProductDTO;
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class ProductController {
 	@Autowired
 	private ProductService productService;
+	
 
 	@GetMapping("/list")
 	public String list(Model model, @Param("storeId") int storeId,@Param("storeName")String storeName,@Param("storeAddress")String storeAddress,@Param("num") String num, HttpServletRequest request) {
@@ -56,9 +58,38 @@ public class ProductController {
 		model.addAttribute("tab",tab);
 		session.setAttribute("storeName", storeName);
 		session.setAttribute("storeAddress", storeAddress);
+		session.setAttribute("storeId", storeId);
 		
 		return "product/list";
 
+	}
+	
+	@GetMapping("/reList")
+	public ModelAndView reList(HttpServletRequest request, @RequestParam(required = false) String num) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", productService.getList());
+		mav.addObject("salad", productService.typeSalad());
+		mav.addObject("side", productService.typeSide());
+		mav.addObject("drink", productService.typeDrink());
+		String tab="";
+		if(num != null) {
+			if(num.equals("1")) {
+				tab = "샐러드";
+			}else if(num.equals("2")) {
+				tab = "사이드";
+			}else if(num.equals("3")) {
+				tab = "음료수";
+			}
+		}
+		mav.addObject("tab", tab);
+		HttpSession session = request.getSession();
+		int storeId = (int)session.getAttribute("storeId");
+		List<StockDTO> stockList = productService.quantity(storeId);
+		mav.addObject("stock", stockList);
+		mav.setViewName("product/list");
+		return mav;
+		
+		
 	}
 	
 }
