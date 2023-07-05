@@ -75,7 +75,7 @@ public class CartDTO implements Serializable{
 	private String extramain;
 	
 	@Column(length = 100, nullable = false)
-	private String setbeverage = "";
+	private String setbeverage;
 	
 	@Column(length = 100, nullable = false)
 	private String setside;
