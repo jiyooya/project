@@ -1,4 +1,4 @@
-package com.foke.demo.notice;
+package com.foke.demo.controller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.foke.demo.dto.NoticeDTO;
+import com.foke.demo.service.NoticeService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;

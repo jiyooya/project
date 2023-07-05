@@ -1,4 +1,4 @@
-package com.foke.demo.notice;
+package com.foke.demo.dto;
 
 import lombok.Getter;
 import lombok.Setter;

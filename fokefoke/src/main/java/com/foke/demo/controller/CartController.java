@@ -125,7 +125,7 @@ public class CartController {
 			    .build();
 		
 		cart.initTotal(); // initTotal() 호출
-		
+		cartService.insertCart(cart);
 		
 //		//CartDTO cart = new CartDTO();
 //	    cart.setCartCount(dto.getTotal());

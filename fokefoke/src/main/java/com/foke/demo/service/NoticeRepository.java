@@ -1,10 +1,12 @@
-package com.foke.demo.notice;
+package com.foke.demo.service;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.foke.demo.dto.NoticeDTO;
 
 public interface NoticeRepository extends JpaRepository<NoticeDTO, Integer> {
 

@@ -104,4 +104,9 @@ public class CartService {
             return 0; // 오류 발생 시 0을 반환
         }
     }
+    
+    public void insertCart(CartDTO cart) {
+    	this.cartRepository.save(cart);
+    	
+    }
 }

@@ -1,4 +1,4 @@
-package com.foke.demo.notice;
+package com.foke.demo.service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -12,6 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.foke.demo.DataNotFoundException;
+import com.foke.demo.dto.NoticeDTO;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

@@ -890,7 +890,6 @@
 		}
 		function extramainRechk() {
 			var extramainValue = /*[[${dto.extramain}]]*/ '';
-			consol.log("extramain>>>>>>" + extramainValue);
 			if (preExtramain !== null) {
 				$("input:radio[name='extramain']:radio[value='" + preExtramain + "']").prop("checked", true);
 				$("input:radio[name='main']:radio[value='" + "메인추가" + "']").prop("checked", true);
@@ -1425,11 +1424,11 @@
 				}
 			});
 			$("#cartPlus").click(function () {
-				//gotocart();
+				gotocart();
 				if (result == 0) alert("장바구니에 담겼습니다.");
 
 				if (confirm("장바구니를 확인하시겠습니까?")) {
-					$('#detailForm').attr('action', '/detail/test').submit();
+					$('#detailForm').attr('action', '/cart/view').submit();
 				} else {
 					return false;
 				}
@@ -1535,7 +1534,7 @@
 
 	<!-- 선택창  -->
 	<form id="detailForm" method="post">
-		<input type="hidden" name="memberId" th:value="${memberId}">
+		<input type="hidden" name="memberId" value="test1@1">
 		<input type="hidden" name="productName" th:value="${product.productName}">
 		<input type="hidden" name="productImage" th:value="${product.productImage}">
 		<div class="select">
