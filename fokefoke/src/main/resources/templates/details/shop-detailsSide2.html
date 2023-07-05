@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
+<th:block layout:fragment="content">
 
 <head>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"
@@ -61,7 +63,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 </head>
 <body th:with="memberId=${session.memberId}">
-	<div th:include="/fragments/header :: header"></div>
 
 <section class="breadcrumb-option" >
 		<div class="container container2">
@@ -159,8 +160,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	<script src="/js/mixitup.min.js"></script>
 	<script src="/js/owl.carousel.min.js"></script>
 	<script src="/js/main.js"></script>
-	<!--<jsp:include page="/WEB-INF/views/footer.jsp" />-->
-	<div th:include="/fragments/footer :: footer"></div>
 </body>
-
+</th:block>
 </html>

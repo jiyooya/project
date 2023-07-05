@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
+<th:block layout:fragment="content">
 <head>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"
 		integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
@@ -1471,9 +1472,7 @@
 
 <body>
 	<div th:if="${dto != null}">
-		<th:block th:with="dto=${dto}"></th:block>
 	</div>
-	<div th:include="/fragments/header :: header"></div>
 	<section class="breadcrumb-option">
 		<div class="container container2">
 			<div class="row">
@@ -2089,7 +2088,6 @@
 	<script src="/js/mixitup.min.js"></script>
 	<script src="/js/owl.carousel.min.js"></script>
 	<script src="/js/main.js"></script>
-	<!--<jsp:include page="/WEB-INF/views/footer.jsp" />-->
 </body>
-
+</th:block>
 </html>
