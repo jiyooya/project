@@ -7,14 +7,12 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.foke.demo.dto.CartDTO;
-import com.foke.demo.dto.CartListDTO;
 import com.foke.demo.dto.DetailDTO;
 import com.foke.demo.dto.MemberDTO;
 import com.foke.demo.dto.PaymentDTO;
