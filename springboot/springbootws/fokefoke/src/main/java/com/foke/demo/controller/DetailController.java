@@ -52,6 +52,8 @@ public class DetailController {
 	@GetMapping("/view")
 	public String List(Model model, @ModelAttribute ProductDTO productDTO, @Param("productName")String productName) {
 		System.out.println(">>>>>>>>>>>>" + productDTO);
+		String memberId = "fokeTest"; //임시 아이디
+		session.setAttribute("memberId", memberId);
 		List<DetailDTO> detailList = this.detailService.getList();
 		List<ProductDTO> sides = this.detailService.getType("사이드");
 		List<ProductDTO> beverages = this.detailService.getType("음료");

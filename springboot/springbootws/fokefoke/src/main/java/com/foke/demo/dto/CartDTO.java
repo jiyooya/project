@@ -44,77 +44,77 @@ public class CartDTO implements Serializable{
 	@Column(length = 100)
 	private String productName;
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private String base;
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private String atopping;
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private String btopping;
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private String ctopping;
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private String dtopping;
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private String asource;
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private String bsource;
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private String aextratopping;
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, updatable=false)
 	private String bextratopping;
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private String extramain;
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private String setbeverage;
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private String setside;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Integer total;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Integer price;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Integer onePrice;
 	
 	//추가(한개의 포인트)
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Integer point;
 	
 	//store 테이블
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private String storeName;
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private String storeAddress;
 	
 	//추가(가격)
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Integer totalPrice; //(+배송비)
 
 	//추가(포인트)
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Integer totalPoint;
 	
 	//추가(상품이미지)
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = true)
 	private String cartImage;
 	
 	public void initTotal() {
 		this.totalPrice = this.onePrice * this.cartCount;
-		this.point = (int)(Math.floor(this.onePrice*0.05));
+		this.point = (int)(Math.floor(this.onePrice*0.02));
 		this.totalPoint = this.point * this.cartCount;
 	}
 

@@ -52,7 +52,7 @@ public class PaymentController {
 		pay.setMemberId((String)session.getAttribute("memberId"));
 		
 		//장바구니 정보 리스트
-		List<CartDTO> cartList = cartService.getCartList();
+		List<CartDTO> cartList = cartService.getCartList(memberId);
 		List<CartDTO> cartLists = new ArrayList<CartDTO>();
 		for(int j=0; j<cartList.size();j++) {
 			for(int i=0; i<cartId.size();i++) {
@@ -93,7 +93,7 @@ public class PaymentController {
 		
 		
 		//장바구니 정보 리스트
-		List<CartDTO> cartList = cartService.getCartList();
+		List<CartDTO> cartList = cartService.getCartList(memberId);
 		List<CartDTO> cartLists = new ArrayList<CartDTO>();
 			for(int j=0; j<cartList.size();j++) {
 				for(int i=0; i<cartId.size();i++) {

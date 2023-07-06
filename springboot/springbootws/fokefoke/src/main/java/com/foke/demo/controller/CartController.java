@@ -6,10 +6,10 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,7 +22,6 @@ import com.foke.demo.dto.ProductDTO;
 //import com.fokefoke.service.CartService;
 //import com.fokefoke.service.DetailService;
 import com.foke.demo.service.CartService;
-import com.foke.demo.service.DetailService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -33,32 +32,27 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class CartController {
 	
-	private final HttpSession session;
 	private final CartService cartService;
-	private final DetailService detailService;
 	
-	//리스트(합칠때)
-	@PostMapping("/view")
-    public String listCart(Model model, @ModelAttribute CartDTO cartDTO, HttpSession session) {
-//      String memberId = (String) session.getAttribute("memberId");
-//      List<CartDTO> cartList = this.cartService.getCartList(memberId);
+	//view
+	@RequestMapping(value = "/{memberId}", method = {RequestMethod.POST, RequestMethod.GET})
+	public String cartPagePOST(@PathVariable("memberId") String memberId, Model model, HttpSession session) {
+		memberId = (String)session.getAttribute("memberId");
+		List<CartDTO> cartList = this.cartService.getCartList(memberId);		
+		model.addAttribute("memberId", memberId);
+		model.addAttribute("cartInfo", cartList);
 		
-		@SuppressWarnings("unchecked")
-        //List<CartDTO> cartList = this.cartService.getCartList();
-		List<CartDTO> cartInfo = (List<CartDTO>)session.getAttribute("cartList2");
-		model.addAttribute("cartInfo", cartInfo);
-        System.out.println(cartInfo);
-        
-        return "cart/cart";
-    }
+		return "cart/cart";
+	}
 	
+	//추가
 	@ResponseBody
 	@PostMapping("/add")
 	public int addCartPOST(Model model, @RequestParam Map<String, String> map, 
 			DetailDTO dto, ProductDTO productDTO,
 			@RequestParam(required = false, defaultValue="foke") List<String> toppingchk, 
 			@RequestParam(required = false, defaultValue="foke") List<String> sourcechk, 
-			@RequestParam(required = false, defaultValue="foke") List<String> extrachk){
+			@RequestParam(required = false, defaultValue="foke") List<String> extrachk, HttpSession session){
 		
 		if (toppingchk != null) {
 			for(int i=0;i<toppingchk.size();i++) {
@@ -92,8 +86,11 @@ public class CartController {
 			}
 		}
 
-		List<DetailDTO> detailList =  this.detailService.getList();
+		//List<DetailDTO> detailList =  this.detailService.getList();
 		
+		//member
+		String memberId = (String)session.getAttribute("memberId");
+		model.addAttribute("memberId",memberId);
 		
 		//store
 	    String storeName = (String) session.getAttribute("storeName");
@@ -101,7 +98,6 @@ public class CartController {
 		
 		CartDTO cart = CartDTO.builder()
 				.fokeingredientId(dto.getFokeingredientId())
-				.memberId(dto.getMemberId())
 				.productName(dto.getProductName())
 				.base(dto.getBase())
 				.atopping(dto.getAtopping())
@@ -122,155 +118,48 @@ public class CartController {
 				.cartCount(dto.getTotal())
 	            .storeName(storeName)
 	            .storeAddress(storeAddress)
+	            .memberId((String)session.getAttribute("memberId"))
 			    .build();
-		
 		cart.initTotal(); // initTotal() 호출
-		cartService.insertCart(cart);
-		
-//		//CartDTO cart = new CartDTO();
-//	    cart.setCartCount(dto.getTotal());
-//	    cart.setCartImage(dto.getProductImage());
-//	    //cart.setMemberId((String) session.getAttribute("memberId"));
-//	    //cart.setStoreId(Integer.parseInt((String) session.getAttribute("storeId")));
-//	    cart.setFokeingredientId(dto.getFokeingredientId());
-//	    cart.setProductName(dto.getProductName());
-//	    cart.setBase(dto.getBase());
-//	    cart.setAtopping(dto.getAtopping());
-//	    cart.setAsource(dto.getAsource());
-//	    //cart.getOnePrice(dto.getOnePrice());
 	    
-	    List<CartDTO> cartList2 = new ArrayList<>();
-	    cartList2.add(cart);
-	    session.setAttribute("cartList2", cartList2);
-		
-		System.out.println("map정보 : " + map);
-		System.out.println("topping정보 : " + toppingchk);
-		System.out.println("detail 이미지 : " + dto.getProductImage());
-		System.out.println("detail a소스 : " + dto.getAsource());
-		System.out.println("detail 베이스 : " + dto.getBase());
-		System.out.println("detail  : " + dto.getBase());
-		System.out.println("detail : " +  dto.getFokeingredientId());
-		System.out.println("detail oneprice: " +  dto.getPrice() / dto.getTotal());
-		
-		System.out.println("detailList : " + detailList);
-		
-		System.out.println("=====================================================");
-		
-		System.out.println("cartDTO 정보 : " + cart.getProductName());
-		System.out.println("cartDTO 정보 : " + cart.getAtopping());
-		System.out.println("cartDTO a소스 : " + cart.getAsource());
-		System.out.println("cartDTO Id : " +  cart.getFokeingredientId());
-		System.out.println("cartDTO 베이스 : " + cart.getBase());
-		System.out.println("cartDTO Id : " +  cart.getPrice());
-		System.out.println("cartDTO 이미지 : " + cart.getCartImage());
-		System.out.println("cartDTO total : " + cart.getTotal());
-		System.out.println("cartDTO onePrice : " + cart.getOnePrice());
-		System.out.println("cartDTO storeName : " + cart.getStoreName());
-		System.out.println("cartDTO storeAddress : " + cart.getStoreAddress());
-		System.out.println("cartDTO 얻는포인트 : " + cart.getPoint());
-		System.out.println("cartDTO 전체포인트 : " + cart.getTotalPoint());
-	
-		
-		System.out.println("cartList2 : " + cartList2);
+	    List<CartDTO> cartList = new ArrayList<>();
+	    cartList.add(cart);
+	    session.setAttribute("cartList", cartList);
 		
 		int result = this.cartService.addCart(cart);
 		
 		return result;
 	}
 	
-	
-//	@PostMapping("/add")
-//    @ResponseBody
-//    public int addCartPOST(HttpSession session, @RequestBody DetailDTO dto,
-//                           @RequestParam(required = false) List<String> toppingchk,
-//                           @RequestParam(required = false) List<String> sourcechk,
-//                           @RequestParam(required = false) List<String> extrachk) {
-//        if (toppingchk != null) {
-//            for (int i = 0; i < toppingchk.size(); i++) {
-//                if (i == 0) {
-//                    dto.setAtopping(toppingchk.get(i));
-//                } else if (i == 1) {
-//                    dto.setBtopping(toppingchk.get(i));
-//                } else if (i == 2) {
-//                    dto.setCtopping(toppingchk.get(i));
-//                } else if (i == 3) {
-//                    dto.setDtopping(toppingchk.get(i));
-//                }
-//            }
-//        }
-//        if (sourcechk != null) {
-//            for (int i = 0; i < sourcechk.size(); i++) {
-//                if (i == 0) {
-//                    dto.setAsource(sourcechk.get(i));
-//                } else if (i == 1) {
-//                    dto.setBsource(sourcechk.get(i));
-//                }
-//            }
-//        }
-//        if (extrachk != null) {
-//            for (int i = 0; i < extrachk.size(); i++) {
-//                if (i == 0) {
-//                    dto.setAextratopping(extrachk.get(i));
-//                } else if (i == 1) {
-//                    dto.setBextratopping(extrachk.get(i));
-//                }
-//            }
-//        }
-//
-//        //System.out.println("post---------------" + session.getAttribute("memberId"));
-//        //System.out.println("post---------------" + session.getAttribute("storeId"));        
-//        //service.insertDetail(dto);
-//		//List<DetailDTO> detailList =service.getFokeingredient(dto);
-//
-//        List<DetailDTO> detailList =  this.detailService.getList();
-//        
-//        List<CartDTO> cartList = new ArrayList<>();
-//        for (DetailDTO detail : detailList) {
-//            CartDTO cart = new CartDTO();
-//            cart.setCartCount(detail.getTotal());
-//            cart.setCartImage(detail.getProductImage());
-//            cart.setMemberId((String) session.getAttribute("memberId"));
-//            cart.setStoreId(Integer.parseInt((String) session.getAttribute("storeId")));
-//            cart.setFokeingredientId(detail.getFokeingredientId());
-//            cartList.add(cart);
-//        }
-//        
-//      //카트등록
-//  		int result = this.cartService.addCart(null);
-//  		System.out.println(result);
-//  		
-//  		return result;
-//     }
-	
-	
-	
-	//@GetMapping("/{memberId}")
-	//public String cartPageGET(@PathVariable("memberId") String memberId, Model model) {
-	
-//	@GetMapping("/view")
-//	public String cartPageGET(Model model) {
-//	  //List<CartDTO> cartList = cartService.getCartList(memberId);
-//	    List<CartDTO> cartList = this.cartService.getCartList();
-//	    model.addAttribute("cartInfo", cartList);
-//	    // Model 객체의 addAttribute를 활용해 장바구니 데이터 전송
-//	    return "cart/cart";
-//    }
-
+	//수량수정
 	@ResponseBody
-	@PostMapping("/cart/update")
-	public String updateCartPOST(@RequestBody CartDTO cart) {
-	    int result = cartService.modifyCount(cart); // Service 메서드 호출
+	@PostMapping(value = "/update")
+	public String updateCartPOST(@RequestParam("cartId") int cartId,
+	                              @RequestParam("cartCount") int cartCount,
+	                              @RequestParam("memberId") String memberId) {
+	    CartDTO cart = new CartDTO();
+	    cart.setCartId(cartId);
+	    cart.setCartCount(cartCount);
+	    cart.setMemberId(memberId);
+
+	    int result = this.cartService.modifyCount(cart);
 	    return String.valueOf(result);
 	}
-
-	@PostMapping("/cart/delete")
-	public String deleteCartPOST(@RequestBody CartDTO cart, HttpServletRequest request) {
-	    HttpSession session = request.getSession();
-	    cartService.deleteCart(cart.getCartId());
-	    cart.setMemberId((String) session.getAttribute("memberId"));
-	    return "redirect:/cart/" + cart.getMemberId();
+	
+	//상품삭제
+	@PostMapping("/delete")
+	public String deleteCartPOST(CartDTO cart, @RequestParam("cartId") int cartId, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String memberId = (String) session.getAttribute("memberId");
+		cart.setMemberId(memberId);
+		System.out.println("cartId : " + cartId);
+		System.out.println("cartMemberId : " + memberId);
+		
+		this.cartService.deleteCart(cartId);
+		
+		return "redirect:/cart/" + memberId;
 	}
-
+	
 
 }
 
