@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +22,7 @@ import com.foke.demo.dto.ProductDTO;
 import com.foke.demo.dto.StoreDTO;
 import com.foke.demo.service.CartService;
 import com.foke.demo.service.DetailService;
+import com.foke.demo.service.MemberService;
 import com.foke.demo.service.Paymentservice;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,18 +37,16 @@ public class PaymentController {
 
 	@Autowired
 	private final Paymentservice paymentservice;
-//	private final Memberservice memberservice;
+	//private final MemberService memberservice;
 	private final DetailService detailService;
 	private final CartService cartService;
 	
 	//카트 - 결제 페이지
 	@RequestMapping(value = "list", method={RequestMethod.GET, RequestMethod.POST})
-	public String list(HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, MemberDTO mdto, @RequestParam(required=false) List<String> cartId) {
-		
-		HttpSession session = request.getSession();
+	public String list(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, MemberDTO mdto, @RequestParam(required=false) List<String> cartId) {
+		String memberId = user.getUsername();
 		StoreDTO sdto = new StoreDTO();
 		
-		String memberId = (String)session.getAttribute("memberId");
 		mdto.setMemberId(memberId);
 		MemberDTO member = this.paymentservice.getMember(mdto.getMemberId());
 //		PaymentDTO pay = new PaymentDTO();
@@ -76,13 +77,12 @@ public class PaymentController {
 	
 	//카트 - 뷰 페이지
 	@RequestMapping(value = "order", method={RequestMethod.GET, RequestMethod.POST})
-	public String order(HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, MemberDTO mdto, @RequestParam(required=false) List<String> cartId) {
-	
+	public String order(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, MemberDTO mdto, @RequestParam(required=false) List<String> cartId) {
 		HttpSession session = request.getSession();
 		StoreDTO sdto = new StoreDTO();
 		sdto.setStoreName((String)session.getAttribute("storeName"));
+		String memberId = user.getUsername();
 		sdto.setStoreAddress((String)session.getAttribute("StoreAddress"));
-		String memberId = (String)session.getAttribute("memberId");
 		mdto.setMemberId(memberId);
 		
 		//장바구니 정보 리스트
@@ -111,8 +111,8 @@ public class PaymentController {
 //				String randomString = sb.toString();		
 		
 		//테스트
-		mdto.setPhone("010");
-		mdto.setPoint(1000);
+//		mdto.setPhone("010");
+//		mdto.setPoint(1000);
 		
 		
 		model.addAttribute("store", sdto);
@@ -126,7 +126,7 @@ public class PaymentController {
 	
 	//뷰 - 결제페이지
 	@RequestMapping(value = "list1", method={RequestMethod.GET, RequestMethod.POST})
-	public String list1(HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, MemberDTO mdto, DetailDTO ddto, @RequestParam(required = false) List<String> toppingchk, 
+	public String list1(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, MemberDTO mdto, DetailDTO ddto, @RequestParam(required = false) List<String> toppingchk, 
 			@RequestParam(required = false) List<String> sourcechk, @RequestParam(required = false) List<String> extrachk) {
 
 
@@ -166,7 +166,7 @@ public class PaymentController {
 		StoreDTO sdto = new StoreDTO();
 		sdto.setStoreName((String)session.getAttribute("storeName"));
 		sdto.setStoreAddress((String)session.getAttribute("storeAddress"));
-		String memberId = (String)session.getAttribute("memberId");
+		String memberId = user.getUsername();
 		mdto.setMemberId(memberId);
 		
 		MemberDTO member = this.paymentservice.getMember(mdto.getMemberId());
@@ -174,8 +174,8 @@ public class PaymentController {
 //		pay.setMemberId((String)session.getAttribute("memberId"));
 		
 		//테스트
-		mdto.setPoint(1000);
-		mdto.setPhone("010");
+//		mdto.setPoint(1000);
+//		mdto.setPhone("010");
 		//detail 데이터 세션을 담음
 		session.setAttribute("detail", ddto);
 		
@@ -192,14 +192,14 @@ public class PaymentController {
 	
 	//디테일 - 오더 페이지
 	@RequestMapping(value = "order1", method={RequestMethod.GET, RequestMethod.POST})
-	public String order1(HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, MemberDTO mdto, DetailDTO ddto) {
+	public String order1(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, MemberDTO mdto, DetailDTO ddto) {
 	
 		HttpSession session = request.getSession();
 		DetailDTO sessionddto = (DetailDTO)session.getAttribute("detail");
 		StoreDTO sdto = new StoreDTO();
 		sdto.setStoreName((String)session.getAttribute("storeName"));
 		sdto.setStoreAddress((String)session.getAttribute("storeAddress"));
-		String memberId = (String)session.getAttribute("memberId");
+		String memberId = user.getUsername();
 		mdto.setMemberId(memberId);
 		
 		HttpSession mession = request.getSession();

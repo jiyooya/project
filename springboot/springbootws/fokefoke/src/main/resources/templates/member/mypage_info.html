@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
+<th:block layout:fragment="content">
 
 <head>
 	<meta charset="UTF-8">
@@ -30,7 +32,7 @@
 	<link th:href="@{/img/favicon.png}" rel="apple-touch-icon" />
 </head>
 
-<body>
+<span>
 	<div class="loginbody text-center">
 		<main class="form-signin w-100 m-auto">
 			<form class="check_password_form" onsubmit="return false">

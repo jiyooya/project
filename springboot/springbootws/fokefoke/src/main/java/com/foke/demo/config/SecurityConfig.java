@@ -33,7 +33,7 @@ public class SecurityConfig{
                .requestMatchers("/").permitAll()
                .requestMatchers("/login/**").permitAll()
                .requestMatchers("/admin/**").hasRole("ADMIN")
-               .requestMatchers("/member/**").hasRole("USER")
+               .requestMatchers("/member/**", "/cart/**", "/payment/**").hasRole("USER")
                .anyRequest().authenticated()
            )  
        .csrf(cors -> cors
