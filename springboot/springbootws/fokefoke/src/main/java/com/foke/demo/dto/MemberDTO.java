@@ -19,6 +19,7 @@ public class MemberDTO {
 	
 	// 회원 기본 정보
     @Id
+    @Column(nullable = false)
     private String memberId;
 
     @Column(length = 200)
@@ -34,33 +35,29 @@ public class MemberDTO {
     @Column
     private String phone;
     
-    // 0:여자 1:남자
-    @Column
-    private int sex;
-    
     
     // 관리자 구분(0:일반사용자, 1:관리자)
     // 근데 쓸지 모르겠음
-    @Column
-    private int adminCk;
+    @Column(nullable = false)
+    private Integer adminCk = 0;
     
     
     // 마케팅 동의 여부(0:false, 1:true)
-    @Column
-    private int consentPush;
+    @Column(nullable = false)
+    private Integer consentPush;
     
-    @Column
-    private int consentEmail;
+    @Column(nullable = false)
+    private Integer consentEmail;
     
-    @Column
-    private int consentSMS;
+    @Column(nullable = false)
+    private Integer consentSMS;
     
     
     // 예비 변수
     @Column
-    private int money;
+    private Integer money;
     
     @Column
-    private int point;
+    private Integer point;
     
 }
