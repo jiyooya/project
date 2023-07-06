@@ -31,12 +31,9 @@
 </head>
 
 <body>
-	
-	<span th:text="${#authentication.principal.username}"></span>
-
 	<div class="loginbody text-center">
 		<main class="form-signin w-100 m-auto">
-			<form class="check_password_form" th:action="@{/}" onsubmit="return false">
+			<form class="check_password_form" onsubmit="return false">
 				<!-- CSRF 토큰을 포함시키는 부분 -->
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 				<div class="section-title">
@@ -47,12 +44,12 @@
 				</div>
 				<div class="checkout__input">
 					<input type="password" class="checkout__input" id="floatingPassword" name="memberPw"
-						onKeyUp="chkPW()" placeholder="비밀번호 입력" style="color:#000;" required />
+						placeholder="비밀번호 입력" style="color:#000;" required />
 					<span class="id_input_re_2">비밀번호를 입력해주세요.</span>
 					<span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
 					<label for="floatingInput"></label>
 				</div>
-				<button class="goodbtn" id="submit" type="button">확인</button>
+				<button class="goodbtn" id="submit" type="submit">확인</button>
 				<div class="centerplz">
 					<div class="product__details__btns__option">
 						<p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
@@ -62,17 +59,14 @@
 		</main>
 	</div>
 
-	<script th:inline="javascript">
-	alert('aaaa');
-    /*<![CDATA[*/
-		/*var memberId = [[${#authentication.principal.username};]]*/
-		console.log(memberId);
+	<script>
 		/* 유효성 검사 통과유무 변수 */
 		var pwck = false;
 
 		$(document).ready(function () {
 			//회원가입 버튼(회원가입 기능 작동)
 			$('#submit').click(function () {
+				var memberId = '[[${#authentication.principal.username}]]';
 				var memberPw = $('#floatingPassword').val(); // 비밀번호 입력란
 				var data = {
 					memberId: memberId, // memberId 값을 추가
@@ -81,8 +75,6 @@
 
 				/* 비밀번호 유효성검사 */
 				if (pwck == false) {
-					$('.pwck_input_re_2').css('display', 'none');
-					$('.id_input_re_2').css('display', 'block');
 					$('#floatingPassword').focus();
 				} else {
 					$.ajax({
@@ -95,6 +87,7 @@
 								$('.pwck_input_re_2').css('display', 'block');
 								$('#floatingPassword').focus();
 							} else {
+								// 로그인 메서드 서버 요청
 								location.href = "edit";
 							}
 						} /* success 종료 */
@@ -103,11 +96,16 @@
 			}); // 버튼 클릭 끝
 		}); // 레디 끝
 
+		$("#floatingPassword").on("input", function () {
+			chkPW();
+		}); // 함수 종료
+
 		function chkPW() {
 			var memberPw = $("#floatingPassword").val();
 
 			if (memberPw != '') {
 				$('.id_input_re_2').css('display', 'none');
+				$('.pwck_input_re_2').css('display', 'none');
 				pwck = true;
 			} else {
 				$('.id_input_re_2').css('display', 'block');
@@ -115,7 +113,7 @@
 				pwck = false;
 			}
 		} // chkPW()함수 끝
-	 /*]]>*/
+
 	</script>
 
 	<!-- Js Plugins -->

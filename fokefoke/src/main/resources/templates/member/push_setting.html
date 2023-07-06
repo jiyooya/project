@@ -3,6 +3,8 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+	<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
 	<title>포케포케 : 로그인</title>
 
 	<!-- jQuery -->
@@ -24,16 +26,18 @@
 	<link rel="stylesheet" th:href="@{/css/join.css}" type="text/css">
 
 	<!-- Favicons -->
-	<link href="/img/favicon.png" rel="icon" />
-	<link href="/img/favicon.png" rel="apple-touch-icon" />
+	<link th:href="@{/img/favicon.png}" rel="icon" />
+	<link th:href="@{/img/favicon.png}" rel="apple-touch-icon" />
 </head>
 
 <body>
+
 	<!-- Checkout Section Begin -->
 	<div class="product__details__tab" style="padding-top: 0;">
 		<ul class="nav nav-tabs" role="tablist">
 			<li class="nav-item"><a class="nav-link" href="/member/mypage/edit">회원 정보 수정</a></li>
-			<li class="nav-item"><a class="nav-link active" href="/member/mypage/push_setting">알림 설정</a></li>
+			<li class="nav-item"><a class="nav-link active" href="/member/mypage/push_setting" style="color:#469543;">알림
+					설정</a></li>
 			<li class="nav-item"><a class="nav-link" href="/member/mypage/edit_password">비밀번호 변경</a></li>
 		</ul>
 	</div>
@@ -50,25 +54,25 @@
 							<div class="checkout__input__checkbox">
 								<label style="display: inline-block; padding-left: 20px; padding-right: 50px;">
 									PUSH 수신 동의
-									<input type="checkbox" class="consentPush_input" name="consentPush"
-										th:checked="${member.consentPush}" th:value="true" id="consentPush">
-									<input type="hidden" class="consentPush_input" name="consentPush" th:value="false"
+									<input type="checkbox" class="consentPush_input" name="consentPush" value='1'
+										id="consentPush">
+									<input type="hidden" class="consentPush_input" name="consentPush" value='0'
 										id="consentPush_hidden">
 									<span class="checkmark"></span>
 								</label>
 								<label style="display: inline-block; padding-left: 20px; padding-right: 50px;">
 									이메일 수신 동의
-									<input type="checkbox" class="consentEmail_input" name="consentEmail"
-										th:checked="${member.consentEmail}" th:value="true" id="consentEmail">
-									<input type="hidden" class="consentEmail_input" name="consentEmail" th:value="false"
+									<input type="checkbox" class="consentEmail_input" name="consentEmail" value='1'
+										id="consentEmail">
+									<input type="hidden" class="consentEmail_input" name="consentEmail" value='0'
 										id="consentEmail_hidden">
 									<span class="checkmark"></span>
 								</label>
 								<label style="display: inline-block; padding-left: 20px; padding-right: 50px;">
 									문자 / 알림톡 수신 동의
-									<input type="checkbox" class="consentSMS_input" name="consentSMS"
-										th:checked="${member.consentSMS}" th:value="true" id="consentSMS">
-									<input type="hidden" class="consentSMS_input" name="consentSMS" th:value="false"
+									<input type="checkbox" class="consentSMS_input" name="consentSMS" value='1'
+										id="consentSMS">
+									<input type="hidden" class="consentSMS_input" name="consentSMS" value='0'
 										id="consentSMS_hidden">
 									<span class="checkmark"></span>
 								</label>
@@ -81,12 +85,12 @@
 	</section>
 	<!-- Checkout Section End -->
 
-
 	<script>
+
 		/* 입력된 마케팅 수신 동의 값 */
-		var consentPush = parseInt("${member.consentPush}");
-		var consentEmail = parseInt("${member.consentEmail}");
-		var consentSMS = parseInt("${member.consentSMS}");
+		var consentPush = parseInt('[[${member.consentPush}]]');
+		var consentEmail = parseInt('[[${member.consentEmail}]]');
+		var consentSMS = parseInt('[[${member.consentSMS}]]');
 
 		/* 마케팅 동의 */
 		if ($("#consentPush").is(":checked")) {
@@ -100,6 +104,7 @@
 		}
 
 		$(document).ready(function () {
+
 			/* 값 받아와서 체크박스 체크 */
 			if (consentPush === 0) {
 				$("#consentPush_hidden").prop("checked", true);
@@ -127,30 +132,36 @@
 
 		/* 푸시 설정 변경 */
 		function consentPushSet() {
-			var push = $("input[name='consentPush']:checked").val(); // 체크박스 값
-			var email = $("input[name='consentEmail']:checked").val(); // 체크박스 값
-			var sms = $("input[name='consentSMS']:checked").val(); // 체크박스 값
+			var push = $("input[name='consentPush']:checked").val() || 0; // 체크박스 값
+			var email = $("input[name='consentEmail']:checked").val() || 0; // 체크박스 값
+			var sms = $("input[name='consentSMS']:checked").val() || 0; // 체크박스 값
 			var data = {
-				memberId: "${memberId}",
+				memberId: '[[${member.memberId}]]',
 				consentPush: push,
 				consentEmail: email,
 				consentSMS: sms
 			}; // '컨트롤에 넘길 데이터 이름' : '데이터(name=consentPush에 입력되는 값)'
 
+
 			$.ajax({
 				type: 'post',
 				url: '/member/consentPushSet',
 				data: data,
+				beforeSend: addCsrfTokenToAjaxRequest,
 				success: function (result) {
 					if (result == 'fail') { // 업뎃 실패
-						alert('저장을 실패했습니다. 페이지를 새로고침 해주세요.');
+						alert('설정 변경을 실패했습니다. 페이지를 새로고침 해주세요.');
 					} else { // 업뎃 성공
-						alert('저장 했습니다.');
+						alert('변경 완료 되었습니다.');
 					}
 				} /* success 종료 */
 			});	/* ajax 종료 */
 		}; // consentPushSet 끝
+
 	</script>
+
+	<!-- Js Plugins -->
+	<script th:src="@{/js/addCsrfTokenToAjaxRequest.js}"></script>
 
 </body>
 

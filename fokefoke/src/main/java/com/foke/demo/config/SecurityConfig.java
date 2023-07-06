@@ -14,6 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import jakarta.servlet.DispatcherType;
+
 
 @Configuration
 @EnableWebSecurity
@@ -25,9 +27,14 @@ public class SecurityConfig{
        http
        .authorizeHttpRequests(
                authorize -> authorize
-               	   .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                   .requestMatchers("/**").permitAll()
-                   .requestMatchers("/login/**").permitAll()
+               .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+               .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+               .requestMatchers("/status", "/img/**", "/js/**", "/css/**").permitAll()
+               .requestMatchers("/").permitAll()
+               .requestMatchers("/login/**").permitAll()
+               .requestMatchers("/admin/**").hasRole("ADMIN")
+               .requestMatchers("/member/**").hasRole("USER")
+               .anyRequest().authenticated()
            )  
        .csrf(cors -> cors
     		   .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
@@ -38,7 +45,9 @@ public class SecurityConfig{
         )
        .formLogin(fLogin -> fLogin
                .loginPage("/login/loginform")
-               .defaultSuccessUrl("/")         
+               .defaultSuccessUrl("/")
+               .usernameParameter("memberId")
+               .passwordParameter("memberPw")
         )
        .logout(lo -> lo
                .logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"))

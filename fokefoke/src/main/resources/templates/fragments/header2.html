@@ -121,18 +121,4 @@
 <script th:src="@{/js/mixitup.min.js}"></script>
 <script th:src="@{/js/main.js}"></script>-->
 
-<script>
-	/* gnb_area 로그아웃 버튼 작동 */
-	$(".gnb_logout_button").click(function () {
-		$.ajax({
-			type: "POST",
-			url: "/member/logout.do",
-			success: function (data) {
-				document.location.reload();
-			}
-		}); // ajax 
-	}); // 버튼 클릭 메서드 끝
-</script>
-
-
 </html>

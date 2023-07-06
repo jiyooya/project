@@ -35,10 +35,6 @@ public class MemberDTO {
     @Column
     private String phone;
     
-    // 0:여자 1:남자
-    @Column
-    private Integer gender;
-    
     
     // 관리자 구분(0:일반사용자, 1:관리자)
     // 근데 쓸지 모르겠음
