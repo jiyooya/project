@@ -30,7 +30,7 @@ public class SecurityConfig{
                .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                .requestMatchers("/status", "/img/**", "/js/**", "/css/**").permitAll()
-               .requestMatchers("/").permitAll()
+               .requestMatchers("/**").permitAll()
                .requestMatchers("/login/**").permitAll()
                .requestMatchers("/admin/**").hasRole("ADMIN")
                .requestMatchers("/member/**", "/cart/**", "/payment/**").hasRole("USER")
