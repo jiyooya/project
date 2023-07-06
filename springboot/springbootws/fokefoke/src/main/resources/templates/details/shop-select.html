@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
+<th:block layout:fragment="content">
 
 <head th:with="memberId=${session.memberId}">
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"
@@ -630,6 +632,7 @@
 				type: 'post',
 				url: '/detail/update',
 				data: queryString,
+				beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					/* Thymeleaf if condition */
@@ -711,6 +714,7 @@
 				type: 'post',
 				url: '/detail/toppingChk',
 				data: toppingString,
+				beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					console.log("preBase>>>>>>>" + data.base);
@@ -744,6 +748,7 @@
 				type: 'post',
 				url: '/detail/toppingChk',
 				data: toppingString,
+				beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					console.log(data);
@@ -790,6 +795,7 @@
 				type: 'post',
 				url: '/detail/toppingChk',
 				data: sourceString,
+				beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					console.log("preSour>>>>>>>>" + data);
@@ -826,6 +832,7 @@
 				type: 'post',
 				url: '/detail/toppingChk',
 				data: extratoppingString,
+				beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					console.log("preEx>>>>" + data);
@@ -865,6 +872,7 @@
 				type: 'post',
 				url: '/detail/toppingChk',
 				data: toppingString,
+				beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					console.log(data.extramain);
@@ -916,6 +924,7 @@
 				type: 'post',
 				url: '/detail/toppingChk',
 				data: toppingString,
+				beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					preSetside = null;
@@ -1224,6 +1233,7 @@
 				type: 'post',
 				url: '/cart/add',
 				data: detailString,
+				beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					result = data;
@@ -1537,6 +1547,8 @@
 
 	<!-- 선택창  -->
 	<form id="detailForm" method="post">
+		<!-- CSRF 토큰을 포함시키는 부분 -->
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 		<input type="hidden" name="memberId" th:value="${memberId}">
 		<input type="hidden" name="productName" th:value="${product.productName}">
 		<input type="hidden" name="productImage" th:value="${product.productImage}">
