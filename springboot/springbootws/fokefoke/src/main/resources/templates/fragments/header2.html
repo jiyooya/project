@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+	<th:block th:fragment="headerFragment">
+<head>
+	<title>FokeFoke</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="FokeFoke">
+	<meta name="keywords" content="FokeFoke, salad, fresh, fast">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+		.imgmain {
+            transition: transform 0.3s ease;
+        }
+        
+        .imgmain:hover {
+            transform: scale(1.5);
+        }
+	</style>
+
+</head>
+<body>
+		<!-- Page Preloder -->
+		<div id="preloder">
+			<div class="loader"></div>
+		</div>
+
+		<!-- Offcanvas Menu Begin -->
+		<div class="offcanvas-menu-overlay"></div>
+		<div class="offcanvas-menu-wrapper">
+			<div class="offcanvas__option">
+				<div class="offcanvas__links">
+					<!-- 로그인 하지 않은 상태 -->
+					<div th:if="${memberId == null}">
+						<a href="/member/login">로그인</a>
+						<a href="/member/join">회원가입</a>
+					</div>
+
+					<!-- 로그인한 상태 -->
+					<div th:if="${memberId != null}">
+						<a href="#" class="gnb_logout_button">로그아웃</a>
+						<a href="/member/mypage/info">마이페이지</a>
+						<a href="/cart/${memberId}">장바구니</a>
+						<!-- 관리자 로그인 -->
+						<div th:if="${adminCk == 1}">
+							<a href="/admin/main">관리자 페이지</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div id="mobile-menu-wrap"></div>
+			<div class="offcanvas__text">
+				<p>신선함과 건강을 담은 샐러드, FokeFoke mobile</p>
+			</div>
+		</div>
+		<!-- Offcanvas Menu End -->
+
+		<!-- Header Section Begin -->
+		<header class="header">
+			<div class="header__top">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 col-md-7">
+							<div class="header__top__left">
+								<p>신선함과 건강을 담은 샐러드, FokeFoke</p>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-5">
+							<div class="header__top__right">
+								<div class="header__top__links">
+									<!-- 로그인 하지 않은 상태 -->
+									<div th:if="${memberId == null}">
+										<a href="/member/login">로그인</a>
+										<a href="/member/join">회원가입</a>
+									</div>
+
+
+
+									<!-- 로그인한 상태 -->
+									<div th:if="${memberId != null}">
+										<a href="#" class="gnb_logout_button">로그아웃</a>
+										<a href="/member/mypage/info">마이페이지</a>
+										<a href="/cart/${memberId}">장바구니</a>
+
+										<!-- 관리자 로그인 -->
+										<div th:if="${adminCk == 1}">
+											<a href="/admin/main">관리자 페이지</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-3">
+						<div class="header__logo">
+							<a href="/"><img th:src="@{/img/logo.png}" alt="포케포케"></a>
+						</div>
+					</div>
+					<div class="col-lg-9 col-md-6">
+						<nav class="header__menu mobile-menu">
+							<ul>
+								<li class="dropdown"><a href="/">포케포케</a></li>
+								<li><a href="#">새소식</a>
+									<ul class="dropdown">
+										<li><a href="/notice/list">이벤트·프로모션</a></li>
+									</ul>
+								</li>
+								<li><a href="#">온라인 주문</a>
+									<ul class="dropdown">
+										<li><a href="/store/list">매장찾기</a></li>
+									</ul>
+								</li>
+								<!--<li><a href="#">만든사람</a>
+									<ul class="dropdown">
+										<li><a href="#">박지유</a></li>
+										<li><a href="#">김다정</a></li>
+										<li><a href="#">차지환</a></li>
+										<li><a href="#">기승서</a></li>
+										<li><a href="#">최새롬</a></li>
+										<li><a href="#">김도훈</a></li>
+									</ul>
+								</li>-->
+								<li><a href="#">맛집 추천</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<div class="canvas__open">
+					<i class="fa fa-bars"></i>
+				</div>
+			</div>
+			<button onclick="chat()" class="btn" value="캐릭터" style="display: flex; justify-content: center; align-items: center; background-color: #A8D0B6; border: 5px solid #EB7454; border-radius: 50px; width: 100px; height: 100px; position: fixed; right: 70px; bottom: 70px; box-sizing: border-box;">
+            <img class="imgmain" src="/img/mainch.png" style="width:150%; height:130%;" alt="포케포케">
+        </button>
+		</header>
+
+		<!-- Header Section End -->
+
+	<script>
+		/* gnb_area 로그아웃 버튼 작동 */
+		$(".gnb_logout_button").click(function () {
+			$.ajax({
+				type: "POST",
+				url: "/member/logout.do",
+				success: function (data) {
+					document.location.reload();
+				}
+			}); // ajax 
+		}); // 버튼 클릭 메서드 끝
+		
+		function chat(){
+			window.location.href = '/detail/chatMain/1user';
+		}
+	</script>
+
+</body>
+	</th:block>
+</html>
