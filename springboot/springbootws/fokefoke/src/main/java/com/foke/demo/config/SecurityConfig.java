@@ -29,9 +29,9 @@ public class SecurityConfig{
                authorize -> authorize
                .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-               .requestMatchers("/status", "/img/**", "/js/**", "/css/**").permitAll()
+               .requestMatchers("/status", "/img/**", "/js/**", "/css/**", "/fonts/**", "/sass/**").permitAll()
                .requestMatchers("/").permitAll()
-               .requestMatchers("/login/**").permitAll()
+               .requestMatchers("/login/**", "/menuList", "/noticeList", "/usepolicy", "/privacy", "/test").permitAll()
                .requestMatchers("/admin/**").hasRole("ADMIN")
                .requestMatchers("/member/**", "/cart/**", "/payment/**").hasRole("USER")
                .anyRequest().authenticated()
