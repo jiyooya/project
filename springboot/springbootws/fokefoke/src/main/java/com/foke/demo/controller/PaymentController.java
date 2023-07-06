@@ -44,12 +44,12 @@ public class PaymentController {
 		
 		HttpSession session = request.getSession();
 		StoreDTO sdto = new StoreDTO();
+		
 		String memberId = (String)session.getAttribute("memberId");
-//		mdto.setMemberId(memberId);
-		mdto.setMemberId("test1@1");
+		mdto.setMemberId(memberId);
 		MemberDTO member = this.paymentservice.getMember(mdto.getMemberId());
-		PaymentDTO pay = new PaymentDTO();
-		pay.setMemberId((String)session.getAttribute("memberId"));
+//		PaymentDTO pay = new PaymentDTO();
+//		pay.setMemberId((String)session.getAttribute("memberId"));
 		
 		//장바구니 정보 리스트
 		List<CartDTO> cartList = cartService.getCartList(memberId);
@@ -66,16 +66,11 @@ public class PaymentController {
 		}
 			System.out.println(">>>>>>>>>Lists>>>>>>>>>>>>>>>>>>>>>>"+ cartLists);
 			System.out.println("카트아이디이~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+cartId);
-	//테스트
-	mdto.setPoint(1000);
-	mdto.setPhone("010");
 	
 	model.addAttribute("store", sdto);
 	model.addAttribute("member", mdto);
 	model.addAttribute("cart", cartLists);
-	//포인트 적립
-//	HttpSession mession = request.getSession();
-//	mession.setAttribute("pmember", member);
+	
 		return "payment/payment_list";
 	}
 	
@@ -88,9 +83,7 @@ public class PaymentController {
 		sdto.setStoreName((String)session.getAttribute("storeName"));
 		sdto.setStoreAddress((String)session.getAttribute("StoreAddress"));
 		String memberId = (String)session.getAttribute("memberId");
-//		mdto.setMemberId(memberId);
-		mdto.setMemberId("test1@1");
-		
+		mdto.setMemberId(memberId);
 		
 		//장바구니 정보 리스트
 		List<CartDTO> cartList = cartService.getCartList(memberId);
@@ -108,17 +101,14 @@ public class PaymentController {
 				System.out.println(">>>>>>>>>Listssssss>>>>>>>>>>>>>>>>>>>>>>"+ cartLists);
 				System.out.println("카트아이디이~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+cartId);
 				
-				String orderNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-				Random random = new Random();
-				StringBuilder sb = new StringBuilder(15);
-				for(int i=0; i<15; i++){
-					int randomNum = random.nextInt(orderNum.length());
-				    sb.append(orderNum.charAt(randomNum));
-				}
-				String randomString = sb.toString();		
-				
-		//포인트 적립
-//		HttpSession mession = request.getSession();
+//				String orderNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+//				Random random = new Random();
+//				StringBuilder sb = new StringBuilder(15);
+//				for(int i=0; i<15; i++){
+//					int randomNum = random.nextInt(orderNum.length());
+//				    sb.append(orderNum.charAt(randomNum));
+//				}
+//				String randomString = sb.toString();		
 		
 		//테스트
 		mdto.setPhone("010");
@@ -128,7 +118,7 @@ public class PaymentController {
 		model.addAttribute("store", sdto);
 		model.addAttribute("member", mdto);
 		model.addAttribute("cart", cartLists);
-		model.addAttribute("randomString", randomString);
+//		model.addAttribute("randomString", randomString);
 		
 		return "payment/payment_order";
 		
@@ -180,8 +170,8 @@ public class PaymentController {
 		mdto.setMemberId(memberId);
 		
 		MemberDTO member = this.paymentservice.getMember(mdto.getMemberId());
-		PaymentDTO pay = new PaymentDTO();
-		pay.setMemberId((String)session.getAttribute("memberId"));
+//		PaymentDTO pay = new PaymentDTO();
+//		pay.setMemberId((String)session.getAttribute("memberId"));
 		
 		//테스트
 		mdto.setPoint(1000);
@@ -216,9 +206,6 @@ public class PaymentController {
 		MemberDTO pmember = (MemberDTO)mession.getAttribute("pmember");
 		pmember = this.paymentservice.getMember(memberId);
 		
-		//테스트
-		mdto.setPoint(1000);
-		mdto.setPhone("010");
 		
 		model.addAttribute("store", sdto);
 		model.addAttribute("member", mdto);
