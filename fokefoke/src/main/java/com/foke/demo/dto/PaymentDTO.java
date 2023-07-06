@@ -51,4 +51,5 @@ public class PaymentDTO {
     
     @Column
     private LocalDateTime paymentDay;
+
 }
