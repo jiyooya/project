@@ -25,6 +25,8 @@ import com.foke.demo.service.NoticeService;
 import com.foke.demo.service.ProductService;
 import com.foke.demo.service.StoreService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -36,24 +38,19 @@ public class HomeController {
 	private final MemberService memberService;
 
 	@GetMapping("/")
-	public String index(Model model) {
+	public String index(HttpServletRequest request, Model model) {
 		// 인증된 사용자가 있는지 확인
-		System.out.println("컨트롤러");
+		HttpSession session = request.getSession();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-			System.out.println("로그인하지 않은 사용자의 처리");
 			// 로그인하지 않은 사용자의 처리
-			// 예: 로그인 페이지로 리다이렉트
 		} else {
-			System.out.println("로그인함");
 			// 로그인한 사용자의 처리
-			// 예: 로그인한 사용자의 정보 활용
 			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 			String memberId = userDetails.getUsername();
 			MemberDTO member = memberService.getMember(memberId);
-			model.addAttribute("member", member);
+			session.setAttribute("member", member);
 		}
-		System.out.println("그런거야?");
 		return "index";
 	}
 

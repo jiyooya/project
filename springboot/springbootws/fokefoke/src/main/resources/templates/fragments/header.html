@@ -54,7 +54,6 @@
 		<div class="offcanvas__text">
 			<p>신선함과 건강을 담은 샐러드, FokeFoke mobile</p>
 		</div>
-		</div>
 		<!-- Offcanvas Menu End -->
 
 		<!-- Header Section Begin -->
@@ -149,7 +148,7 @@
 					<div class="profile_name" style="position: sticky; top: 0; z-index: 100;">
 						&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/mainch.png" style="width: 20%;height: 20%;"
 							class="mr-3 rounded-circle" />
-						<span id="username" th:text="${member.memberName}" th:value="${member.memberName}"></span><span>님 무엇을 도와드릴까요?</span>
+						<span id="username" th:text="${session.member.memberName}" value="${session.member.memberName}"></span><span>님 무엇을 도와드릴까요?</span>
 					</div>
 
 					<div class="container-fluid chat_section" id="chat-box"></div>
