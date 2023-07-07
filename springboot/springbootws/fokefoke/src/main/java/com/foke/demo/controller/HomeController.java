@@ -43,6 +43,10 @@ public class HomeController {
 		HttpSession session = request.getSession();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+			MemberDTO member = new MemberDTO();
+			member.setMemberId("guest");
+			member.setMemberName("guest");
+			session.setAttribute("member", member);
 			// 로그인하지 않은 사용자의 처리
 		} else {
 			// 로그인한 사용자의 처리

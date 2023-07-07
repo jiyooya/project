@@ -48,11 +48,10 @@
 					</div>
 				</div>
 			</div>
-
-		</div>
-		<div id="mobile-menu-wrap"></div>
-		<div class="offcanvas__text">
-			<p>신선함과 건강을 담은 샐러드, FokeFoke mobile</p>
+			<div id="mobile-menu-wrap"></div>
+			<div class="offcanvas__text">
+				<p>신선함과 건강을 담은 샐러드, FokeFoke mobile</p>
+			</div>
 		</div>
 		<!-- Offcanvas Menu End -->
 
@@ -169,10 +168,10 @@
 		<!-- Header Section End -->
 
 		<script th:inline="javascript">
-			
 			const memberId = /*[[${session.member.memberId}]]*/ ''; // memberId 변수를 새롭게 받아옵니다.
+			console.log(memberId);
 			function chat() {
-				if (memberId) { // memberId가 존재하는 경우에만 실행합니다.
+				if (memberId != 'guest') { // memberId가 존재하는 경우에만 실행합니다.
 					var whiteBox = document.getElementById("whiteBox");
 					if (whiteBox.style.display === "none") {
 						whiteBox.style.display = "block";
@@ -182,6 +181,7 @@
 					}
 				} else { // memberId가 존재하지 않는 경우, alert 메시지를 띄웁니다.
 					alert("로그인이 필요합니다.");
+					window.location.href = "/login/loginform";
 				}
 			}
 
@@ -199,7 +199,7 @@
 			  username + "님 무엇을 도와드릴까요?";*/
 			//SSE연결하기
 			const eventSource = new EventSource(
-			
+
 				`http://144.24.90.142:8000/chat/roomNum/${roomNum}`
 			);
 
@@ -281,7 +281,7 @@
 					msg: msgInput.value,
 				};
 				//fetch통신시 시간이 걸려서 null을 먼저 출력하고 통신함. 해서 await로 기다려줘야함. 또한 await로 인해 다른 모든 함수도 실행되지 않아서 비동기 함수로 수정해줘야함.
-			
+
 				await fetch("http://144.24.90.142:8000/chat", {
 					method: "post", //http post 메서드 (새로운 데이터를 write할때 사용)
 					body: JSON.stringify(chat), //JS -> JSON으로 변경
@@ -317,7 +317,7 @@
 
 
 		</script>
-	
+
 
 
 
