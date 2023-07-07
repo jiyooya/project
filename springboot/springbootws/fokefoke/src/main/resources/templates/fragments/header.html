@@ -168,6 +168,7 @@
 		<!-- Header Section End -->
 
 		<script th:inline="javascript">
+			
 			function chat() {
 				var whiteBox = document.getElementById("whiteBox");
 				if (whiteBox.style.display === "none") {
@@ -178,7 +179,7 @@
 				}
 			}
 		</script>
-		<script th:src="@{/js/chat.js}"></script>
+		<!--<script th:src="@{/js/chat.js}"></script>-->
 		<script th:src="@{/js/addCsrfTokenToAjaxRequest.js}"></script>
 
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
