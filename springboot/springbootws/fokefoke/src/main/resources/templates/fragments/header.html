@@ -16,7 +16,7 @@
 			crossorigin="anonymous" />
 		<link rel="stylesheet" type="text/css"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-		<link rel="stylesheet" type="text/css" th:href="@{/css/chatstyle.css}" />
+
 
 	</head>
 
@@ -48,12 +48,10 @@
 					</div>
 				</div>
 			</div>
-
-		</div>
-		<div id="mobile-menu-wrap"></div>
-		<div class="offcanvas__text">
-			<p>신선함과 건강을 담은 샐러드, FokeFoke mobile</p>
-		</div>
+			<div id="mobile-menu-wrap"></div>
+			<div class="offcanvas__text">
+				<p>신선함과 건강을 담은 샐러드, FokeFoke mobile</p>
+			</div>
 		</div>
 		<!-- Offcanvas Menu End -->
 
@@ -70,7 +68,7 @@
 						<div class="col-lg-6 col-md-5">
 							<div class="header__top__right">
 								<div class="header__top__links">
-									
+
 									<!-- 로그인 하지 않은 상태 -->
 									<a sec:authorize="isAnonymous()" th:href="@{/login/loginform}">로그인</a>
 									<a sec:authorize="isAnonymous()" th:href="@{/login/join}">회원가입</a>
@@ -86,13 +84,12 @@
 									<div th:if="${adminCk == 1}">
 										<a href="/admin/main">관리자 페이지</a>
 									</div>
-									
+
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 			</div>
 
 
@@ -118,6 +115,7 @@
 										<li><a href="/store/list">매장찾기</a></li>
 									</ul>
 								</li>
+								<li><a href="http://localhost:5173/">맛집 추천</a></li>
 								<!--<li><a href="#">만든사람</a>
 									<ul class="dropdown">
 										<li><a href="#">박지유</a></li>
@@ -128,7 +126,6 @@
 										<li><a href="#">김도훈</a></li>
 									</ul>
 								</li>-->
-								<li><a href="http://localhost:5173/">맛집 추천</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -137,34 +134,34 @@
 					<i class="fa fa-bars"></i>
 				</div>
 			</div>
-			<button onclick="chat()" class="btn" value="캐릭터"
-				style="display: flex; justify-content: center; align-items: center; background-color: #A8D0B6; border: 5px solid #EB7454; border-radius: 50px; width: 100px; height: 100px; position: fixed; right: 70px; bottom: 70px; box-sizing: border-box;">
-				<img class="imgmain" src="/img/mainch.png" style="width:150%; height:130%;" alt="포케포케">
-			</button>
-			<div id="whiteBox"
-				style="overflow: auto;display:none; width: 400px; height: 650px; background-color: white;border: 5px solid #EB7454;border-radius: 20px; position: fixed; right: 60px; bottom: 180px; box-sizing: border-box; z-index: 100;">
+		</header>
+		<button onclick="chat()" class="btn" value="캐릭터"
+			style="display: flex; justify-content: center; align-items: center; background-color: #A8D0B6; border: 5px solid #EB7454; border-radius: 50px; width: 100px; height: 100px; position: fixed; right: 70px; bottom: 70px; box-sizing: border-box;">
+			<img class="imgmain" src="/img/mainch.png" style="width:150%; height:130%;" alt="포케포케">
+		</button>
+		<div id="whiteBox"
+			style="overflow: auto;display:none; width: 400px; height: 650px; background-color: white;border: 5px solid #EB7454;border-radius: 20px; position: fixed; right: 60px; bottom: 180px; box-sizing: border-box; z-index: 100;">
 
 
-				<div id="user_chat_data" class="user_chat_data">
-					<div class="profile_name" style="position: sticky; top: 0; z-index: 100;">
-						&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/mainch.png" style="width: 20%;height: 20%;"
-							class="mr-3 rounded-circle" />
-						<span id="username" th:value="${memberId}">님 무엇을 도와드릴까요?</span>
-					</div>
+			<div id="user_chat_data" class="user_chat_data">
+				<div class="profile_name" style="position: sticky; top: 0; z-index: 100;">
+					&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/mainch.png" style="width: 20%;height: 20%;"
+						class="mr-3 rounded-circle" />
+					<span id="username" th:value="${memberId}">님 무엇을 도와드릴까요?</span>
+				</div>
 
-					<div class="container-fluid chat_section" id="chat-box"></div>
+				<div class="container-fluid chat_section" id="chat-box"></div>
 
-					<div class="type_msg" style="position: sticky; bottom: 0; z-index: 100; background-color: #fff;">
-						<div class="input_msg_write">
-							<input id="chat-outgoing-msg" type="text" class="write_msg" placeholder="Type a message" />
-							<button id="chat-send" class="msg_send_btn" type="button">
-								<i class="fa fa-paper-plane" aria-hidden="true"></i>
-							</button>
-						</div>
+				<div class="type_msg" style="position: sticky; bottom: 0; z-index: 100; background-color: #fff;">
+					<div class="input_msg_write">
+						<input id="chat-outgoing-msg" type="text" class="write_msg" placeholder="Type a message" />
+						<button id="chat-send" class="msg_send_btn" type="button">
+							<i class="fa fa-paper-plane" aria-hidden="true"></i>
+						</button>
 					</div>
 				</div>
 			</div>
-		</header>
+		</div>
 
 		<!-- Header Section End -->
 
@@ -190,8 +187,7 @@
 				}
 			}
 		</script>
-		<script th:src="@{/js/chat.js}"></script>
-		<script th:src="@{/js/addCsrfTokenToAjaxRequest.js}"></script>
+
 
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<!--<script
