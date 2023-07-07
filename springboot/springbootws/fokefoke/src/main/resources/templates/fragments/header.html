@@ -17,7 +17,10 @@
 		<link rel="stylesheet" type="text/css"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 		<link rel="stylesheet" type="text/css" th:href="@{/css/chatstyle.css}" />
-
+		<script src="https://tistory3.daumcdn.net/tistory/941717/skin/images/jquery.min.js"
+			type="text/javascript"></script>
+		<script src="https://tistory3.daumcdn.net/tistory/941717/skin/images/snowfall.jquery.js"
+			type="text/javascript"></script>
 	</head>
 
 	<body th:with="memberId=${session.memberId}">
@@ -314,7 +317,17 @@
 
 
 
-
+			var $snow = jQuery.noConflict();
+			// $snow 함수를 사용하여 jQuery 코드 작성
+			$snow(document).ready(function () {
+				$snow(document).snowfall({
+					deviceorientation: true,
+					round: true,
+					minSize: 1,
+					maxSize: 10,
+					flakeCount: 50			
+				});
+			});
 
 		</script>
 
