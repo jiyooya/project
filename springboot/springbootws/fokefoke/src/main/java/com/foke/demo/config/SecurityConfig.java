@@ -27,17 +27,19 @@ public class SecurityConfig{
        http
        .authorizeHttpRequests(
                authorize -> authorize
-               .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-               .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-               .requestMatchers("/status", "/img/**", "/js/**", "/css/**", "/fonts/**", "/sass/**").permitAll()
-               .requestMatchers("/").permitAll()
-               .requestMatchers("/login/**", "/menuList", "/noticeList", "/usepolicy", "/privacy", "/test").permitAll()
-               .requestMatchers("/admin/**").hasRole("ADMIN")
-               .requestMatchers("/member/**", "/cart/**", "/payment/**").hasRole("USER")
+               .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll() // 포워드 접근 허용
+               .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // 정적 리소스 접근 허용
+               .requestMatchers("/img/**", "/js/**", "/css/**", "/fonts/**", "/sass/**", "/chat/**").permitAll() // 소스 접근 허용
+               .requestMatchers("/").permitAll() // 해당 경로 모든 사용자에게 접근 허용
+//               .requestMatchers("/**").permitAll() // 뭔가 안 된다면 주석 해제 후 시도(1)
+               .requestMatchers("/login/**", "/menuList", "/noticeList", "/usepolicy", "/privacy", "/test").permitAll() // 위와 같음
+               .requestMatchers("/admin/**").hasRole("ADMIN") // 해당 경로 관리자에게만 접근 허용 
+               .requestMatchers("/member/**").hasRole("USER") // 해당 경로 유저에게만 접근 허용
                .anyRequest().authenticated()
            )  
        .csrf(cors -> cors
     		   .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
+//    		   .disable() // 뭐가 안 되실 경우 주석 해제 후 시도(2)
         )
        .headers(h -> h
                .addHeaderWriter(new XFrameOptionsHeaderWriter(
