@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,10 +52,12 @@ public class DetailController {
 	}
 	
 	@GetMapping("/view")
-	public String List(Model model, @ModelAttribute ProductDTO productDTO, @Param("productName")String productName) {
+	public String List(@AuthenticationPrincipal User user, Model model, @ModelAttribute ProductDTO productDTO, @Param("productName")String productName) {
 		System.out.println(">>>>>>>>>>>>" + productDTO);
-		String memberId = "fokeTest"; //임시 아이디
+		
+		String memberId = user.getUsername();
 		session.setAttribute("memberId", memberId);
+		
 		List<DetailDTO> detailList = this.detailService.getList();
 		List<ProductDTO> sides = this.detailService.getType("사이드");
 		List<ProductDTO> beverages = this.detailService.getType("음료");

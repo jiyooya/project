@@ -34,18 +34,21 @@ public class CartController {
 	
 	private final CartService cartService;
 	
-	//view
+	
+	//장바구니
 	@RequestMapping(value = "/{memberId}", method = {RequestMethod.POST, RequestMethod.GET})
 	public String cartPagePOST(@PathVariable("memberId") String memberId, Model model, HttpSession session) {
 		memberId = (String)session.getAttribute("memberId");
 		List<CartDTO> cartList = this.cartService.getCartList(memberId);		
 		model.addAttribute("memberId", memberId);
 		model.addAttribute("cartInfo", cartList);
+		System.out.println("cartInfo 정보 : " + cartList);
 		
 		return "cart/cart";
 	}
 	
-	//추가
+	
+	//상품 추가
 	@ResponseBody
 	@PostMapping("/add")
 	public int addCartPOST(Model model, @RequestParam Map<String, String> map, 
@@ -131,7 +134,7 @@ public class CartController {
 		return result;
 	}
 	
-	//수량수정
+	//상품 수량 업데이트
 	@ResponseBody
 	@PostMapping(value = "/update")
 	public String updateCartPOST(@RequestParam("cartId") int cartId,
@@ -146,7 +149,7 @@ public class CartController {
 	    return String.valueOf(result);
 	}
 	
-	//상품삭제
+	//상품 삭제
 	@PostMapping("/delete")
 	public String deleteCartPOST(CartDTO cart, @RequestParam("cartId") int cartId, HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -160,7 +163,6 @@ public class CartController {
 		return "redirect:/cart/" + memberId;
 	}
 	
-
 }
 
 

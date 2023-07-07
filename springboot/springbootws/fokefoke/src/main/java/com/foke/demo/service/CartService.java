@@ -16,7 +16,7 @@ public class CartService {
     private final CartRepository cartRepository;
     
     
-    //추가
+    //상품추가
     public int addCart(CartDTO cart) {
     	CartDTO checkCart = this.cartRepository.findByMemberIdAndProductName(cart.getMemberId(), cart.getProductName());
     	
