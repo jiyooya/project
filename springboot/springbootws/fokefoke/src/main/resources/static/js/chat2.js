@@ -1,4 +1,5 @@
 //로그인 시스템 대신 임시
+const csrfToken = getToke();
 let username = prompt("아이디를 입력하세요");
 let roomNum;
 if (username === "admin") {
@@ -11,7 +12,7 @@ document.querySelector("#username").innerHTML =
   username + "님 무엇을 도와드릴까요?";
 //SSE연결하기
 const eventSource = new EventSource(
-  `http://localhost:8000/chat/roomNum/${roomNum}`
+  `http://144.24.90.142:8000/chat/roomNum/${roomNum}`
 );
 
 eventSource.onmessage = (event) => {
@@ -88,12 +89,13 @@ async function addMessage() {
     msg: msgInput.value,
   };
   //fetch통신시 시간이 걸려서 null을 먼저 출력하고 통신함. 해서 await로 기다려줘야함. 또한 await로 인해 다른 모든 함수도 실행되지 않아서 비동기 함수로 수정해줘야함.
-  await fetch("http://localhost:8000/chat", {
+  await fetch("http://144.24.90.142:8000/chat", {
     method: "post", //http post 메서드 (새로운 데이터를 write할때 사용)
     body: JSON.stringify(chat), //JS -> JSON으로 변경
     headers: {
       //내가 보내는 데이터 타입을 알려줌
       "Content-Type": "application/json;charset=utf-8",
+      "X-CSRFToken": csrfToken, // 헤더에 CSRF 토큰 추가
     },
   });
 
