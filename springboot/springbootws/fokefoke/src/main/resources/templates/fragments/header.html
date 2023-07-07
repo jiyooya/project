@@ -144,12 +144,12 @@
 			<div id="whiteBox"
 				style="overflow: auto;display:none; width: 400px; height: 650px; background-color: white;border: 5px solid #EB7454;border-radius: 20px; position: fixed; right: 60px; bottom: 180px; box-sizing: border-box; z-index: 100;">
 
-
-				<div id="user_chat_data" class="user_chat_data">
+				<div sec:authorize="isAuthenticated()" id="user_chat_data" class="user_chat_data">
+<!--<span th:text="${#authentication.principal.username}"></span>-->
 					<div class="profile_name" style="position: sticky; top: 0; z-index: 100;">
 						&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/mainch.png" style="width: 20%;height: 20%;"
 							class="mr-3 rounded-circle" />
-						<span id="username" th:value="${memberId}">님 무엇을 도와드릴까요?</span>
+						<span id="username" th:text="${member.memberName}" th:value="${member.memberName}"></span><span>님 무엇을 도와드릴까요?</span>
 					</div>
 
 					<div class="container-fluid chat_section" id="chat-box"></div>
@@ -169,17 +169,6 @@
 		<!-- Header Section End -->
 
 		<script th:inline="javascript">
-			/* gnb_area 로그아웃 버튼 작동 */
-			$(".gnb_logout_button").click(function () {
-				$.ajax({
-					type: "POST",
-					url: "/member/logout.do",
-					success: function (data) {
-						document.location.reload();
-					}
-				}); // ajax 
-			}); // 버튼 클릭 메서드 끝
-
 			function chat() {
 				var whiteBox = document.getElementById("whiteBox");
 				if (whiteBox.style.display === "none") {
