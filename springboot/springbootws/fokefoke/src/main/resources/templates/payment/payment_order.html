@@ -9,31 +9,6 @@
     <!-- iamport.payment.js -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--    <script>
-        var IMP = window.IMP; 
-        IMP.init("imp01240830"); 
-    
-        function requestPay() {
-            IMP.request_pay({
-                pg : 'kakaopay',
-                pay_method : 'card',
-                merchant_uid: "57008833-33005", 
-                name : '포케 샐러드',
-                amount : 100,
-                buyer_email : 'Iamport@chai.finance',
-                buyer_name : '포케포케',
-                buyer_tel : '010-1234-5678',
-                buyer_addr : '서울특별시 종로 더조은',
-                buyer_postcode : '123-456'
-            }, function (rsp) { // callback
-				if (rsp.success){
-					alert('결제성공');
-				}else{
-					alert('결제실패' + rsp.error_msg);
-				}
-            });
-        }
-    </script>-->
 	
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"
    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
@@ -46,46 +21,15 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>포케포케 : 결제하기</title>
 
-<!-- Google Font -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-	rel="stylesheet">
-
-<!-- Css Styles -->
-<link rel="stylesheet"
-      th:href="@{/css/bootstrap.min.css}"
-      type="text/css">
-<link rel="stylesheet"
-      th:href="@{/css/font-awesome.min.css}"
-      type="text/css">
-<link rel="stylesheet"
-      th:href="@{/css/elegant-icons.css}"
-      type="text/css">
-<link rel="stylesheet"
-      th:href="@{/css/magnific-popup.css}"
-      type="text/css">
-<link rel="stylesheet"
-      th:href="@{/css/nice-select.css}"
-      type="text/css">
-<link rel="stylesheet"
-      th:href="@{/css/owl.carousel.min.css}"
-      type="text/css">
-<link rel="stylesheet"
-      th:href="@{/css/slicknav.min.css}"
-      type="text/css">
-<link rel="stylesheet"
-      th:href="@{/css/style.css}"
-      type="text/css">
-
-	
-		<!-- Favicons -->
-<link
-	href="${pageContext.request.contextPath}/resources/img/favicon.png"
-	rel="icon" />
-<link
-	href="${pageContext.request.contextPath}/resources/img/favicon.png"
-	rel="apple-touch-icon" />
-
+<!-- 주문 랜덤번호 박스 -->
+<style>
+.order-box {
+	padding: 10px;
+	margin: 23px 880px -54px 300px;
+	background-color: #469543;
+	color: #fff;
+}
+</style>
 
 <!-- 포인트 사용 -->
 <script>
@@ -109,8 +53,6 @@ function calculateTotal() {
 }
 </script>
 
-	
-
 <body>
 
 	<!-- Breadcrumb Section Begin -->
@@ -128,14 +70,13 @@ function calculateTotal() {
 	</section>
 	<!-- Breadcrumb Section End -->
 	
-<!-- 주문번호 랜덤 -->
-<!--<div class="order-box" style="display: flex; align-items: center;">
-    <h4 style="margin-right: 10px; color:#fff;">주문번호 :</h4>
+	<!-- 주문번호 랜덤 -->
+	<div class="order-box" style="display: flex; align-items: center;">
+    	<h4 style="margin-right: 10px; color:#fff;">주문번호 : </h4>
     <div>
-        <h4 th:style="color:#fff;" th:text="${randomString}"></h4>
+        <h4 style='color:#fff;' th:text="${randomString}"></h4>
     </div>
-</div>-->
-	
+	</div>
 
 	<!-- Checkout Section Begin -->
 	<section class="checkout spad">
