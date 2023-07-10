@@ -65,13 +65,13 @@ public class ProductController {
 	}
 	
 	@GetMapping("/reList")
-	public ModelAndView reList(HttpServletRequest request, @RequestParam(required = false) String num) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", productService.getList());
-		mav.addObject("salad", productService.typeSalad());
-		mav.addObject("side", productService.typeSide());
-		mav.addObject("drink", productService.typeDrink());
+	public String reList(Model model, HttpServletRequest request, @RequestParam(required = false) String num) {
+		model.addAttribute("list", productService.getList());
+		model.addAttribute("salad", productService.typeSalad());
+		model.addAttribute("side", productService.typeSide());
+		model.addAttribute("drink", productService.typeDrink());
 		String tab="";
+		System.out.println("+++++++++++"+num);
 		if(num != null) {
 			if(num.equals("1")) {
 				tab = "샐러드";
@@ -81,13 +81,14 @@ public class ProductController {
 				tab = "음료수";
 			}
 		}
-		mav.addObject("tab", tab);
+		System.out.println("+++++++++++"+tab);
+		model.addAttribute("tab", tab);
 		HttpSession session = request.getSession();
 		int storeId = (int)session.getAttribute("storeId");
 		List<StockDTO> stockList = productService.quantity(storeId);
-		mav.addObject("stock", stockList);
-		mav.setViewName("product/list");
-		return mav;
+		model.addAttribute("stock", stockList);
+		model.addAttribute("product/list");
+		return "product/list";
 		
 		
 	}

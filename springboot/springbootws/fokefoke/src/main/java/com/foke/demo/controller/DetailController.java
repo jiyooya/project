@@ -35,6 +35,7 @@ public class DetailController {
 
 	@GetMapping("/view2")
 	public String view2(Model model, ProductDTO productDTO) {
+		System.out.println("***********" + productDTO.getProductName());
 		List<ProductDTO> sides = this.detailService.getType("사이드");
 		List<ProductDTO> beverages = this.detailService.getType("음료");
 		ProductDTO product = this.detailService.getProduct(productDTO.getProductName());
@@ -53,7 +54,6 @@ public class DetailController {
 	
 	@GetMapping("/view")
 	public String List(@AuthenticationPrincipal User user, Model model, @ModelAttribute ProductDTO productDTO, @Param("productName")String productName) {
-		System.out.println(">>>>>>>>>>>>" + productDTO);
 		
 		String memberId = user.getUsername();
 		session.setAttribute("memberId", memberId);
@@ -69,7 +69,6 @@ public class DetailController {
 		String storeId = String.valueOf(storeIdInteger);
 		DetailDTO auto = detailService.getAuto(productDTO.getProductName());
 //		DetailDTO auto = detailService.getAuto("포케 샐러드");
-//		System.out.println("*******************" + auto.getAtopping());
 		model.addAttribute("detailList", detailList);
 		model.addAttribute("beverages", beverages);
 		model.addAttribute("storeId",storeId);

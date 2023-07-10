@@ -18,6 +18,7 @@
 
 		<script src="https://code.jquery.com/jquery-3.6.4.min.js"
 			integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+		
 	</head>
 
 	<body>
@@ -54,15 +55,15 @@
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" data-toggle="tab" href="#salad-menu" role="tab"
-										aria-selected="false" onclick="selectTab('salad-menu')">샐러드</a>
+										aria-selected="false" id="tab1" onclick="selectTab('salad-menu')">샐러드</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" data-toggle="tab" href="#side-menu" role="tab"
-										aria-selected="false" onclick="selectTab('side-menu')">사이드</a>
+										aria-selected="false" id="tab2" onclick="selectTab('side-menu')">사이드</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" data-toggle="tab" href="#drink-menu" role="tab"
-										aria-selected="false" onclick="selectTab('drink-menu')">음료수</a>
+										aria-selected="false" id="tab3" onclick="selectTab('drink-menu')">음료수</a>
 								</li>
 							</ul>
 
@@ -261,6 +262,27 @@
 				var tabButton = document.querySelector('a[href="#' + tabId + '"]');
 				tabButton.classList.add('active');
 			}
+		</script>
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			function reList() {
+			    let tab = /*[[${tab}]]*/ 'default';
+				console.log(tab === "음료수");
+				if (tab === "샐러드") {
+					//document.querySelector('#tab1').click();
+					selectTab('salad-menu');
+				} else if (tab === "사이드") {
+					//document.querySelector('#tab2').click();
+					selectTab('side-menu');
+				} else if (tab === "음료수") {
+					//document.querySelector('#tab3').click();
+					selectTab('drink-menu');
+				}
+			}
+			document.addEventListener("DOMContentLoaded", function () {
+				reList();
+			});
+  			/*]]>*/
 		</script>
 		<script type="text/javascript" src="//openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=plyv9nfbr0"></script>
 
