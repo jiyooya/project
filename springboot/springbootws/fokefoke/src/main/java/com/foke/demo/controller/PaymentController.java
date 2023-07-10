@@ -37,21 +37,18 @@ public class PaymentController {
 
 	@Autowired
 	private final Paymentservice paymentservice;
-	//private final MemberService memberservice;
+	private final MemberService memberservice;
 	private final DetailService detailService;
 	private final CartService cartService;
-	
+
 	//카트 - 결제 페이지
 	@RequestMapping(value = "list", method={RequestMethod.GET, RequestMethod.POST})
-	public String list(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, MemberDTO mdto, @RequestParam(required=false) List<String> cartId) {
-		String memberId = user.getUsername();
+	public String list(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, @RequestParam(required=false) List<String> cartId) {
+		
 		StoreDTO sdto = new StoreDTO();
-		
-		mdto.setMemberId(memberId);
-		MemberDTO member = this.paymentservice.getMember(mdto.getMemberId());
-//		PaymentDTO pay = new PaymentDTO();
-//		pay.setMemberId((String)session.getAttribute("memberId"));
-		
+		String memberId = user.getUsername();
+		MemberDTO member = this.paymentservice.getMember(memberId);
+
 		//장바구니 정보 리스트
 		List<CartDTO> cartList = cartService.getCartList(memberId);
 		List<CartDTO> cartLists = new ArrayList<CartDTO>();
@@ -61,72 +58,67 @@ public class PaymentController {
 					System.out.println("??????" + cartList.get(j));
 					cartLists.add(cartList.get(j));
 					sdto.setStoreAddress(cartList.get(j).getStoreAddress());
-		            sdto.setStoreName(cartList.get(j).getStoreName());
+					sdto.setStoreName(cartList.get(j).getStoreName());
 				}
 			}
 		}
-			System.out.println(">>>>>>>>>Lists>>>>>>>>>>>>>>>>>>>>>>"+ cartLists);
-			System.out.println("카트아이디이~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+cartId);
-	
-	model.addAttribute("store", sdto);
-	model.addAttribute("member", mdto);
-	model.addAttribute("cart", cartLists);
-	
+		System.out.println(">>>>>>>>>Lists>>>>>>>>>>>>>>>>>>>>>>"+ cartLists);
+		System.out.println("카트아이디~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+cartId);
+		model.addAttribute("store", sdto);
+		model.addAttribute("member", member);
+		model.addAttribute("cart", cartLists);
+
 		return "payment/payment_list";
 	}
 	
+
 	//카트 - 뷰 페이지
 	@RequestMapping(value = "order", method={RequestMethod.GET, RequestMethod.POST})
-	public String order(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, MemberDTO mdto, @RequestParam(required=false) List<String> cartId) {
+	public String order(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, @RequestParam(required=false) List<String> cartId) {
 		HttpSession session = request.getSession();
 		StoreDTO sdto = new StoreDTO();
 		sdto.setStoreName((String)session.getAttribute("storeName"));
-		String memberId = user.getUsername();
 		sdto.setStoreAddress((String)session.getAttribute("StoreAddress"));
-		mdto.setMemberId(memberId);
-		
+		String memberId = user.getUsername();
+		MemberDTO member = this.paymentservice.getMember(memberId);
+
 		//장바구니 정보 리스트
 		List<CartDTO> cartList = cartService.getCartList(memberId);
 		List<CartDTO> cartLists = new ArrayList<CartDTO>();
-			for(int j=0; j<cartList.size();j++) {
-				for(int i=0; i<cartId.size();i++) {
-					if(cartList.get(j).getCartId()==Integer.parseInt(cartId.get(i))) {
-						System.out.println("??????" + cartList.get(j));
-						cartLists.add(cartList.get(j));
-						sdto.setStoreAddress(cartList.get(j).getStoreAddress());
-				           sdto.setStoreName(cartList.get(j).getStoreName());
-					}
+		for(int j=0; j<cartList.size();j++) {
+			for(int i=0; i<cartId.size();i++) {
+				if(cartList.get(j).getCartId()==Integer.parseInt(cartId.get(i))) {
+					System.out.println("??????" + cartList.get(j));
+					cartLists.add(cartList.get(j));
+					sdto.setStoreAddress(cartList.get(j).getStoreAddress());
+					sdto.setStoreName(cartList.get(j).getStoreName());
 				}
 			}
-				System.out.println(">>>>>>>>>Listssssss>>>>>>>>>>>>>>>>>>>>>>"+ cartLists);
-				System.out.println("카트아이디이~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+cartId);
-				
-//				String orderNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-//				Random random = new Random();
-//				StringBuilder sb = new StringBuilder(15);
-//				for(int i=0; i<15; i++){
-//					int randomNum = random.nextInt(orderNum.length());
-//				    sb.append(orderNum.charAt(randomNum));
-//				}
-//				String randomString = sb.toString();		
-		
-		//테스트
-//		mdto.setPhone("010");
-//		mdto.setPoint(1000);
-		
+		}
+		System.out.println(">>>>>>>>>Listssssss>>>>>>>>>>>>>>>>>>>>>>"+ cartLists);
+		System.out.println("카트아이디~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+cartId);
+		//주문번호(랜덤함수)
+		String orderNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		Random random = new Random();
+		StringBuilder sb = new StringBuilder(15);
+		for(int i=0; i<15; i++){
+			int randomNum = random.nextInt(orderNum.length());
+			sb.append(orderNum.charAt(randomNum));
+		}
+		String randomString = sb.toString();
 		
 		model.addAttribute("store", sdto);
-		model.addAttribute("member", mdto);
+		model.addAttribute("member", member);
 		model.addAttribute("cart", cartLists);
-//		model.addAttribute("randomString", randomString);
-		
+		model.addAttribute("randomString", randomString);
+
 		return "payment/payment_order";
-		
+
 	}
-	
+
 	//뷰 - 결제페이지
 	@RequestMapping(value = "list1", method={RequestMethod.GET, RequestMethod.POST})
-	public String list1(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, MemberDTO mdto, DetailDTO ddto, @RequestParam(required = false) List<String> toppingchk, 
+	public String list1(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, DetailDTO ddto, @RequestParam(required = false) List<String> toppingchk, 
 			@RequestParam(required = false) List<String> sourcechk, @RequestParam(required = false) List<String> extrachk) {
 
 
@@ -161,67 +153,53 @@ public class PaymentController {
 				}
 			}
 		}
-		
+
 		HttpSession session = request.getSession();
 		StoreDTO sdto = new StoreDTO();
 		sdto.setStoreName((String)session.getAttribute("storeName"));
 		sdto.setStoreAddress((String)session.getAttribute("storeAddress"));
 		String memberId = user.getUsername();
-		mdto.setMemberId(memberId);
-		
-		MemberDTO member = this.paymentservice.getMember(mdto.getMemberId());
-//		PaymentDTO pay = new PaymentDTO();
-//		pay.setMemberId((String)session.getAttribute("memberId"));
-		
-		//테스트
-//		mdto.setPoint(1000);
-//		mdto.setPhone("010");
+		MemberDTO member = this.paymentservice.getMember(memberId);
+
 		//detail 데이터 세션을 담음
 		session.setAttribute("detail", ddto);
-		
+
 		model.addAttribute("store", sdto);
-		model.addAttribute("member", mdto);
+		model.addAttribute("member", member);
 		model.addAttribute("detail", ddto);
-		
-		//포인트 적립
-//		HttpSession mession = request.getSession();
-//		mession.setAttribute("pmember", member);
-		
+
+
 		return "payment/payment_list1";
 	}
-	
+
 	//디테일 - 오더 페이지
 	@RequestMapping(value = "order1", method={RequestMethod.GET, RequestMethod.POST})
-	public String order1(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, MemberDTO mdto, DetailDTO ddto) {
-	
+	public String order1(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto,MemberDTO mdto, ProductDTO pro, DetailDTO ddto) {
+
 		HttpSession session = request.getSession();
 		DetailDTO sessionddto = (DetailDTO)session.getAttribute("detail");
+		MemberDTO sessionmember = (MemberDTO)session.getAttribute("member");
 		StoreDTO sdto = new StoreDTO();
 		sdto.setStoreName((String)session.getAttribute("storeName"));
 		sdto.setStoreAddress((String)session.getAttribute("storeAddress"));
 		String memberId = user.getUsername();
-		mdto.setMemberId(memberId);
-		
-		HttpSession mession = request.getSession();
-		MemberDTO pmember = (MemberDTO)mession.getAttribute("pmember");
-		pmember = this.paymentservice.getMember(memberId);
-		
-		
+		MemberDTO member = this.paymentservice.getMember(memberId);
+		//주문번호(랜덤함수)
+		String orderNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		Random random = new Random();
+		StringBuilder sb = new StringBuilder(15);
+		for(int i=0; i<15; i++){
+			int randomNum = random.nextInt(orderNum.length());
+			sb.append(orderNum.charAt(randomNum));
+		}
+		String randomString = sb.toString();
+
 		model.addAttribute("store", sdto);
-		model.addAttribute("member", mdto);
+		model.addAttribute("member", member);
 		model.addAttribute("detail", sessionddto);
-		model.addAttribute("pmember", pmember);
-		
-		
+		model.addAttribute("randomString", randomString);
+
 		return "payment/payment_order1";
 	}
-	
 
-
-	//카카오큐알 테스트
-	@PostMapping("/payment/test")
-	public String test(HttpServletRequest request, HttpServletResponse response, Model model) {
-		
-		return "payment/payment_test";
-	}
 }

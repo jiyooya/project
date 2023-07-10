@@ -3,19 +3,23 @@
 	layout:decorate="~{fragments/layout}">
 <th:block layout:fragment="content">
 <head>
+
     <!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <!-- iamport.payment.js -->
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>	
 	
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"
    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
    crossorigin="anonymous"></script>
 
 <meta charset="UTF-8">
-<!--<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
-<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" /> -->
+<meta name="description" content="Male_Fashion Template">
+<meta name="keywords" content="Male_Fashion, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>포케포케 : 결제하기</title>
+
 
 <!-- 결제 동의 텍스트 -->
 <style>
@@ -72,7 +76,7 @@ function showBankInfo() {
 </script>
 
 <!-- 구매결제 버튼 창 누르면 실행 -->								
-<script>
+<!--<script>
 function validateForm() {
   var checkBox = document.getElementById("paymentAgree");
   if (!checkBox.checked){
@@ -84,29 +88,83 @@ function validateForm() {
 	  }
    }
 }
+</script>-->
+<script>
+function validateForm() {
+  var checkBox = document.getElementById("paymentAgree");
+  if (!checkBox.checked){
+    alert("구매조건 및 결제진행 동의에 체크해주세요.");
+    return false;
+  }
+  return confirm("주문 후 제조가 시작되면 취소가 불가능 합니다. 주문하시겠습니까?");
+}
+
+function onSubmitForm() {
+  $('#detailForm').attr('action', '/payment/order1').submit();
+}
+//함수안에 얼터창과 카카오페이 onclick이벤트를 넣어줌 밑의 결제하기 버튼에서 사용
+function validateAndRequestPay() {
+    if (validateForm()) {
+        requestPay();
+    }
+}
+</script>
+<!--카카오페이 창-->
+<script>
+  var IMP = window.IMP;
+  IMP.init("imp01240830");
+
+  function requestPay() {
+    IMP.request_pay({
+      pg: "kakaopay",
+      pay_method: "card",
+      merchant_uid: "57008833-33011",
+      name: "포케 샐러드",
+      amount: 100,
+      buyer_email: "fokefoke@fokeworld.co.kr",
+      buyer_name: "포케포케",
+      buyer_tel: "010-1234-5678",
+      buyer_addr: "서울특별시 종로 더조은",
+      buyer_postcode: "123-456",
+    }, function (rsp) {
+      if (rsp.success) {
+        alert("결제성공");
+        onSubmitForm();
+      } else {
+        alert("결제실패" + rsp.error_msg);
+      }
+    });
+  }
 </script>
 
 <!-- 포인트 사용 -->
-<script>
+<!--<script>
 function setPointAmount(amount){
 document.getElementById('pointAmt').value = amount;
 }
-</script>
+</script>-->
 
 <script>
-function calculateTotal() {
-    var prices = document.getElementsByName("price"); // 가격 정보를 담은 input 태그들의 name 속성 값이 "price"인 요소들을 가져옵니다.
-    var quantities = document.getElementsByName("quantity"); // 수량 정보를 담은 input 태그들의 name 속성 값이 "quantity"인 요소들을 가져옵니다.
-    var total = 0; // 총 주문금액을 담을 변수를 초기화합니다.
-    for (var i = 0; i < prices.length; i++) {
-        var price = parseInt(prices[i].value); // 가격 정보를 가져와 정수형으로 변환합니다.
-        var quantity = parseInt(quantities[i].value); // 수량 정보를 가져와 정수형으로 변환합니다.
-        total += price * quantity; // 총 주문금액을 계산합니다.
-    }
-    document.getElementById("totalPrice").innerText = total + "원"; // 총 주문금액을 화면에 출력합니다.
+function setPointAmount(amount){
+    document.getElementById('pointAmt').value = amount;
+    updateTotalPayment(amount);
 }
 </script>
-	
+
+<!--포인트-결제금액 뺀 나머지 결제금액 계산-->
+<script>
+function calculateTotal() {
+    var prices = document.getElementsByName("price");
+    var quantities = document.getElementsByName("quantity"); 
+    var total = 0;
+    for (var i = 0; i < prices.length; i++) {
+        var price = parseInt(prices[i].value); 
+        var quantity = parseInt(quantities[i].value); 
+        total += price * quantity; 
+    }
+    document.getElementById("totalPrice").innerText = total + "원"; 
+}
+</script>
 
 <body>
 
@@ -130,7 +188,8 @@ function calculateTotal() {
 		<div class="container">
 			<div class="checkout__form">
 				<form id="detailForm" method="post">
-				<!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+				<!-- CSRF 토큰을 포함시키는 부분 -->
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 				<input type="hidden" id="pointAccumulation" name="point" th:value="${member.point}">
 					<div class="row">
 						<div class="col-lg-12 col-md-6">
@@ -186,7 +245,7 @@ function calculateTotal() {
 						<div class="col-lg-8 col-md-6">
 							<div class="checkout__input">
 								<span>포인트 사용</span>
-								<input id="pointAmt" name="point" type="text" th:value="${member.point}">
+								<input id="pointAmt" name="point" type="text" value="">
 								<span>보유 포인트:</span>
 								<span id="point" th:text="${member.point}"></span>
 								</div>
@@ -194,7 +253,7 @@ function calculateTotal() {
 								<div class="col-lg-4 col-md-6">
 								<br>
 								<button type="button" th:onclick="'setPointAmount(' + ${member.point} + ')'"
-										style="background-color: #469543; color: #fff; border-radius: 30px; padding: 10px 20px; border: none; margin: 0 auto;">전체사용</button>						
+    								style="background-color: #469543; color: #fff; border-radius: 30px; padding: 10px 20px; border: none; margin: 0 auto;">전체사용</button>
 							</div>
 							</div>
 							</div>
@@ -206,7 +265,7 @@ function calculateTotal() {
 								    <div class="checkout__input">
 								      <button id="cart" type="button" class="btn btn-success"
 								        style="background-color: #469543; color: #fff; border-radius: 30px; padding: 10px 20px; border: none; margin: 0 auto;"
-								        onclick="cartInfo()"><img src="../static/img/icon_kakaopay.png" alt="카카오페이"></button>
+								        onclick="cartInfo()"><img src="/img/icon/kakaopay.png" alt="카카오페이"></button>
 								      &nbsp;&nbsp;&nbsp;
 								      <button id="bank" type="button" class="bank-button"
 								        style="background-color: #469543; color: #fff; border-radius: 30px; padding: 10px 20px; border: none; margin: 0 auto;"
@@ -236,7 +295,6 @@ function calculateTotal() {
 				
 <!-- 결제 관련 이벤트 -->				
 <script>
-
 /* 버튼 최대 2개 클릭 */
 let maxNumClicks = 2;
 let numClicks = 0;
@@ -342,7 +400,7 @@ function hideForms(){
 								<div class="checkout__input__checkbox">
 								<table id="cart">
 								<th:block th:each="cart:${cart}">
-								<!--<th:each var="cart" items="${cart}">-->
+								<th:each var="cart" items="${cart}">
 								<input type="hidden" name="cartId" th:value="${cart.cartId}">
 								<tr class="cartInfo_tr">
 	                           	    <td class="hdn">
@@ -375,7 +433,7 @@ function hideForms(){
 										</div>
 									</td>
 								</tr>
-								<!--</th:each>-->
+								</th:each>
 								</th:block>
 								</table>
 							</div>
@@ -429,8 +487,9 @@ function hideForms(){
 								</ul>
 								<br>
 								<div style="text-align: center;" class="btn_area">
-									<button onclick="validateForm();" type="button"
-											style="background-color: #469543; color: #fff; border-radius: 30px; padding: 10px 20px; border: none; margin: 0 auto;">결제하기</button>
+									<!--<button onclick="validateForm();" type="button"
+											style="background-color: #469543; color: #fff; border-radius: 30px; padding: 10px 20px; border: none; margin: 0 auto;">결제하기</button>-->
+									<button onclick="validateAndRequestPay();" type="button" style="background-color: #469543; color: #fff; border-radius: 30px; padding: 10px 20px; border: none; margin: 0 auto;">결제하기</button>
 									
 								</div>
 							</div>
@@ -441,42 +500,35 @@ function hideForms(){
 		</div>
 	</section>
 <script th:inline="javascript">
-    /*<![CDATA[*/
-    /*종합 정보 세팅*/
-    let totalPrice = 0;    
-    function TotalCartInfo() {
-    
-    let totalCount = 0;          //총 갯수
-    totalPrice = 0;          //총 가격
-    let usePoint = 0;          //사용 마일리지
-    let totalPay = 0;             //최종 결제(총 가격 - 마일리지)
+/*<![CDATA[*/
+let totalPrice = 0;
+let usePoint = 0;
+
+function updateTotalPayment(usedPoints) {
+    usePoint = parseInt(usedPoints);
+    let totalPay = totalPrice - usePoint;
+    $(".cart_usePoint").text(usePoint + " Point");
+    $(".cart_totalPay").text(totalPay.toLocaleString() + " 원");
+}
+
+function TotalCartInfo() {
+    let totalCount = 0;
+    totalPrice = 0;
+    let totalPay = 0;
 
     $(".cartInfo_tr").each(function(index, element) {
-        
-        /* 총 갯수 */
         totalCount += parseInt($(element).find(".hdn_cartCount_input").val());
-        
-        /* 총 가격 */
-        totalPrice += parseInt($(element).find(".hdn_totalPrice_input").val());
-
-        /* 총 마일리지 */
-        //totalPoint += parseInt($(element).find(".hdn_totalPoint_input").val());
-        
+        totalPrice += parseInt($(element).find(".hdn_totalPrice_input").val());  
     });
-        /* 사용 포인트 */
-        usePoint = [[${member.point}]];
-        
-        
-        /* 최종 결제 */
-        totalPay = totalPrice - usePoint;
-        
-        /*값 입력*/
-        $(".cart_totalCount").text(totalCount + " 개");
-        $(".cart_totalPrice").text(totalPrice.toLocaleString() + " 원");
-        $(".cart_usePoint").text(usePoint + " Point");
-        $(".cart_totalPay").text(totalPay.toLocaleString() + " 원");
-    };
-    /*]]>*/
+
+    totalPay = totalPrice - usePoint;
+
+    $(".cart_totalCount").text(totalCount + " 개");
+    $(".cart_totalPrice").text(totalPrice.toLocaleString() + " 원");
+    $(".cart_usePoint").text(usePoint + " Point");
+    $(".cart_totalPay").text(totalPay.toLocaleString() + " 원");
+};
+/*]]>*/
 </script>
 	
 	
