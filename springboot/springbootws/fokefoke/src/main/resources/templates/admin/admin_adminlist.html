@@ -15,7 +15,7 @@
                                     <th scope="col">이름</th>
                                     <th scope="col">생일</th>
                                     <th scope="col">전화번호</th>
-                                    <th scope="col">성별</th>
+                                 <!--   <th scope="col">성별</th>-->
                                     <th scope="col">관리자추방</th>
                                 </tr>
                             </thead>
@@ -25,7 +25,7 @@
                                     <td th:text="${member.memberName}"></td>
                                     <td th:text="${member.birth}"></td>
                                     <td th:text="${member.phone}"></td>
-                                    <td><span th:if="${member.sex == 0}">남</span><span th:if="${member.sex == 1}">여</span></td>
+                                <!--    <td><span th:if="${member.sex == 0}">남</span><span th:if="${member.sex == 1}">여</span></td>-->
                                  
                                     <td>
 										<form th:action="@{/admin/delete/{id}(id=${member.memberId})}" th:method="post">
