@@ -35,8 +35,8 @@ public class NoticeDTO {
     @Column(name = "noticeImage")
     private String noticeImage;
 
-    @Column(length = 100)
-    private String noticeImagefile;
+    @Column(name = "detailImage")
+    private String detailImage;
 
     @Column(length = 10)
     private String noticeState;

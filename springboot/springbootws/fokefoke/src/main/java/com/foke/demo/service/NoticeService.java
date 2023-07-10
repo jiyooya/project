@@ -1,7 +1,5 @@
 package com.foke.demo.service;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.foke.demo.DataNotFoundException;
 import com.foke.demo.dto.NoticeDTO;
@@ -42,12 +39,12 @@ public class NoticeService {
     
     //게시글쓰기
     @Transactional
-    public void enroll(String noticeTitle, String noticeContent, String imageUrl) {
+    public void enroll(String noticeTitle, String noticeContent, String noticeImage,String detailImage) {
         NoticeDTO notice = new NoticeDTO();
         notice.setNoticeTitle(noticeTitle);
         notice.setNoticeContent(noticeContent);
-        notice.setNoticeImage(imageUrl);
-
+        notice.setNoticeImage(noticeImage);
+        notice.setDetailImage(detailImage);
         NoticeRepository.save(notice);
     }
     
@@ -60,9 +57,12 @@ public class NoticeService {
         return this.NoticeRepository.findAll(pageable);
     }
     //게시글 수정
-    public void modify(NoticeDTO noticedto, String noticeTitle, String noticeContent) {
+    @Transactional
+    public void modify(NoticeDTO noticedto, String noticeTitle, String noticeContent, String noticeImage,String detailImage) {
     	noticedto.setNoticeTitle(noticeTitle);
     	noticedto.setNoticeContent(noticeContent);
+    	noticedto.setNoticeImage(noticeImage);
+    	noticedto.setDetailImage(detailImage);
         this.NoticeRepository.save(noticedto);
     }
     
@@ -70,4 +70,6 @@ public class NoticeService {
     public void delete(Integer id) {
         NoticeRepository.deleteById(id);
     }
+  
+
 }

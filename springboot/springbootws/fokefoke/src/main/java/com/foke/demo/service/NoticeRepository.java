@@ -13,8 +13,9 @@ public interface NoticeRepository extends JpaRepository<NoticeDTO, Integer> {
     NoticeDTO findByNoticeTitle(String noticeTitle);
 
     NoticeDTO findByNoticeContent(String noticeContent);
+    NoticeDTO findByNoticeImage(String noticeImage);
+    NoticeDTO findByDetailImage(String detailImage);
 
-    
     List<NoticeDTO> findByNoticeTitleLike(String noticeTitle);
 
     List<NoticeDTO> findAll();
