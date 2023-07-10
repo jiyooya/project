@@ -57,7 +57,7 @@ public class CartController {
 			@RequestParam(required = false, defaultValue="foke") List<String> sourcechk, 
 			@RequestParam(required = false, defaultValue="foke") List<String> extrachk, HttpSession session){
 		
-		if (toppingchk != null) {
+		if (!toppingchk.get(0).equals("foke")) {
 			for(int i=0;i<toppingchk.size();i++) {
 				if(i==0) {
 					dto.setAtopping(toppingchk.get(i));
@@ -70,7 +70,7 @@ public class CartController {
 				}
 			}
 		}
-		if (sourcechk != null) {
+		if (!sourcechk.get(0).equals("foke")) {
 			for(int i=0;i<sourcechk.size();i++) {
 				if(i==0) {
 					dto.setAsource(sourcechk.get(i));
@@ -79,7 +79,7 @@ public class CartController {
 				}
 			}
 		}
-		if(extrachk!=null) {
+		if(!extrachk.get(0).equals("foke")) {
 			for(int i=0;i<extrachk.size();i++) {
 				if(i==0) {
 					dto.setAextratopping(extrachk.get(i));
