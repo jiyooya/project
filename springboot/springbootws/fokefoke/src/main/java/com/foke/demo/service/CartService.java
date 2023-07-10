@@ -18,9 +18,9 @@ public class CartService {
     
     //상품추가
     public int addCart(CartDTO cart) {
-    	CartDTO checkCart = this.cartRepository.findByMemberIdAndProductName(cart.getMemberId(), cart.getProductName());
+    	CartDTO checkCart = this.cartRepository.findByMemberIdAndProductNameAndStoreName(cart.getMemberId(), cart.getProductName(), cart.getStoreName());
     	
-    	if (checkCart != null) {
+    	if (checkCart != null) { //회원,주소,상품명 같으면 중복
     		return 2;
     	}
     	try {

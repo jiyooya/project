@@ -17,7 +17,7 @@ public interface CartRepository extends JpaRepository<CartDTO, Integer> {
 	List<CartDTO> findByMemberId(String memberId);
 	
 	//(추가)
-	CartDTO findByMemberIdAndProductName(String memberId, String productName);
+	CartDTO findByMemberIdAndProductNameAndStoreName(String memberId, String productName, String storeName);
 
 	//(추가) - fokeingredientId, storeId 없음
 	//CartDTO findByMemberIdAndFokeingredientIdAndStoreId(String memberId, int fokeingredientId, int storeId);
