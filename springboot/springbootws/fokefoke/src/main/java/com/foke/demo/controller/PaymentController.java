@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,7 +43,7 @@ public class PaymentController {
 	private final CartService cartService;
 
 	//카트 - 결제 페이지
-	@RequestMapping(value = "list", method={RequestMethod.GET, RequestMethod.POST})
+	@PostMapping(value = "list")
 	public String list(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, @RequestParam(required=false) List<String> cartId) {
 		
 		StoreDTO sdto = new StoreDTO();
@@ -64,13 +65,13 @@ public class PaymentController {
 		}
 		System.out.println(">>>>>>>>>Lists>>>>>>>>>>>>>>>>>>>>>>"+ cartLists);
 		System.out.println("카트아이디~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+cartId);
+		
 		model.addAttribute("store", sdto);
 		model.addAttribute("member", member);
 		model.addAttribute("cart", cartLists);
 
 		return "payment/payment_list";
 	}
-	
 
 	//카트 - 뷰 페이지
 	@RequestMapping(value = "order", method={RequestMethod.GET, RequestMethod.POST})
@@ -97,6 +98,7 @@ public class PaymentController {
 		}
 		System.out.println(">>>>>>>>>Listssssss>>>>>>>>>>>>>>>>>>>>>>"+ cartLists);
 		System.out.println("카트아이디~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+cartId);
+		
 		//주문번호(랜덤함수)
 		String orderNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		Random random = new Random();
@@ -117,7 +119,7 @@ public class PaymentController {
 	}
 
 	//뷰 - 결제페이지
-	@RequestMapping(value = "list1", method={RequestMethod.GET, RequestMethod.POST})
+	@PostMapping(value = "list1")
 	public String list1(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, DetailDTO ddto, @RequestParam(required = false) List<String> toppingchk, 
 			@RequestParam(required = false) List<String> sourcechk, @RequestParam(required = false) List<String> extrachk) {
 
@@ -153,21 +155,18 @@ public class PaymentController {
 				}
 			}
 		}
-
 		HttpSession session = request.getSession();
 		StoreDTO sdto = new StoreDTO();
 		sdto.setStoreName((String)session.getAttribute("storeName"));
 		sdto.setStoreAddress((String)session.getAttribute("storeAddress"));
 		String memberId = user.getUsername();
 		MemberDTO member = this.paymentservice.getMember(memberId);
-
-		//detail 데이터 세션을 담음
+		//detail 데이터를 세션에 담음
 		session.setAttribute("detail", ddto);
 
 		model.addAttribute("store", sdto);
 		model.addAttribute("member", member);
 		model.addAttribute("detail", ddto);
-
 
 		return "payment/payment_list1";
 	}
@@ -184,6 +183,7 @@ public class PaymentController {
 		sdto.setStoreAddress((String)session.getAttribute("storeAddress"));
 		String memberId = user.getUsername();
 		MemberDTO member = this.paymentservice.getMember(memberId);
+		
 		//주문번호(랜덤함수)
 		String orderNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		Random random = new Random();
