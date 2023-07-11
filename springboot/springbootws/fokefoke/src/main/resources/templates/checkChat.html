@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>chat</title>
+</head>
+
+<body>
+	<!-- Add an HTML element to hold the distinct sender list -->
+	<h1>chat리스트</h1>
+	<ul id="distinct-sender-container"></ul>
+
+	<script th:src="@{/js/addCsrfTokenToAjaxRequest.js}"></script>
+
+	<script th:inline="javascript">
+		var xhr = new XMLHttpRequest();
+		var csrfToken = /*[[${_csrf.token}]]*/ 'default-token';
+		function getDistinctSender() {
+			fetch('http://34.64.159.23:8000/distinct-sender', {
+				headers: {
+					'X-CSRF-Token': csrfToken,
+				},
+			})
+				.then((response) => {
+					console.log(response);
+					if (response.ok) {
+						return response.json(); // 응답을 JSON 형식으로 파싱합니다.
+					} else {
+						throw new Error('Network response error');
+					}
+				})
+				.then((data) => {
+					displayDistinctSender(data);
+				})
+				.catch(error => console.error('Error fetching distinct senders:', error));
+		}
+
+		function displayDistinctSender(senderList) {
+			console.log("++++++++", senderList);
+			const container = document.getElementById("distinct-sender-container");
+			senderList.forEach(sender => {
+				if (sender !== 'admin') { // 'admin' 값을 필터링
+					const listItem = document.createElement("li");
+					const link = document.createElement("a");
+					link.href = `http://localhost:8080/detail/chatMain/${sender}`;
+					link.textContent = sender;
+					listItem.appendChild(link);
+					container.appendChild(listItem);
+				}
+			});
+		}
+
+		// 모든 유니크한 'sender' 가져오기, 'admin'은 제외된 채로 가져옵니다
+		getDistinctSender();
+	</script>
+</body>
+
+</html>

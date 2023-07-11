@@ -282,8 +282,15 @@ public class DetailController {
 		return dto;
 	}
 	
+	@GetMapping("/checkChat")
+	public String checkChat() {
+		
+		return "checkChat";
+	}
+	
 	@GetMapping("/chatMain/{memberId}")
-	public String chatMain(@PathVariable String memberId) {
+	public String chatMain(Model model, @PathVariable String memberId) {
+		model.addAttribute("memberId", memberId);
 		return "chat";
 	}
 }
