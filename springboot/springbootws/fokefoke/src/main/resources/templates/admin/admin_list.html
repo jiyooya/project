@@ -18,6 +18,7 @@
                                   <!--  <th scope="col">성별</th>-->
                                     <th scope="col">포인트</th>
                                     <th scope="col">회원삭제</th>
+                                    <th scope="col">회원상담</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,7 +37,11 @@
 										
 										</form>
 									</td>
-									
+									<td data-member-id="[[${member.memberId}]]" th:id="${member.memberId} + '-container'">
+    <a th:href="@{'http://localhost:8080/detail/chatMain/' + ${member.memberId}}" class="btn btn-sm btn-outline-secondary">
+        상담
+    </a>
+</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -82,6 +87,8 @@
     
     <!-- Template Javascript -->
     <script src="/js/admin/main.js"></script>
+    <script th:src="@{/js/addCsrfTokenToAjaxRequest.js}"></script>
+
 </body>
 </th:block>
 </html>
