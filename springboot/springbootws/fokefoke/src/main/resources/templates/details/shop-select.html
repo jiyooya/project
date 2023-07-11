@@ -632,7 +632,7 @@
 				type: 'post',
 				url: '/detail/update',
 				data: queryString,
-				beforeSend: addCsrfTokenToAjaxRequest,
+				//beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					/* Thymeleaf if condition */
@@ -714,7 +714,7 @@
 				type: 'post',
 				url: '/detail/toppingChk',
 				data: toppingString,
-				beforeSend: addCsrfTokenToAjaxRequest,
+				//beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					console.log("preBase>>>>>>>" + data.base);
@@ -748,7 +748,7 @@
 				type: 'post',
 				url: '/detail/toppingChk',
 				data: toppingString,
-				beforeSend: addCsrfTokenToAjaxRequest,
+				//beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					console.log(data);
@@ -795,7 +795,7 @@
 				type: 'post',
 				url: '/detail/toppingChk',
 				data: sourceString,
-				beforeSend: addCsrfTokenToAjaxRequest,
+				//beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					console.log("preSour>>>>>>>>" + data);
@@ -832,7 +832,7 @@
 				type: 'post',
 				url: '/detail/toppingChk',
 				data: extratoppingString,
-				beforeSend: addCsrfTokenToAjaxRequest,
+				//beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					console.log("preEx>>>>" + data);
@@ -872,7 +872,7 @@
 				type: 'post',
 				url: '/detail/toppingChk',
 				data: toppingString,
-				beforeSend: addCsrfTokenToAjaxRequest,
+				//beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					console.log(data.extramain);
@@ -898,7 +898,7 @@
 		}
 		function extramainRechk() {
 			var extramainValue = /*[[${dto.extramain}]]*/ '';
-			consol.log("extramain>>>>>>" + extramainValue);
+			console.log("extramain>>>>>>" + extramainValue);
 			if (preExtramain !== null) {
 				$("input:radio[name='extramain']:radio[value='" + preExtramain + "']").prop("checked", true);
 				$("input:radio[name='main']:radio[value='" + "메인추가" + "']").prop("checked", true);
@@ -924,7 +924,7 @@
 				type: 'post',
 				url: '/detail/toppingChk',
 				data: toppingString,
-				beforeSend: addCsrfTokenToAjaxRequest,
+				//beforeSend: addCsrfTokenToAjaxRequest,
 				dataType: 'json',
 				success: function (data) {
 					preSetside = null;
