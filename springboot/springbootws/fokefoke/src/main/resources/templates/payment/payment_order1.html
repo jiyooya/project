@@ -39,6 +39,31 @@
 }
 </style>
 
+<!--css 통일-->
+<style>
+    .checkout__input input,
+    .checkout__input select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-top: 6px;
+      margin-bottom: 16px;
+      resize: vertical;
+    }
+
+    /* 선택하라는 문장의 스타일 */
+    option:first-child {
+      color: #aaa;
+    }
+
+    .col-lg-4 {
+      display: flex;
+      flex-direction: column;
+    }	
+	
+</style>
+
 <!-- 포인트 사용 -->
 <script>
 function setPointAmount(amount){

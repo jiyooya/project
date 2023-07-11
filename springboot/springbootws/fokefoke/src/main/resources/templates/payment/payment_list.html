@@ -45,6 +45,30 @@ ul li {
   color:black;
   }
 </style>
+<!--css 통일-->
+<style>
+    .checkout__input input,
+    .checkout__input select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-top: 6px;
+      margin-bottom: 16px;
+      resize: vertical;
+    }
+
+    /* 선택하라는 문장의 스타일 */
+    option:first-child {
+      color: #aaa;
+    }
+
+    .col-lg-4 {
+      display: flex;
+      flex-direction: column;
+    }	
+	
+</style>
 
 
 <!-- 주문시 요청사항 텍스트 입력 시 없어지는 이벤트 -->
@@ -61,17 +85,30 @@ if (textBox !== null) {
 }
 </script>
 
-<!-- 무통장 입금 폼 -->
+<!--무통장 버튼 클릭시 해당 폼 생성-->
 <script>
 function showBankInfo() {
   $('#bank-info').append(
-    '<div class="col-lg-4">' +
+    '<div class="col-lg-4" id="bankForm">' +
     '<div class="checkout__input">' +
-    '<input name="bank" placeholder="입금자 이름"></li><li><strong>입금은행</strong>&nbsp;&nbsp;<select name="bankAccount" class="bankAccount"><option value="">선택해주세요</option><option value="1">국민 4444-555-6666 (주)포케포케</option><option value="2">신한 9999-888-7777 (주)포케포케</option><option value="3">우리 1111-222-3333 (주)포케포케</option></select></li></ul>'+
+    '<input type="text" name="bank" placeholder="입금자 이름"><br><strong>입금은행</strong>  <select name="bankAccount" class="bankAccount"><option value="">선택해주세요</option><option value="1">국민 4444-555-6666 (주)포케포케</option><option value="2">신한 9999-888-7777 (주)포케포케</option><option value="3">우리 1111-222-3333 (주)포케포케</option></select>' +
     '</div>' +
     '</div>'
   );
   $('#bank').prop('disabled', true); // 무통장 버튼 비활성화
+}
+</script>
+<!--카카오 버튼 클릭시 무통장 폼 삭제-->
+<script>
+function toggleBankInfo() {
+  const bankForm = document.getElementById("bankForm");
+  
+  if (!bankForm) {
+    showBankInfo();
+  } else {
+    bankForm.remove();
+    $('#bank').prop('disabled', false); // 무통장 버튼 활성화
+  }
 }
 </script>
 
@@ -100,7 +137,7 @@ function validateForm() {
 }
 
 function onSubmitForm() {
-  $('#detailForm').attr('action', '/payment/order1').submit();
+  $('#detailForm').attr('action', '/payment/order').submit();
 }
 //함수안에 얼터창과 카카오페이 onclick이벤트를 넣어줌 밑의 결제하기 버튼에서 사용
 function validateAndRequestPay() {
@@ -118,7 +155,7 @@ function validateAndRequestPay() {
     IMP.request_pay({
       pg: "kakaopay",
       pay_method: "card",
-      merchant_uid: "57008833-33011",
+      merchant_uid: "57008833-33012",
       name: "포케 샐러드",
       amount: 100,
       buyer_email: "fokefoke@fokeworld.co.kr",
@@ -160,7 +197,6 @@ function calculateTotal() {
 </script>
 
 <body>
-
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-option">
 		<div class="container">
@@ -256,13 +292,12 @@ function calculateTotal() {
 								<div class="row" id="bank-info">
 								  <div class="col-lg-6">
 								    <div class="checkout__input">
-								      <button id="cart" type="button" class="btn btn-success"
-								        style="background-color: #469543; color: #fff; border-radius: 30px; padding: 10px 20px; border: none; margin: 0 auto;"
-								        onclick="cartInfo()"><img src="/img/icon/kakaopay.png" alt="카카오페이"></button>
-								      &nbsp;&nbsp;&nbsp;
-								      <button id="bank" type="button" class="bank-button"
-								        style="background-color: #469543; color: #fff; border-radius: 30px; padding: 10px 20px; border: none; margin: 0 auto;"
-								        onclick="showBankInfo();">무통장입금</button>
+								    	<button id="cart" type="button" class="btn btn-success"
+										    style="background-color: #469543; color: #fff; border-radius: 30px; padding: 10px 20px; border: none; margin: 0 auto;"
+										    onclick="toggleBankInfo();"><img src="/img/icon/kakaopay.png" alt="카카오페이">
+										</button>
+										 &nbsp;&nbsp;&nbsp;
+										<button id="bank" type="button" class="bank-button" style="background-color: #469543; color: #fff; border-radius: 30px; padding: 10px 20px; border: none; margin: 0 auto;" onclick="showBankInfo();">무통장입금</button>
 								    </div>
 								  </div>
 								</div>
