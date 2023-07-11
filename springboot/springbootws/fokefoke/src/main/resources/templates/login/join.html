@@ -3,32 +3,8 @@
 	layout:decorate="~{fragments/layout}">
 <th:block layout:fragment="content">
 <head>
-	<meta charset="UTF-8">
-	<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
-	<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
 	<title>포케포케 : 회원가입</title>
-
-	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-	<!-- Google Font -->
-	<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-		rel="stylesheet">
-
-	<!-- Css Styles -->
-	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
-	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" type="text/css">
-	<link rel="stylesheet" th:href="@{/css/elegant-icons.css}" type="text/css">
-	<link rel="stylesheet" th:href="@{/css/magnific-popup.css}" type="text/css">
-	<link rel="stylesheet" th:href="@{/css/nice-select.css}" type="text/css">
-	<link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" type="text/css">
-	<link rel="stylesheet" th:href="@{/css/slicknav.min.css}" type="text/css">
-	<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
 	<link rel="stylesheet" th:href="@{/css/join.css}" type="text/css">
-
-	<!-- Favicons -->
-	<link th:href="@{/img/favicon.png}" rel="icon" />
-	<link th:href="@{/img/favicon.png}" rel="apple-touch-icon" />
 </head>
 
 <body>
@@ -256,8 +232,6 @@
 		</section>
 	</form>
 	<!-- Checkout Section End -->
-
-	<!--<jsp:include page="/WEB-INF/views/header.jsp" />-->
 
 	<!-- 페이지에서 작동되는 함수들 -->
 	<script>
@@ -581,7 +555,5 @@
 	<!-- Js Plugins -->
 	<script th:src="@{/js/password.js}"></script>
 	<script th:src="@{/js/name.birth.phone.js}"></script>
-	<script th:src="@{/js/addCsrfTokenToAjaxRequest.js}"></script>
 </body>
-
 </html>
