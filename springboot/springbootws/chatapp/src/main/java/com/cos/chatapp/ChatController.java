@@ -1,6 +1,7 @@
 package com.cos.chatapp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,32 +17,39 @@ import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 @RequiredArgsConstructor
-@RestController //데이터 리턴 서버
+@RestController // 데이터 리턴 서버
 public class ChatController {
 
 	private final ChatRepository chatRepository;
-	
-	//귓솔말 할 때 사용
+
+	// 귓솔말 할 때 사용
 	@CrossOrigin
-	@GetMapping(value="/sender/{sender}/receiver/{receiver}", produces=MediaType.TEXT_EVENT_STREAM_VALUE)
+	@GetMapping(value = "/sender/{sender}/receiver/{receiver}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<Chat> getMsg(@PathVariable String sender, @PathVariable String receiver) {
-		return chatRepository.mFindBySender(sender, receiver)
-				.subscribeOn(Schedulers.boundedElastic());
+		return chatRepository.mFindBySender(sender, receiver).subscribeOn(Schedulers.boundedElastic());
 	}
-	
+
 	@CrossOrigin
-	@GetMapping(value="/chat/roomNum/{roomNum}", produces=MediaType.TEXT_EVENT_STREAM_VALUE)
-	public Flux<Chat> findByRoomNum(@PathVariable String roomNum){
-		return chatRepository.mFindByRoomNum(roomNum)
-				.subscribeOn(Schedulers.boundedElastic());
+	@GetMapping(value = "/chat/roomNum/{roomNum}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	public Flux<Chat> findByRoomNum(@PathVariable String roomNum) {
+		return chatRepository.mFindByRoomNum(roomNum).subscribeOn(Schedulers.boundedElastic());
 	}
-	
+
 	@CrossOrigin
 	@PostMapping("/chat")
-	public Mono<Chat> setMsg(@RequestBody Chat chat){
+	public Mono<Chat> setMsg(@RequestBody Chat chat) {
 		chat.setCreatedAt(LocalDateTime.now());
-		return chatRepository.save(chat); //Object를 리턴하면 자도응로 JSON변환 (MessageConverter)
+		return chatRepository.save(chat); // Object를 리턴하면 자도응로 JSON변환 (MessageConverter)
 	}
-	
-	
+
+	@CrossOrigin(origins = {"http://192.168.0.17:8080", "http://localhost:8080"})
+	@GetMapping("/distinct-sender")
+	public Mono<List<String>> getDistinctSender() {
+	    return chatRepository.findDistinctSenderChatsExclude("admin")
+	            .filter(chat -> chat.getSender() != null)
+	            .map(Chat::getSender)
+	            .distinct()
+	            .collectList();
+	}
+
 }

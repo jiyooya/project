@@ -16,5 +16,8 @@ public interface ChatRepository extends ReactiveMongoRepository<Chat, String>{
 	@Query("{roomNum:?0}")
 	Flux<Chat> mFindByRoomNum(String roomNum);
 	
+	@Query(value = "{'sender': {$ne: ?0}}", fields = "{'sender': 1, '_id': 0}")
+	Flux<Chat> findDistinctSenderChatsExclude(String excludeName);
+	
 	
 }
