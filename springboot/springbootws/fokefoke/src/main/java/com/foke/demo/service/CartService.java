@@ -62,5 +62,10 @@ public class CartService {
         }
     }
     
+    //차트
+    public List<Object[]> getMostAddedProducts() {
+        return cartRepository.findMostAddedProducts();
+    }
+    
     
 }

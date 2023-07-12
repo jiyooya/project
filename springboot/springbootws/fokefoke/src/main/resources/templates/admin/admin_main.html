@@ -53,10 +53,11 @@
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Worldwide Sales</h6>
-                                <a href="">Show All</a>
+                                <h6 class="mb-0">Cart Chart</h6>
+                                <a href="/cart/cartchart">Show All</a>
                             </div>
-                            <canvas id="worldwide-sales"></canvas>
+<!--                        <canvas id="worldwide-sales"></canvas>-->
+							<canvas id="productChart" width="400" height="400"></canvas>
                         </div>
                     </div>
                     <div class="col-sm-12 col-xl-6">
@@ -268,7 +269,44 @@
             </div>
             <!-- Widgets End -->
 
+        <script> //CartChart
+        async function fetchAllData() {
+            const response = await fetch('/cart/api/most-added-products');
+            const mostAddedProducts = await response.json();
+            createCartChart(mostAddedProducts);
+        }
+
+        function createCartChart(mostAddedProducts) {
+            var ctx = document.getElementById('productChart').getContext('2d');
+            var labels = [];
+            var data = [];
+            for (var i = 0; i < mostAddedProducts.length; i++) {
+                labels.push(mostAddedProducts[i][0]);
+                data.push(mostAddedProducts[i][1]);
+            }
+            var cartChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '장바구니에 담긴 상품순위',
+                        data: data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+        fetchAllData();
         
+    </script>
+    
 	<!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

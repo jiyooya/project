@@ -1,6 +1,7 @@
 package com.foke.demo.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,6 +20,7 @@ import com.foke.demo.config.MemberRole;
 import com.foke.demo.dto.MemberDTO;
 import com.foke.demo.dto.NoticeDTO;
 import com.foke.demo.service.AdminService;
+import com.foke.demo.service.CartService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -30,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminController {
 	
 	private final AdminService adminService;
+	private final CartService cartService;
 	
 	// 관리자 메인 페이지 이동
 	@GetMapping("/main")
@@ -61,7 +64,11 @@ public class AdminController {
 	    } else {
 	        model.addAttribute("adminCk", 0);
 	    }
-
+	    
+	    //Cart차트
+		List<Object[]> mostAddedProducts = this.cartService.getMostAddedProducts();
+		model.addAttribute("mostAddedProducts",mostAddedProducts);
+	    
 	    return "admin/admin_main";
 	}
 
