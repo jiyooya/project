@@ -32,8 +32,7 @@ public class SecurityConfig{
                .requestMatchers("/img/**", "/js/**", "/css/**", "/fonts/**", "/sass/**", "/chat/**").permitAll() // 소스 접근 허용
                .requestMatchers("/", "/menuList", "/noticeList", "/usepolicy", "/privacy", "/test").permitAll() // 해당 경로 모든 사용자에게 접근 허용
                .requestMatchers("/login/**", "/notice/list", "/notice/detail/**", "/notice/view", "/detail/view2").permitAll() // 위와 같음
-//               .requestMatchers("/**").permitAll() // 뭔가 안 된다면 주석 해제 후 시도(1)
-  //             .requestMatchers("/admin/**").hasRole("ADMIN") // 해당 경로 관리자에게만 접근 허용 
+               .requestMatchers("/admin/**").hasAnyRole("ADMIN", "MANAGER") // 해당 경로 관리자에게만 접근 허용 
                .requestMatchers("/member/**").hasRole("USER") // 해당 경로 유저에게만 접근 허용
                .anyRequest().authenticated()
            )  
