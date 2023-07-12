@@ -46,9 +46,7 @@
 					<a sec:authorize="isAuthenticated()" th:href="@{/cart/${memberId}}">장바구니</a>
 					<!-- 수정 필요-->
 					<!-- 관리자 로그인 -->
-					<div th:if="${adminCk == 1}">
-						<a href="/admin/main">관리자 페이지</a>
-					</div>
+    				<a sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_MANAGER')" th:href="@{/admin/main}">관리자 페이지</a>
 				</div>
 			</div>
 			<div id="mobile-menu-wrap"></div>
@@ -84,16 +82,13 @@
 									<!-- 경로 수정 필요-->
 									<a sec:authorize="isAuthenticated()" th:href="@{/cart/${memberId}}">장바구니</a>
 									<!-- 관리자 로그인 -->
-									<div th:if="${adminCk == 1}">
-										<a href="/admin/main">관리자 페이지</a>
-									</div>
+    								<a sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_MANAGER')" th:href="@{/admin/main}">관리자 페이지</a>
 
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 			</div>
 
 
