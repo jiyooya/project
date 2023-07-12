@@ -32,12 +32,11 @@
                                     <td th:text="${member.phone}"></td>
                                    <!-- <td><span th:if="${member.sex == 0}">남</span><span th:if="${member.sex == 1}">여</span></td>-->
                                     <td th:text="${member.point}"></td>
-                                    <td>
-										<form th:action="@{/admin/delete/{id}(id=${member.memberId})}" th:method="post">
-										    <input type="submit" class="btn btn-sm btn-outline-primary" value="상담">
-										
-										</form>
-									</td>
+                                    <td data-member-id="[[${member.memberId}]]" th:id="${member.memberId} + '-container'">
+    <a th:href="@{'http://localhost:8080/detail/chatMain/' + ${member.memberId}}" class="btn btn-sm btn-outline-secondary">
+        상담
+    </a>
+</td>
                                     
                                     <td>
 										<form th:action="@{/admin/delete/{id}(id=${member.memberId})}" th:method="post">
@@ -97,6 +96,7 @@
     
     <!-- Template Javascript -->
     <script src="/js/admin/main.js"></script>
+    <script th:src="@{/js/addCsrfTokenToAjaxRequest.js}"></script>
 </body>
 </th:block>
 </html>
