@@ -2,7 +2,6 @@ package com.foke.demo.controller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -11,21 +10,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.foke.demo.dto.NoticeDTO;
 import com.foke.demo.service.NoticeService;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import net.coobird.thumbnailator.Thumbnails;
 
 @RequiredArgsConstructor
 @Controller
@@ -59,7 +53,7 @@ public class NoticeController {
 	public ResponseEntity<byte[]> getFile(@PathVariable("noticeImage") String fileName) { // 특정 파일의 이름을 받아서 이미지 데이터를 전송하는 코드
 	    System.out.println("fileName : " + fileName); // fileName은 파일의 경로
 
-	    File file = new File("D://kdigital//sbws//fokefoke6-30//src//main//resources//static//img//blog//" + fileName);
+	    File file = new File("/home/ubuntu/fokefoke/static/img/blog/" + fileName);
 
 	    System.out.println("file : " + file);
 
@@ -83,7 +77,7 @@ public class NoticeController {
 	public ResponseEntity<byte[]> getFileEntity(@PathVariable("detailImage") String detailfileName) { // 특정 파일의 이름을 받아서 이미지 데이터를 전송하는 코드
 	    System.out.println("detailfileName : " + detailfileName); // fileName은 파일의 경로
 
-	    File file = new File("D://kdigital//sbws//fokefoke6-30//src//main//resources//static//img//board//" + detailfileName);
+	    File file = new File("/home/ubuntu/fokefoke/static/img/board/" + detailfileName);
 
 	    System.out.println("file : " + file);
 

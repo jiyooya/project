@@ -5,28 +5,51 @@
 	<div class="container-fluid pt-4 px-4">
 	  <div class="col-sm-12 col-xl-12">
             <div class="bg-light rounded h-100 p-4">
-				<form method="post" action="#" th:action="@{/admin/notice_enroll}" th:object="${noticeDTO}" enctype="multipart/form-data">
-	                <h6 class="mb-4">이벤트 등록</h6>
+				<form method="post" action="#" th:action="@{/admin/notice_modify/{id}(id = ${noticedto.noticeId})}" th:object="${noticeDTO}" enctype="multipart/form-data">
+	                <h3 class="mb-4">이벤트 등록</h3>
+	                <div class="bg-light rounded h-100 p-4">
+                        <h6 class="mb-4">이미지수정</h6>
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        썸네일 이미지 등록
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div><img id="previewImage" width="400" th:src="@{'/admin/display/'+${noticedto.noticeImage}}" alt="Image" /></div><br>
+	                					<input class="form-control form-control-lg" type="file" id="fileItem" name="fileItem" > <br> 파일이름: <span th:text="${noticedto.noticeImage}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        상세 이미지 등록
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div><img id="previewImage2" width="400" th:src="@{'/admin/display2/'+${noticedto.DetailImage}}" alt="Image" /></div><br>
+	                					<input class="form-control form-control-lg" type="file" id="detailFile" name="detailFile"> <br> 파일이름: <span th:text="${noticedto.detailImage}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
 	                <div class="form-floating mb-3">
-	                    <input type="text" th:field="*{noticeTitle}" class="form-control" id="floatingInput" placeholder="name@example.com">
+	                    <input type="text" name="noticeTitle" th:value="${noticedto.noticeTitle}" class="form-control" id="floatingInput">
 	                    <label for="floatingInput">제목</label>
 	                </div>
+
 	                <div class="form-floating">
-	                    <textarea th:field="*{noticeContent}" class="form-control" placeholder="Leave a comment here"
+	                    <textarea name="noticeContent" th:text="${noticedto.noticeContent}" class="form-control" 
 	                        id="floatingTextarea" style="height: 350px;"></textarea>
 	                    <label for="floatingTextarea">내용</label>
 	                </div>
-	                <br>
-	                <div>
-		                <label for="formFileLg" class="form-label">썸네일 이미지파일</label>
-		                <input class="form-control form-control-lg" type="file" id="fileItem" name="fileItem" >
-		            </div>
-		            <br>
-	                <div>
-		                <label for="formFileLg" class="form-label">상세 이미지파일</label>
-		                <input class="form-control form-control-lg" type="file" id="detailFile" name="detailFile" >
-		            </div>
-	            <br>
 		            <input type="submit" value="저장하기" class="btn btn-primary my-2">
 				</form>
 	    		<a href="/admin/noticelist"> <button class="btn btn-primary">목록 </button></a>
@@ -46,6 +69,39 @@
     
     <!-- Template Javascript -->
     <script src="/js/admin/main.js"></script>
+    
+     <!--이미지ajax-->
+    <script>
+	$(document).ready(function() {
+	  $("#fileItem").on("change", function() {
+	    const imgContainer = $("#previewImage");
+	    const file = this.files[0];
+	
+	    if(file) {
+	      const reader = new FileReader();
+	      reader.onload = function(e) {
+	        imgContainer.attr("src", e.target.result);
+	      }
+	      reader.readAsDataURL(file);
+	    }
+	  });
+	  $("#detailFile").on("change", function() {
+	    const imgContainer = $("#previewImage2");
+	    const file = this.files[0];
+	
+	    if(file) {
+	      const reader = new FileReader();
+	      reader.onload = function(e) {
+	        imgContainer.attr("src", e.target.result);
+	      }
+	      reader.readAsDataURL(file);
+	    }
+	  });
+	  
+	  
+	});
+	</script>
+
 </body>
 </th:block>
 </html>
