@@ -129,10 +129,18 @@ public class AdminController {
 	
 	//회원 정보 페이지
 	@GetMapping("/detail/{memberId}")
-	public String detail(Model model, @PathVariable("memberId") String id) {
-		MemberDTO memberdto = this.adminService.getmemberdto(id);
-		model.addAttribute("memberdto", memberdto);
-		return "admin/admin_detail";
+	public String detail(Model model, @PathVariable("memberId") String memberId) {
+	    MemberDTO memberdto = this.adminService.getmemberdto(memberId);
+	    String[] memberIdParts = splitMemberId(memberdto.getMemberId());
+	    model.addAttribute("username", memberIdParts[0]);
+	    model.addAttribute("domain", memberIdParts[1]);
+	    model.addAttribute("memberdto", memberdto);
+	    return "admin/admin_detail";
+	}
+
+	    public String[] splitMemberId(String memberId) {
+	        return memberId.split("@");
+	    
 	}
 	
 	
