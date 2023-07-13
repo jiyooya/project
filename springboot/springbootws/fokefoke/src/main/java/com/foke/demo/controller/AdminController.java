@@ -210,7 +210,7 @@ public class AdminController {
 	    int imageHeight = 300; // 원하는 세로 길이를 설정하세요.
 	    
 	    // 썸네일 이미지 파일 저장
-	    String uploadDirectory = "/home/ubuntu/fokefoke/static/img/blog/";
+	    String uploadDirectory = "C:/home/ubuntu/fokefoke/static/img/blog/";
 	    if (imageFile != null && !imageFile.isEmpty()) {
 	        File uploadDir = new File(uploadDirectory);
 	        if (!uploadDir.exists()) uploadDir.mkdirs();
@@ -225,7 +225,7 @@ public class AdminController {
 	    }
 	    
 	    // 게시판 이미지 파일 저장
-	    String boardDirectory = "/home/ubuntu/fokefoke/static/img/board/";
+	    String boardDirectory = "C:/home/ubuntu/fokefoke/static/img/board/";
 	    if (detailImageFile != null && !detailImageFile.isEmpty()) {
 	        File boardDir = new File(boardDirectory);
 	        if (!boardDir.exists()) boardDir.mkdirs();
@@ -267,7 +267,7 @@ public class AdminController {
 	public ResponseEntity<byte[]> getFile(@PathVariable("noticeImage") String fileName) { // 특정 파일의 이름을 받아서 이미지 데이터를 전송하는 코드
 	    System.out.println("fileName : " + fileName); // fileName은 파일의 경로
 
-	    File file = new File("/home/ubuntu/fokefoke/static/img/blog/" + fileName);
+	    File file = new File("C:/home/ubuntu/fokefoke/static/img/blog/" + fileName);
 
 	    System.out.println("file : " + file);
 
@@ -291,7 +291,7 @@ public class AdminController {
 	public ResponseEntity<byte[]> getFileEntity(@PathVariable("detailImage") String detailfileName) { // 특정 파일의 이름을 받아서 이미지 데이터를 전송하는 코드
 	    System.out.println("detailfileName : " + detailfileName); // fileName은 파일의 경로
 
-	    File file = new File("/home/ubuntu/fokefoke/static/img/board/" + detailfileName);
+	    File file = new File("C:/home/ubuntu/fokefoke/static/img/board/" + detailfileName);
 
 	    System.out.println("file : " + file);
 
@@ -342,7 +342,7 @@ public class AdminController {
 	    int imageHeight = 300; // 원하는 세로 길이를 설정하세요.
 	    
 	    // 썸네일 이미지 파일 저장
-	    String uploadDirectory = "/home/ubuntu/fokefoke/static/img/blog/";
+	    String uploadDirectory = "C:/home/ubuntu/fokefoke/static/img/blog/";
 	    if (imageFile != null && !imageFile.isEmpty()) {
 	        File uploadDir = new File(uploadDirectory);
 	        if (!uploadDir.exists()) uploadDir.mkdirs();
@@ -357,7 +357,7 @@ public class AdminController {
 	        
 	    }
 	    // 게시판 이미지 파일 저장
-	    String boardDirectory = "/home/ubuntu/fokefoke/static/img/board/";
+	    String boardDirectory = "C:/home/ubuntu/fokefoke/static/img/board/";
 	    if (detailImageFile != null && !detailImageFile.isEmpty()) {
 	        File boardDir = new File(boardDirectory);
 	        if (!boardDir.exists()) boardDir.mkdirs();
