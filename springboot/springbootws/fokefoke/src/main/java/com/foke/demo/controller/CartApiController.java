@@ -20,4 +20,11 @@ public class CartApiController {
 
         return ResponseEntity.ok(mostAddedProducts);
     }
+    
+    @GetMapping("/most-added-store")
+    public ResponseEntity<List<Object[]>> getMostAddedStore() {
+        List<Object[]> mostAddedStore = this.cartService.getMostAddedStore();
+
+        return ResponseEntity.ok(mostAddedStore);
+    }
 }

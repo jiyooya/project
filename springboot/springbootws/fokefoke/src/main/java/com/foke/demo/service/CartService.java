@@ -67,5 +67,8 @@ public class CartService {
         return cartRepository.findMostAddedProducts();
     }
     
+    public List<Object[]> getMostAddedStore() {
+    	return cartRepository.findMostAddedStore();
+    }
     
 }

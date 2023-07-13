@@ -1,7 +1,6 @@
 package com.foke.demo.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -172,6 +171,14 @@ public class CartController {
 		model.addAttribute("mostAddedProducts",mostAddedProducts);
         
 		return "cart/cartchart";
+    }
+	
+	@GetMapping("/cartstorechart")
+    public String showCartStoreChart(Model model) {
+		List<Object[]> mostAddedStore = this.cartService.getMostAddedStore();
+		model.addAttribute("mostAddedStore",mostAddedStore);
+        
+		return "cart/cartstorechart";
     }
 
 }

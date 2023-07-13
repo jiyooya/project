@@ -81,6 +81,9 @@ public class AdminController {
 	    //Cart차트
 		List<Object[]> mostAddedProducts = this.cartService.getMostAddedProducts();
 		model.addAttribute("mostAddedProducts",mostAddedProducts);
+		
+		List<Object[]> mostAddedStore = this.cartService.getMostAddedStore();
+		model.addAttribute("mostAddedStore",mostAddedStore);
 	    
 	    return "admin/admin_main";
 	}
