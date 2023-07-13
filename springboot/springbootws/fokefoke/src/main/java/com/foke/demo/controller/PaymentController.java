@@ -1,5 +1,6 @@
 package com.foke.demo.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -9,7 +10,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +24,7 @@ import com.foke.demo.dto.StoreDTO;
 import com.foke.demo.service.CartService;
 import com.foke.demo.service.DetailService;
 import com.foke.demo.service.MemberService;
+import com.foke.demo.service.PaymentRepository;
 import com.foke.demo.service.Paymentservice;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,37 +43,61 @@ public class PaymentController {
 	private final DetailService detailService;
 	private final CartService cartService;
 
-	//카트 - 결제 페이지
 	@PostMapping(value = "list")
-	public String list(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, @RequestParam(required=false) List<String> cartId) {
+	public String list(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, ProductDTO pro, @RequestParam(required = false) List<String> cartId) {
 		
-		StoreDTO sdto = new StoreDTO();
-		String memberId = user.getUsername();
-		MemberDTO member = this.paymentservice.getMember(memberId);
+		HttpSession session = request.getSession();
+	    String memberId = user.getUsername();
+	    MemberDTO member = this.paymentservice.getMember(memberId);
+	    
+	    // 장바구니 정보 리스트
+	    List<CartDTO> cartList = cartService.getCartList(memberId);
+	    List<CartDTO> cartLists = new ArrayList<CartDTO>();
+	    StoreDTO sdto = new StoreDTO();
 
-		//장바구니 정보 리스트
-		List<CartDTO> cartList = cartService.getCartList(memberId);
-		List<CartDTO> cartLists = new ArrayList<CartDTO>();
-		for(int j=0; j<cartList.size();j++) {
-			for(int i=0; i<cartId.size();i++) {
-				if(cartList.get(j).getCartId()==Integer.parseInt(cartId.get(i))) {
-					System.out.println("??????" + cartList.get(j));
-					cartLists.add(cartList.get(j));
-					sdto.setStoreAddress(cartList.get(j).getStoreAddress());
-					sdto.setStoreName(cartList.get(j).getStoreName());
-				}
-			}
-		}
-		System.out.println(">>>>>>>>>Lists>>>>>>>>>>>>>>>>>>>>>>"+ cartLists);
-		System.out.println("카트아이디~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+cartId);
-		
-		model.addAttribute("store", sdto);
-		model.addAttribute("member", member);
-		model.addAttribute("cart", cartLists);
+	    for (int j = 0; j < cartList.size(); j++) {
+	        for (int i = 0; i < cartId.size(); i++) {
+	            if (cartList.get(j).getCartId() == Integer.parseInt(cartId.get(i))) {
+	                System.out.println("??????" + cartList.get(j));
+	                cartLists.add(cartList.get(j));
+	                sdto.setStoreAddress(cartList.get(j).getStoreAddress());
+	                sdto.setStoreName(cartList.get(j).getStoreName());
+	                
+	                //cart에서 정보 받아왔음
+	                CartDTO Cart = cartService.findCartByCartId(Integer.parseInt(cartId.get(i)));
 
-		return "payment/payment_list";
+	                //db에 업데이트 할 컬럼들
+	        	    PaymentDTO payment = new PaymentDTO();
+	        	    payment.setMemberId(member.getMemberId());
+	        	    payment.setCartId(cartList.get(j).getCartId());
+	        	    payment.setProductName(Cart.getProductName());
+	        	    payment.setPrice(Cart.getPrice());
+	        	    payment.setStoreAddress(Cart.getStoreAddress());
+	        	    payment.setStoreName(Cart.getStoreName());
+	        	    payment.setCartCount(Cart.getCartCount());
+	        	    payment.setTotalPrice(Cart.getTotalPrice());
+	        	    //DATE
+	        	    LocalDate desiredPaymentDay = LocalDate.now();
+	                payment.setPaymentDay(desiredPaymentDay);
+	        	    
+	        	    // payment 객체를 데이터베이스에 저장하는 역할
+	        	    paymentservice.savePayment(payment);
+
+	                payment.setMemberId(member.getMemberId());
+	                payment.setCartId(cartList.get(j).getCartId());
+	            }
+	        }
+	    }
+	    System.out.println(">>>>>>>>>Lists>>>>>>>>>>>>>>>>>>>>>>" + cartLists);
+	    System.out.println("카트아이디~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + cartId);
+
+	    model.addAttribute("store", sdto);
+	    model.addAttribute("member", member);
+	    model.addAttribute("cart", cartLists);
+
+	    return "payment/payment_list";
 	}
-
+	
 	//카트 - 뷰 페이지
 	@RequestMapping(value = "order", method={RequestMethod.GET, RequestMethod.POST})
 	public String order(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, @RequestParam(required=false) List<String> cartId) {
@@ -99,7 +124,7 @@ public class PaymentController {
 		System.out.println(">>>>>>>>>Listssssss>>>>>>>>>>>>>>>>>>>>>>"+ cartLists);
 		System.out.println("카트아이디~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+cartId);
 		
-		//주문번호(랜덤함수)
+		//주문번호(랜덤함수) - order.html에서 사용
 		String orderNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		Random random = new Random();
 		StringBuilder sb = new StringBuilder(15);
@@ -155,12 +180,16 @@ public class PaymentController {
 				}
 			}
 		}
+		
 		HttpSession session = request.getSession();
 		StoreDTO sdto = new StoreDTO();
 		sdto.setStoreName((String)session.getAttribute("storeName"));
 		sdto.setStoreAddress((String)session.getAttribute("storeAddress"));
 		String memberId = user.getUsername();
 		MemberDTO member = this.paymentservice.getMember(memberId);
+		
+		
+		
 		//detail 데이터를 세션에 담음
 		session.setAttribute("detail", ddto);
 

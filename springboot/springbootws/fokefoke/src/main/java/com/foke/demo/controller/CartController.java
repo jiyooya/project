@@ -129,6 +129,7 @@ public class CartController {
 	    List<CartDTO> cartList = new ArrayList<>();
 	    cartList.add(cart);
 	    session.setAttribute("cartList", cartList);
+
 		
 		int result = this.cartService.addCart(cart);
 		

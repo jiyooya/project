@@ -71,4 +71,8 @@ public class CartService {
     	return cartRepository.findMostAddedStore();
     }
     
+    //결제로 보낼 service
+    public CartDTO findCartByCartId(int cartId) {
+        return cartRepository.findCartByCartId(cartId);
+    }
 }
