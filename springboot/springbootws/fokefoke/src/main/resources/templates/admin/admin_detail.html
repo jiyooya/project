@@ -9,33 +9,34 @@
                             <h6 class="mb-4">회원정보</h6>
                             
                              <div class="input-group mb-3">
-                                <input type="text" th:value="${memberdto.memberId}" class="form-control" placeholder="Username" aria-label="Username">
+                                <span class="input-group-text">회원 ID</span>
+                                <input type="text"  th:value="${username}"  disabled class="form-control" placeholder="Username" aria-label="Username"style="background-color:white">
                                 <span class="input-group-text">@</span>
-                                <input type="text" class="form-control" placeholder="Server" aria-label="Server">
+                                <input type="text" "text" th:value="${domain}" disabled class="form-control" placeholder="Server" aria-label="Server"style="background-color:white">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">고객성함</span>
-                                <input type="text" th:value="${memberdto.memberId}" class="form-control" placeholder="Username" aria-label="Username"
+                                <input type="text" th:value="${memberdto.memberName}" disabled style="background-color:white" class="form-control" placeholder="Username" aria-label="Username"
                                     aria-describedby="basic-addon1">
                             </div>
                              <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">생년월일</span>
-                                <input type="text" th:value="${memberdto.birth}" class="form-control" placeholder="Username" aria-label="Username"
+                                <input type="text" th:value="${memberdto.birth}" disabled style="background-color:white" class="form-control" placeholder="Username" aria-label="Username"
                                     aria-describedby="basic-addon1">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">전화번호</span>
-                                <input type="text" th:value="${memberdto.phone}" class="form-control" placeholder="Username" aria-label="Username"
+                                <input type="text" th:value="${memberdto.phone}" disabled style="background-color:white" class="form-control" placeholder="Username" aria-label="Username"
                                     aria-describedby="basic-addon1">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">회원잔고</span>
-                                <input type="text" th:value="${memberdto.money}" class="form-control" placeholder="Username" aria-label="Username"
+                                <input type="text" th:value="${memberdto.money}"disabled style="background-color:white" class="form-control" placeholder="Username" aria-label="Username"
                                     aria-describedby="basic-addon1">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">FokeFoke Point</span>
-                                <input type="text" th:value="${memberdto.point}" class="form-control" placeholder="Username" aria-label="Username"
+                                <input type="text" th:value="${memberdto.point}" disabled style="background-color:white" class="form-control" placeholder="Username" aria-label="Username"
                                     aria-describedby="basic-addon1">
                             </div>
                         <a href="/admin/list"> <button class="btn btn-primary">목록 </button></a>
