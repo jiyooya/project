@@ -71,6 +71,7 @@ public class PaymentController {
 	        	    payment.setMemberId(member.getMemberId());
 	        	    payment.setPoint(member.getPoint());
 	        	    payment.setPhone(member.getPhone());
+	        	    payment.setMemberName(member.getMemberName());
 	        	    payment.setCartId(cartList.get(j).getCartId());
 	        	    payment.setProductName(Cart.getProductName());
 	        	    payment.setPrice(Cart.getPrice());
