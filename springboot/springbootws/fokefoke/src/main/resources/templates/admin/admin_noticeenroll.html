@@ -49,7 +49,7 @@
                         </div>
                     </div>
 	            <br>
-		            <input type="submit" value="저장하기" class="btn btn-primary my-2">
+		            <input type="submit" value="저장하기" class="btn btn-primary my-2 ban-btn">
 				</form>
 	    		<a href="/admin/noticelist"> <button class="btn btn-primary">목록 </button></a>
             </div>
@@ -98,6 +98,24 @@
 	    }
 	  });
 	});
+	</script>
+	
+	
+	<!--버튼유효성-->
+	<script>
+		$(document).ready(function () {
+		  console.log("Document is ready"); // 콘솔에 메시지 출력 (문서가 준비되었는지 확인)
+		
+		  $(".ban-btn").on("click", function (e) {
+		    console.log("Button clicked"); // 버튼 클릭 이벤트 발생 시 콘솔에 메시지 출력
+		    e.preventDefault(); // 기본 제출 동작을 방지
+		    const shouldSubmit = confirm("게시물을 등록 하시겠습니까??"); // alert 대신 confirm 창을 사용
+		
+		    if (shouldSubmit) {
+		      $(this).closest("form").submit(); // 클릭한 버튼에 가장 가까운 폼을 제출
+		    }
+		  });
+		});
 	</script>
 </body>
 </th:block>

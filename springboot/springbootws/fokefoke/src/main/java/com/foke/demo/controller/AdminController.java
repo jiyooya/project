@@ -3,6 +3,8 @@ package com.foke.demo.controller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
@@ -210,38 +212,40 @@ public class AdminController {
 	    int imageHeight = 300; // 원하는 세로 길이를 설정하세요.
 	    
 	    // 썸네일 이미지 파일 저장
-	    String uploadDirectory = "/home/ubuntu/fokefoke/static/img/blog/";
-	    if (imageFile != null && !imageFile.isEmpty()) {
-	        File uploadDir = new File(uploadDirectory);
-	        if (!uploadDir.exists()) uploadDir.mkdirs();
+        Path uploadPath = Paths.get("src/main/resources/static/img/blog/");
+        String uploadDirectory = uploadPath.toAbsolutePath().toString() + File.separator;
+        if (imageFile != null && !imageFile.isEmpty()) {
+            File uploadDir = new File(uploadDirectory);
+            if (!uploadDir.exists()) uploadDir.mkdirs();
 
-	        fileName = imageFile.getOriginalFilename();
+            fileName = imageFile.getOriginalFilename();
 
-	        // uuid 적용 파일 이름 
-	        String uuid = UUID.randomUUID().toString();
-	        fileName = uuid + "_" + fileName;
-	        File imageFileToSave = new File(uploadDirectory + fileName);
-	        imageFile.transferTo(imageFileToSave);
-	    }
+            // uuid 적용 파일 이름
+            String uuid = UUID.randomUUID().toString();
+            fileName = uuid + "_" + fileName;
+            File imageFileToSave = new File(uploadDirectory + fileName);
+            imageFile.transferTo(imageFileToSave);
+        }
 	    
-	    // 게시판 이미지 파일 저장
-	    String boardDirectory = "/home/ubuntu/fokefoke/static/img/board/";
-	    if (detailImageFile != null && !detailImageFile.isEmpty()) {
-	        File boardDir = new File(boardDirectory);
-	        if (!boardDir.exists()) boardDir.mkdirs();
-	
-	        detailfileName = detailImageFile.getOriginalFilename();
-	
-	        // uuid 적용 파일 이름 
-	        String uuid = UUID.randomUUID().toString();
-	        detailfileName = uuid + "_" + detailfileName;
-	        File imageFileToSave = new File(boardDirectory + detailfileName);
-	        detailImageFile.transferTo(imageFileToSave);
-	        
-	        if (!detailfileName.isEmpty()) {
-	            noticedto.setDetailImage(detailfileName);
-	        }
-	    }
+        // 게시판 이미지 파일 저장
+        Path boardPath = Paths.get("src/main/resources/static/img/board/");
+        String boardDirectory = boardPath.toAbsolutePath().toString() + File.separator;
+        if (detailImageFile != null && !detailImageFile.isEmpty()) {
+            File boardDir = new File(boardDirectory);
+            if (!boardDir.exists()) boardDir.mkdirs();
+
+            detailfileName = detailImageFile.getOriginalFilename();
+
+            // uuid 적용 파일 이름
+            String uuid = UUID.randomUUID().toString();
+            detailfileName = uuid + "_" + detailfileName;
+            File imageFileToSave = new File(boardDirectory + detailfileName);
+            detailImageFile.transferTo(imageFileToSave);
+
+            if (!detailfileName.isEmpty()) {
+                noticedto.setDetailImage(detailfileName);
+            }
+        }
 
 	    // 이미지 리사이징
 	    if (!fileName.isEmpty()) {
@@ -260,17 +264,18 @@ public class AdminController {
 	    return "redirect:/admin/noticelist";
 	}
   	
-	
-	// 섬네일 데이터 전송하기
+	//썸네임 이미지 출력
 	@GetMapping("/display/{noticeImage}")
 	@ResponseBody
-	public ResponseEntity<byte[]> getFile(@PathVariable("noticeImage") String fileName) { // 특정 파일의 이름을 받아서 이미지 데이터를 전송하는 코드
-	    System.out.println("fileName : " + fileName); // fileName은 파일의 경로
-
-	    File file = new File("/home/ubuntu/fokefoke/static/img/blog/" + fileName);
-
-	    System.out.println("file : " + file);
-
+	public ResponseEntity<byte[]> getFile(@PathVariable("noticeImage") String fileName) {
+	    
+	    // 경로 수정
+	    Path uploadPath = Paths.get("src/main/resources/static/img/blog/");
+	    System.out.println("uploadPath : " + uploadPath);
+	    
+	    String uploadDirectory = uploadPath.toAbsolutePath().toString() + File.separator;
+	    File file = new File(uploadDirectory + fileName);
+	    
 	    ResponseEntity<byte[]> result = null;
 
 	    try {
@@ -282,18 +287,19 @@ public class AdminController {
 	        e.printStackTrace();
 	    }
 
-	    return result; 
+	    return result;
 	}
-	
-	// 게시판 데이터 전송하기
+
+	//게시판 이미지 출력
 	@GetMapping("/display2/{detailImage}")
 	@ResponseBody
-	public ResponseEntity<byte[]> getFileEntity(@PathVariable("detailImage") String detailfileName) { // 특정 파일의 이름을 받아서 이미지 데이터를 전송하는 코드
-	    System.out.println("detailfileName : " + detailfileName); // fileName은 파일의 경로
+	public ResponseEntity<byte[]> getFileEntity(@PathVariable("detailImage") String detailfileName) {
+	    System.out.println("detailfileName : " + detailfileName);
 
-	    File file = new File("/home/ubuntu/fokefoke/static/img/board/" + detailfileName);
-
-	    System.out.println("file : " + file);
+	    // 경로 수정
+	    Path boardPath = Paths.get("src/main/resources/static/img/board/");
+	    String boardDirectory = boardPath.toAbsolutePath().toString() + File.separator;
+	    File file = new File(boardDirectory + detailfileName);
 
 	    ResponseEntity<byte[]> result = null;
 
@@ -306,9 +312,8 @@ public class AdminController {
 	        e.printStackTrace();
 	    }
 
-	    return result; 
+	    return result;
 	}
-	
 	
     //게시글 삭제
     @PostMapping("/notice_delete/{id}")
@@ -332,8 +337,7 @@ public class AdminController {
     public String noticeModify(@PathVariable("id") Integer id, NoticeDTO notice,
     		@RequestParam(value = "fileItem", required = false) MultipartFile imageFile,
             @RequestParam(value = "detailFile", required = false) MultipartFile detailImageFile) throws IOException {
-    	System.out.println("imageFile-----------" + imageFile);
-    	System.out.println("detailImageFile-----------" + detailImageFile);
+    
     	String fileName = "";
 	    String detailfileName = "";
 	    NoticeDTO originalNotice = noticeService.getnoticedto(id);
@@ -342,7 +346,8 @@ public class AdminController {
 	    int imageHeight = 300; // 원하는 세로 길이를 설정하세요.
 	    
 	    // 썸네일 이미지 파일 저장
-	    String uploadDirectory = "/home/ubuntu/fokefoke/static/img/blog/";
+	    Path uploadPath = Paths.get("src/main/resources/static/img/blog/");
+        String uploadDirectory = uploadPath.toAbsolutePath().toString() + File.separator;
 	    if (imageFile != null && !imageFile.isEmpty()) {
 	        File uploadDir = new File(uploadDirectory);
 	        if (!uploadDir.exists()) uploadDir.mkdirs();
@@ -357,7 +362,8 @@ public class AdminController {
 	        
 	    }
 	    // 게시판 이미지 파일 저장
-	    String boardDirectory = "/home/ubuntu/fokefoke/static/img/board/";
+	    Path boardPath = Paths.get("src/main/resources/static/img/board/");
+	    String boardDirectory = boardPath.toAbsolutePath().toString() + File.separator;
 	    if (detailImageFile != null && !detailImageFile.isEmpty()) {
 	        File boardDir = new File(boardDirectory);
 	        if (!boardDir.exists()) boardDir.mkdirs();

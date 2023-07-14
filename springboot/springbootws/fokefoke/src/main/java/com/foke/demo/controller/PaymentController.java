@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.foke.demo.config.PrincipalDetails;
 import com.foke.demo.dto.CartDTO;
 import com.foke.demo.dto.DetailDTO;
 import com.foke.demo.dto.MemberDTO;
@@ -44,7 +45,7 @@ public class PaymentController {
 	private final CartService cartService;
 
 	@PostMapping(value = "list")
-	public String list(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, ProductDTO pro, @RequestParam(required = false) List<String> cartId) {
+	public String list(@AuthenticationPrincipal PrincipalDetails user, HttpServletRequest request, Model model, ProductDTO pro, @RequestParam(required = false) List<String> cartId) {
 		
 		HttpSession session = request.getSession();
 	    String memberId = user.getUsername();
@@ -101,7 +102,7 @@ public class PaymentController {
 	
 	//카트 - 뷰 페이지
 	@RequestMapping(value = "order", method={RequestMethod.GET, RequestMethod.POST})
-	public String order(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, @RequestParam(required=false) List<String> cartId) {
+	public String order(@AuthenticationPrincipal PrincipalDetails user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, @RequestParam(required=false) List<String> cartId) {
 		HttpSession session = request.getSession();
 		StoreDTO sdto = new StoreDTO();
 		sdto.setStoreName((String)session.getAttribute("storeName"));
@@ -147,7 +148,7 @@ public class PaymentController {
 
 	//뷰 - 결제페이지
 	@PostMapping(value = "list1")
-	public String list1(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, DetailDTO ddto, @RequestParam(required = false) List<String> toppingchk, 
+	public String list1(@AuthenticationPrincipal PrincipalDetails user, HttpServletRequest request, Model model, PaymentDTO pdto, ProductDTO pro, DetailDTO ddto, @RequestParam(required = false) List<String> toppingchk, 
 			@RequestParam(required = false) List<String> sourcechk, @RequestParam(required = false) List<String> extrachk) {
 
 
@@ -202,7 +203,7 @@ public class PaymentController {
 
 	//디테일 - 오더 페이지
 	@RequestMapping(value = "order1", method={RequestMethod.GET, RequestMethod.POST})
-	public String order1(@AuthenticationPrincipal User user, HttpServletRequest request, Model model, PaymentDTO pdto,MemberDTO mdto, ProductDTO pro, DetailDTO ddto) {
+	public String order1(@AuthenticationPrincipal PrincipalDetails user, HttpServletRequest request, Model model, PaymentDTO pdto,MemberDTO mdto, ProductDTO pro, DetailDTO ddto) {
 
 		HttpSession session = request.getSession();
 		DetailDTO sessionddto = (DetailDTO)session.getAttribute("detail");
