@@ -36,7 +36,7 @@
 										th:id="${member.memberId} + '-container'">
 										<a th:href="@{'http://localhost:8080/detail/chatMain/' + ${member.memberId}}"
 											class="btn btn-sm btn-outline-primary"
-											onclick="resetMessageCounter('[[${member.memberId}]]')">
+											>
 											상담
 										</a>
 										<span class="badge bg-warning" style="display:none;">0</span>
@@ -129,6 +129,7 @@
 
 				});
 			});
+		
 		</script>
 	<!--회원추방-->	
 	<script>
