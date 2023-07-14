@@ -308,6 +308,14 @@
     </script>
     
     <script>
+        function getRandomColor() {
+          const r = Math.floor(Math.random() * 256);
+          const g = Math.floor(Math.random() * 256);
+          const b = Math.floor(Math.random() * 256);
+          const color = `rgba(${r}, ${g}, ${b}, 0.2)`;
+          return color;
+        }
+
         async function fetchAllData() {
             const response = await fetch('/cart/api/most-added-store');
             const mostAddedStore = await response.json();
@@ -318,9 +326,11 @@
             var ctx = document.getElementById('cartStoreChart').getContext('2d');
             var labels = [];
             var data = [];
+            var backgroundColors = [];
             for (var i = 0; i < mostAddedStore.length; i++) {
                 labels.push(mostAddedStore[i][0]);
                 data.push(mostAddedStore[i][1]);
+                backgroundColors.push(getRandomColor());
             }
             var cartStoreChart = new Chart(ctx, {
                 type: 'doughnut',
@@ -329,7 +339,7 @@
                     datasets: [{
                         label: '장바구니에 가장 많이 담긴 지역',
                         data: data,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        backgroundColor: backgroundColors,
                         borderColor: 'rgba(75, 192, 192, 1)',
                         borderWidth: 1
                     }]
@@ -342,8 +352,8 @@
             });
         }
         fetchAllData();
-        
     </script>
+
     
 	<!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
