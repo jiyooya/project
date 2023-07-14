@@ -64,7 +64,7 @@ public class PaymentController {
 	                sdto.setStoreAddress(cartList.get(j).getStoreAddress());
 	                sdto.setStoreName(cartList.get(j).getStoreName());
 	                
-	                //cart에서 정보 받아왔음
+	                //cart에서 정보 받아왔음.
 	                CartDTO Cart = cartService.findCartByCartId(Integer.parseInt(cartId.get(i)));
 	                //db에 업데이트 할 컬럼들
 	        	    PaymentDTO payment = new PaymentDTO();

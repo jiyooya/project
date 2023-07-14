@@ -75,6 +75,7 @@ public class PaymentDTO {
     @PrePersist
     protected void onCreate() {
         paymentDay = LocalDate.now();
+        
     }
     
     

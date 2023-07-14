@@ -21,4 +21,5 @@ public interface PaymentRepository extends JpaRepository<PaymentDTO, Integer> {
 	@Query(value = "SELECT m FROM MemberDTO m WHERE m.memberId = :memberId")
 	MemberDTO findPaymentMemberByMemberId(@Param("memberId") String memberId);
 
+	
 }

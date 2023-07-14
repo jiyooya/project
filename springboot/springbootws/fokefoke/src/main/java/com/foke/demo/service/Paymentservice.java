@@ -26,5 +26,6 @@ public class Paymentservice {
 	//해당 db에 올리는 역할(save)
 	public PaymentDTO savePayment(PaymentDTO paymentDTO) {
 		return paymentRepository.save(paymentDTO);
+		
 	}
 }
