@@ -32,6 +32,7 @@ public class SecurityConfig{
 				.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll() // 포워드 접근 허용
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // 정적 리소스 접근 허용
 				.requestMatchers("/img/**", "/js/**", "/css/**", "/fonts/**", "/sass/**", "/chat/**").permitAll() // 소스 접근 허용
+				.requestMatchers("/notice/display2/**", "/notice/display/**").permitAll() // 공지 이벤트 게시판 비회원 허용
 				.requestMatchers("/", "/menuList", "/noticeList", "/usepolicy", "/privacy", "/test").permitAll() // 해당 경로 모든 사용자에게 접근 허용
 				.requestMatchers("/login/**", "/notice/list", "/notice/detail/**", "/notice/view", "/detail/view2").permitAll() // 위와 같음
 				.requestMatchers("/admin/**").hasAnyRole("ADMIN", "MANAGER") // 해당 경로 관리자에게만 접근 허용 
