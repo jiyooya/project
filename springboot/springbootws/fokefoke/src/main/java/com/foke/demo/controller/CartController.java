@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.foke.demo.config.PrincipalDetails;
 import com.foke.demo.dto.CartDTO;
 import com.foke.demo.dto.DetailDTO;
 import com.foke.demo.dto.ProductDTO;
@@ -40,7 +41,7 @@ public class CartController {
 	
 	//장바구니
 	@RequestMapping(value = "/{memberId}", method = {RequestMethod.POST, RequestMethod.GET})
-	public String cartPagePOST(@PathVariable("memberId") String memberId, Model model, HttpSession session, @AuthenticationPrincipal User user) {
+	public String cartPagePOST(@PathVariable("memberId") String memberId, Model model, HttpSession session, @AuthenticationPrincipal PrincipalDetails user) {
 		//memberId = (String)session.getAttribute("memberId");
 		memberId = user.getUsername();
 		session.setAttribute("memberId", memberId);
