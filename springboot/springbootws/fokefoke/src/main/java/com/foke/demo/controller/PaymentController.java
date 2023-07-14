@@ -65,10 +65,11 @@ public class PaymentController {
 	                
 	                //cart에서 정보 받아왔음
 	                CartDTO Cart = cartService.findCartByCartId(Integer.parseInt(cartId.get(i)));
-
 	                //db에 업데이트 할 컬럼들
 	        	    PaymentDTO payment = new PaymentDTO();
 	        	    payment.setMemberId(member.getMemberId());
+	        	    payment.setPoint(member.getPoint());
+	        	    payment.setPhone(member.getPhone());
 	        	    payment.setCartId(cartList.get(j).getCartId());
 	        	    payment.setProductName(Cart.getProductName());
 	        	    payment.setPrice(Cart.getPrice());
@@ -106,7 +107,8 @@ public class PaymentController {
 		sdto.setStoreName((String)session.getAttribute("storeName"));
 		sdto.setStoreAddress((String)session.getAttribute("StoreAddress"));
 		String memberId = user.getUsername();
-		MemberDTO member = this.paymentservice.getMember(memberId);
+        MemberDTO member = this.paymentservice.getMember(memberId);
+
 
 		//장바구니 정보 리스트
 		List<CartDTO> cartList = cartService.getCartList(memberId);
@@ -187,8 +189,6 @@ public class PaymentController {
 		sdto.setStoreAddress((String)session.getAttribute("storeAddress"));
 		String memberId = user.getUsername();
 		MemberDTO member = this.paymentservice.getMember(memberId);
-		
-		
 		
 		//detail 데이터를 세션에 담음
 		session.setAttribute("detail", ddto);
