@@ -10,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -232,5 +233,32 @@ public class PaymentController {
 
 		return "payment/payment_order1";
 	}
+	
+	//(결제 상품차트)
+	@GetMapping("/paymentchart")
+    public String showpaymentChart(Model model) {
+		List<Object[]> mostAddedProducts = this.paymentservice.getMostAddedProducts();
+		model.addAttribute("mostAddedProducts",mostAddedProducts);
+        
+		return "payment/payment_chart";
+    }
+	
+	//(결제 지역차트)
+	@GetMapping("/paymentstorechart")
+    public String showCartStoreChart(Model model) {
+		List<Object[]> mostAddedStore = this.paymentservice.getMostAddedStore();
+		model.addAttribute("mostAddedStore",mostAddedStore);
+        
+		return "payment/payment_storechart";
+    }
+	
+	//(결제 매출차트)
+	@GetMapping("/paymentrevenuechart")
+    public String showRevenueChart(Model model) {
+		List<Object[]> revenue = this.paymentservice.getRevenue();
+		model.addAttribute("revenue",revenue);
+        
+		return "payment/payment_revenue";
+    }
 
 }

@@ -28,4 +28,19 @@ public class Paymentservice {
 		return paymentRepository.save(paymentDTO);
 		
 	}
+	
+    //결제 상품차트
+    public List<Object[]> getMostAddedProducts() {
+        return paymentRepository.findMostAddedProducts();
+    }
+    
+    //결제 지역차트
+    public List<Object[]> getMostAddedStore() {
+    	return paymentRepository.findMostAddedStore();
+    }
+    
+    //결제 매출차트
+    public List<Object[]> getRevenue() {
+    	return paymentRepository.findRevenue();
+    }
 }

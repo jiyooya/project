@@ -29,7 +29,7 @@
         }
 
         async function fetchAllData() {
-            const response = await fetch('/cart/api/most-added-store');
+            const response = await fetch('/api/cart/most-added-store');
             const mostAddedStore = await response.json();
             createCartStoreChart(mostAddedStore);
         }

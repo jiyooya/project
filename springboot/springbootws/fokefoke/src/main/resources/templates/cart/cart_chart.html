@@ -21,7 +21,7 @@
 
     <script>
         async function fetchAllData() {
-            const response = await fetch('/cart/api/most-added-products');
+            const response = await fetch('/api/cart/most-added-products');
             const mostAddedProducts = await response.json();
             createCartChart(mostAddedProducts);
         }

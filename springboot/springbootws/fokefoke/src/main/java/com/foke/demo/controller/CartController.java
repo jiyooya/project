@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -176,7 +175,7 @@ public class CartController {
 		List<Object[]> mostAddedProducts = this.cartService.getMostAddedProducts();
 		model.addAttribute("mostAddedProducts",mostAddedProducts);
         
-		return "cart/cartchart";
+		return "cart/cart_chart";
     }
 	
 	@GetMapping("/cartstorechart")
@@ -184,7 +183,7 @@ public class CartController {
 		List<Object[]> mostAddedStore = this.cartService.getMostAddedStore();
 		model.addAttribute("mostAddedStore",mostAddedStore);
         
-		return "cart/cartstorechart";
+		return "cart/cart_storechart";
     }
 
 }
