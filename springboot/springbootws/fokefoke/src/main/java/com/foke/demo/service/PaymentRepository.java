@@ -2,6 +2,8 @@ package com.foke.demo.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -32,5 +34,10 @@ public interface PaymentRepository extends JpaRepository<PaymentDTO, Integer> {
 	//(결제 매출차트)
 	@Query(value = "SELECT p.paymentDay, SUM(p.totalPrice) AS total FROM PaymentDTO p GROUP BY p.paymentDay ORDER BY total")
     List<Object[]> findRevenue();
+    
+  //주문정보 페이징
+    Page<PaymentDTO> findAll(Pageable pageable);
+    
+    List<PaymentDTO> findAll();
 	
 }

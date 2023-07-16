@@ -31,9 +31,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.foke.demo.config.MemberRole;
 import com.foke.demo.dto.MemberDTO;
 import com.foke.demo.dto.NoticeDTO;
+import com.foke.demo.dto.PaymentDTO;
 import com.foke.demo.service.AdminService;
 import com.foke.demo.service.CartService;
 import com.foke.demo.service.NoticeService;
+import com.foke.demo.service.Paymentservice;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -48,6 +50,7 @@ public class AdminController {
 	private final AdminService adminService;
 	private final CartService cartService;
 	private final NoticeService noticeService;
+	private final Paymentservice paymentService;
 	
 	// 관리자 메인 페이지 이동
 	@GetMapping("/main")
@@ -407,5 +410,33 @@ public class AdminController {
       noticeService.modify(noticeTemp, notice.getNoticeTitle(), notice.getNoticeContent(), notice.getNoticeImage(),notice.getDetailImage());
       return "redirect:/admin/notice_modify/" + noticeTemp.getNoticeId();
     }
-
+    
+    //주문정보 페이지불러오기
+    @GetMapping("/orderlist")
+	public String orderlist(HttpServletRequest request, Model model, @RequestParam(value="page", defaultValue="0") int page) {
+		Page<PaymentDTO> paging = this.paymentService.getList(page);
+		model.addAttribute("paging", paging);
+		
+	    String currentUrl = request.getRequestURI();
+	    model.addAttribute("currentUrl", currentUrl);
+		return "admin/admin_order";
+	}
+    
+    //주문상세보기
+    @GetMapping("/orderdetail/{id}")
+    public String orderdetail(Model model, @PathVariable("id") Integer id) {
+    	model.addAttribute("paymentdto", paymentService.getpaymentdto(id));
+    	System.out.println("paymentdto 실행");
+    	
+        return "admin/admin_orderdetail";
+    }
+    
+    //주문취소
+    @PostMapping("/orderdelete/{id}")
+    public String orderdelete(@PathVariable("id") Integer id) {
+        paymentService.delete(id);
+        return "redirect:/admin/orderlist";
+    }
+    
+   
 }
