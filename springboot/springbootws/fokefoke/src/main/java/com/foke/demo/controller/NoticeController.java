@@ -40,12 +40,18 @@ public class NoticeController {
 	}
 	
 	
-	//디테일
+	//디테일 (이전다음글 보기추가)
 	@GetMapping(value = "/detail/{noticeId}")
 	public String detail(Model model, @PathVariable("noticeId") Integer id) {
-		NoticeDTO noticedto = this.noticeService.getnoticedto(id);
-		model.addAttribute("noticedto", noticedto);
-		return "notice/Notice_detail";
+	    NoticeDTO noticedto = this.noticeService.getnoticedto(id);
+	    model.addAttribute("noticedto", noticedto);
+
+	    NoticeDTO previousNotice = noticeService.getPreviousNotice(id);
+	    NoticeDTO nextNotice = noticeService.getNextNotice(id);
+	    model.addAttribute("previousNotice", previousNotice);
+	    model.addAttribute("nextNotice", nextNotice);
+
+	    return "notice/Notice_detail";
 	}
 
 	

@@ -3059,6 +3059,14 @@ span.paginate_button.active {
   
 }
 
+.blog__item__text_date-container {
+    display: flex;
+    align-items: baseline;
+}
+.blog__item__text_date-container img {
+    margin-right: 5px;
+}
+
 .blog__item__text span img {
   margin-right: 6px;
 }

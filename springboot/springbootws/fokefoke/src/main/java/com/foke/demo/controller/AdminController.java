@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +21,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +37,7 @@ import com.foke.demo.dto.NoticeDTO;
 import com.foke.demo.dto.PaymentDTO;
 import com.foke.demo.service.AdminService;
 import com.foke.demo.service.CartService;
+import com.foke.demo.service.MemberService;
 import com.foke.demo.service.NoticeService;
 import com.foke.demo.service.Paymentservice;
 
@@ -51,6 +55,7 @@ public class AdminController {
 	private final CartService cartService;
 	private final NoticeService noticeService;
 	private final Paymentservice paymentService;
+	
 	
 	// 관리자 메인 페이지 이동
 	@GetMapping("/main")
@@ -89,7 +94,38 @@ public class AdminController {
 	    
 	    return "admin/admin_main";
 	}
+	
+	
+	
+	//관리자사이드바 정보
+	@ControllerAdvice
+	public class UserControllerAdvice {
 
+	    private final MemberService memberService;
+
+	    public UserControllerAdvice(MemberService memberService) {
+	        this.memberService = memberService;
+	    }
+
+	    @ModelAttribute("username")
+	    public String getUsername() {
+	        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	        if (auth != null && auth.isAuthenticated()) {
+	            return auth.getName();
+	        }
+	        return null;
+	    }
+
+	    @ModelAttribute("memberName")
+	    public String getMemberName() {
+	        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	        if (auth != null && auth.isAuthenticated()) {
+	            return memberService.getMemberNameByUsername(auth.getName());
+	        }
+	        return null;
+	    }
+	}
+	
 	
     // 관리자 목록페이지 이동
     @GetMapping("/adminlist")
