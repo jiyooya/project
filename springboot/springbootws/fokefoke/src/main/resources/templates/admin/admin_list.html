@@ -34,7 +34,7 @@
                                     <td th:text="${member.point}"></td>
                                     <td th:data-member-id="${member.memberId}"
 										th:id="${member.memberId} + '-container'">
-										<a th:href="@{'http://localhost:8080/detail/chatMain/' + ${member.memberId}}"
+										<a th:href="@{'/detail/chatMain/' + ${member.memberId}}"
 											class="btn btn-sm btn-outline-primary"
 											>
 											상담
