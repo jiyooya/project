@@ -70,7 +70,7 @@ public class PaymentController {
 	                //db에 업데이트 할 컬럼들
 	        	    PaymentDTO payment = new PaymentDTO();
 	        	    payment.setMemberId(member.getMemberId());
-	        	    payment.setPoint(member.getPoint());
+	        	    //payment.setPoint(member.getPoint());
 	        	    payment.setPhone(member.getPhone());
 	        	    payment.setMemberName(member.getMemberName());
 	        	    payment.setCartId(cartList.get(j).getCartId());
