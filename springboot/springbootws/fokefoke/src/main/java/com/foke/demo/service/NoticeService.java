@@ -79,6 +79,12 @@ public class NoticeService {
     public void delete(Integer id) {
         NoticeRepository.deleteById(id);
     }
-  
+    
+    
+    //게시글 목록5개
+    public List<NoticeDTO> getTop5List() {
+        Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "noticeDate"));
+        return this.NoticeRepository.findAll(pageable).getContent();
+    }
 
 }

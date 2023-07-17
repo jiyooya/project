@@ -17,8 +17,7 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0" ><span th:text="${username}"></span></h6>
-                        <h6 class="mb-0">Member Name: <span th:text="${memberName}"></span></h6>
-                        <span>관리자</span>
+                        <h6 class="mb-0">관리자명: <span th:text="${memberName}"></span></h6>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -26,6 +25,7 @@
                     <a th:href="@{/admin/list}" th:classappend="${currentUrl == '/admin/list' ? 'active' : ''}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>회원정보</a>
                     <a th:href="@{/admin/orderlist}" th:classappend="${currentUrl == '/admin/orderlist' ? 'active' : ''}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>주문정보</a>
                     <a th:href="@{/admin/noticelist}" th:classappend="${currentUrl == '/admin/noticelist' ? 'active' : ''}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>이벤트정보</a>
+                    <a th:href="@{/admin/chart}" th:classappend="${currentUrl == '/admin/chart' ? 'active' : ''}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>매출 및 인기상품</a>
                     <a th:href="@{/}" th:classappend="${currentUrl == '/' ? 'active' : ''}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>나가기</a>
                     
                 </div>

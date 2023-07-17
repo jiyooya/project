@@ -91,6 +91,9 @@ public class AdminController {
 	    //Cart차트
 		List<Object[]> mostAddedProducts = this.cartService.getMostAddedProducts();
 		model.addAttribute("mostAddedProducts",mostAddedProducts);
+		
+	    List<NoticeDTO> top5Notices = noticeService.getTop5List();
+	    model.addAttribute("top5Notices", top5Notices);
 	    
 	    return "admin/admin_main";
 	}
@@ -474,5 +477,11 @@ public class AdminController {
         return "redirect:/admin/orderlist";
     }
     
+    // 관리자 목록페이지 이동
+    @GetMapping("/chart")
+    public String chart(Principal principal, Model model) {
+
+        return "admin/admin_chart";
+    }
    
 }

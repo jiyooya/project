@@ -11,65 +11,39 @@
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">인기 상품 분석차트</h6>
-                       <a th:href="@{/admin/chart}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Show All</a>
                             </div>
 <!--                        <canvas id="worldwide-sales"></canvas>-->
 							<canvas id="productChart" width="400" height="400"></canvas>
                         </div>
                     </div>
-                    
-                    
-                    	<div class="col-sm-12 col-md-6 col-xl-5">
-                        <div class="h-100 bg-light rounded p-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Calender</h6>
-                                <a href="">Show All</a>
+                                <h6 class="mb-0">지역별 분석차트</h6>
+<!--                             <a href="/cart/cartstorechart">Show All</a>-->
                             </div>
-                            <div id="calender"></div>
+<!--                            <canvas id="cartStoreChart" width="400" height="400"></canvas>-->
+								<canvas id="cartAndPaymentChart" width="400" height="400"></canvas>
                         </div>
                     </div>
-
-                  <!-- Table Start -->
-        <div class="container-fluid pt-4 px-4">
-            <div class="row g-4">
-				<div class="col-sm-12">
-                    <div class="bg-light rounded h-100 p-4">
-                        <h4 class="mb-4">이벤트 리스트</h4>
-							<!--게시글 등록-->
-							<div class="d-flex justify-content-end">
-  					
-							</div>
-                        <table class="table table-striped">
-                            <thead>
-								  <tr>
-								    <th scope="col">이벤트번호</th>
-								    <th scope="col">이벤트제목</th>
-								    <th scope="col">날짜</th>
-								    <th scope="col">수정</th>
-								    <th scope="col">삭제</th>
-								  </tr>
-								</thead>
-								<tbody>
-								   <tr th:each="notice : ${top5Notices}">
-								    <td th:text="${notice.noticeId}"></td>
-								    <td>  <a th:href="@{|/notice/detail/${notice.noticeId}|}" th:text="${notice.noticeTitle}"></a> </td>
-								    <td th:text="${#temporals.format(notice.noticeDate, 'yyyy-MM-dd HH:mm')}"></td>
-								    <td>
-								      <form th:action="@{/admin/notice_modify/{id}(id=${notice.noticeId})}" >
-								        <input type="submit" class="btn btn-sm btn-outline-primary" value="수정">
-								      </form>
-								    </td>
-								    
-								    <td>
-								      <form th:action="@{/admin/notice_delete/{id}(id=${notice.noticeId})}" th:method="post">
-								        <input type="submit" class="btn btn-sm btn-outline-primary ban-btn" value="삭제">
-								      </form>
-								    </td>
-								  </tr>
-								</tbody>
-                        </table>
-                    </div>
                 </div>
+            </div>
+            <!-- 분석 차트 End -->
+
+
+            <!-- 매출 -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4" >
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">전체 매출</h6>
+<!--                    <a href="">Show All</a>-->
+                    </div>
+                    	<canvas id="revenueChart" width="400" height="150"></canvas>
+<!-- 					<canvas id="productChart" width="400" height="400"></canvas>-->
+                   
+                </div>
+            </div>
+            <!-- 매출 End -->
 
 
 <script>//인기상품차트
