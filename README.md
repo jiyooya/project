@@ -50,16 +50,17 @@
 ### 결제 QR
 ▶결제하기' 버튼을 클릭하면 카카오 QR코드가 출력되며, 결제가 성공적으로 이루어지면 결제 성공에 대한 안내 메시지가 표시되고 이후에는 자동으로 다음 페이지로 이동하게 됩니다.
 
-![image](https://github.com/jiyooya/TIM/assets/127083635/08c37308-03d8-4be0-a2ba-01cf6a817540)
+![카카오큐알](https://github.com/jiyooya/project/assets/127083635/dc3aaa31-89c2-4771-9cc7-87f530d23dc2)
 
 # 주문완료페이지
 ▶자바의 Random 함수를 활용하여 주문번호를 생성하도록 구현하였습니다. 결제 페이지와 마찬가지로 매장 정보, 사용자 ID 정보, 그리고 주문 내역을 데이터로 받아 왔습니다. 마지막으로, 결제 금액에 대한 일정 비율의 포인트가 적립되도록 기능을 추가하였습니다.
 
+![주문 상세 내역](https://github.com/jiyooya/project/assets/127083635/93253aa7-fb48-44b6-9f68-2f6429fbef18)
+![포인트 적립](https://github.com/jiyooya/project/assets/127083635/449602da-0639-40d1-8e42-e7911768093f)
 
-![image](https://github.com/jiyooya/TIM/assets/127083635/56bca965-9b82-4e22-aa20-9c8c73aec34c)
 
 # 결제페이지 시연 영상
-
+(용량 문제로 화질이 좋지 않은 점 양해 부탁드립니다.)
 ![결제페이지 영상](https://github.com/jiyooya/TIM/assets/127083635/e51c6897-172c-43b1-92e4-954fab35d7fd)
 
 
