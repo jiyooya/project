@@ -1,5 +1,5 @@
 # 소개
-이 프로젝트는 SpringBoot와 MySQL을 활용하여 개발된 프로젝트입니다.
+기존에 Spring Framework를 이용해 구현한 프로젝트를 SpringBoot와 MySQL을 활용하여 재개발한 프로젝트입니다.
 
 # 제작동기
 약의 특징(글자, 색, 모양, 재형 등)을 선택하여 약 정보를 쉽게 검색할 수 있는 약학정보원 홈페이지의 분류 방식을 참고하여, 사용자가 손쉽게 원하는 상품을 찾을 수 있는 쇼핑몰 형태의 홈페이지를 기획하였습니다.
@@ -40,6 +40,7 @@
 
 상세 페이지 데이터 표시
 ![상세 페이지 주문내역](https://github.com/jiyooya/project/assets/127083635/624f3ac9-43ba-4ce1-b9c3-125fdcd77754)
+
 장바구니 페이지 데이터 표시
 ![장바구니 주문내역](https://github.com/jiyooya/project/assets/127083635/ce4cc2d3-ce9d-439e-9073-1404e29e199b)
 
