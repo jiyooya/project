@@ -38,10 +38,10 @@
 ### 데이터 표시 기능
 ▶장바구니 페이지 또는 상세 제품 페이지에서 선택한 상품명, 사용자가 직접 선택한 재료, 수량, 금액 등의 정보를 수집하여 화면에 표시합니다. 사용자가 보유한 포인트를 사용하기로 결정하면, 콜백 함수를 통해 총 주문금액에서 사용 포인트를 제외한 최종 결제금액을 계산하고 이를 화면에 표시하도록 구현하였습니다.
 
-상세 페이지 데이터 표시
+![상세 페이지 데이터 표시](https://img.shields.io/badge/상세페이지데이터표시-D83B01?style=for-the-badge&logo=microsoft-office&logoColor=white)
 ![상세 페이지 주문내역](https://github.com/jiyooya/project/assets/127083635/ce18a732-703b-4d27-bc7c-1f9e5b8c89db)
 
-장바구니 페이지 데이터 표시
+![장바구니](https://img.shields.io/badge/장바구니페이지데이터표시-43853D?style=for-the-badge&logoColor=white)
 ![장바구니 주문내역](https://github.com/jiyooya/project/assets/127083635/ce4cc2d3-ce9d-439e-9073-1404e29e199b)
 
 ▶구매 조건에 동의하는 체크박스에 체크하지 않은 상태에서 '결제하기' 버튼을 클릭하면, 사용자에게 동의를 요청하는 안내 메시지가 출력되도록 설정하였습니다. 또한, 동의 체크박스에 체크한 후 '결제하기' 버튼을 누를 경우, 주문 취소가 불가능하다는 사실을 알리는 안내 메시지가 추가로 표시되도록 하였습니다.
@@ -49,6 +49,7 @@
 ![구매동의](https://github.com/jiyooya/TIM/assets/127083635/b447afa0-9c42-43fb-99ea-6a041a82c3be)
 
 ### 결제 QR
+https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white
 ▶결제하기' 버튼을 클릭하면 카카오 QR코드가 출력되며, 결제가 성공적으로 이루어지면 결제 성공에 대한 안내 메시지가 표시되고 이후에는 자동으로 다음 페이지로 이동하게 됩니다.
 
 ![카카오큐알](https://github.com/jiyooya/project/assets/127083635/dc3aaa31-89c2-4771-9cc7-87f530d23dc2)
